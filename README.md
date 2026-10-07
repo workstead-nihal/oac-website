@@ -5,7 +5,7 @@ A lightweight website for anime and pop-culture fans in Bhubaneswar, Odisha. It 
 
 ## Current status
 
-All five implementation phases are present: ten requested pages, the OAC theme, real community photos, editable JSON, all four Apps Script form actions, static SEO metadata and automated checks. Live submissions still require deployment/configuration, and launch still requires the final website URL and real browser/Lighthouse verification. The existing Google signup form remains a fallback. Sample profiles, draft policies and unverified donation details are clearly labelled.
+All five implementation phases are present: ten requested pages, the OAC theme, real community photos, editable JSON, all four Apps Script form actions, static SEO metadata and automated checks. Live submissions still require deployment/configuration, and the official URL is https://joinoac.in/; launch still requires hosting/DNS/HTTPS and real browser/Lighthouse verification. The existing Google signup form remains a fallback. Sample profiles, draft policies and unverified donation details are clearly labelled.
 
 This repository is ready for your final review and remaining account/domain setup; it has not been published by this coding session. Do not treat local mock checks as proof of live integration or a Lighthouse score.
 
@@ -20,6 +20,7 @@ Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from
 - `join.html`: membership form and existing Google Form fallback.
 - `checkin.html`: volunteer-only direct link, deliberately absent from public navigation and marked noindex. The backend—not link hiding—enforces its code and opening window.
 - `volunteers.html`, `donate.html`, `about.html`, `contact.html`: volunteer profiles/application, donation explanation, story/rules/social links, and partnership enquiries/FAQ.
+- `CNAME`: GitHub Pages custom domain, containing only `joinoac.in`. This platform configuration cannot contain a purpose comment; its purpose is documented here instead.
 - `404.html`: lost-page recovery. Its labelled `<base href="/">` supports nested missing URLs on a root/custom-domain site; change it to `/REPOSITORY-NAME/` for a GitHub Pages project site before deployment.
 - `css/style.css`: theme variables at the top, then shared components and responsive layouts.
 - `js/home.js`: reads JSON safely and updates the countdown.
@@ -125,6 +126,29 @@ For a custom domain:
 3. Wait for domain verification and HTTPS activation, then enable HTTPS enforcement where offered.
 4. Use the final HTTPS address in the metadata steps below and retest the forms from that origin.
 5. Keep domain renewal and recovery access with the team. Hosting can be free while domain registration costs money; provider plan limits and policies can change.
+
+### Selected host: GitHub Pages at joinoac.in
+
+The team selected GitHub Pages. Local preparation is complete, but the GitHub owner is `workstead-nihal`, but repository creation and authenticated account access are still pending, and DNS/HTTPS have not been changed or verified. `CNAME` declares the custom domain for branch-based Pages publishing; it does not publish the site by itself.
+
+1. Create or select a public repository owned by the OAC team. Push this existing Git history and tracked files; do not upload ignored original photos, private Sheet exports or credentials.
+2. In repository Settings → Pages, choose Deploy from a branch, `master`, `/ (root)` (or the actual branch if renamed). The existing Website checks workflow validates changes; Pages itself handles publishing without a website build step.
+3. Verify domain ownership in the GitHub account/organisation Pages settings using the exact TXT record GitHub generates. Keep that verification record. In the repository Pages settings, save `joinoac.in` as the custom domain **before changing the website DNS records**.
+4. Open the domain's DNS dashboard through your Google Workspace/domain account. Public DNS checked during preparation points to Squarespace nameservers; the actual domain DNS dashboard must be confirmed in your account. Keep the existing nameservers for this approach.
+5. Replace the existing root website A records with the following GitHub Pages records. Set `www` to the owning GitHub username/organisation's `.github.io` hostname (no protocol or repository path). The chosen GitHub owner is `workstead-nihal`; the planned repository is `oac-website`.
+
+| Type | Host | Value |
+| --- | --- | --- |
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| CNAME | www | workstead-nihal.github.io |
+
+Preserve Workspace email MX records, SPF/DKIM/DMARC TXT records, domain-verification records and unrelated services. Review existing root AAAA records too: old website IPv6 targets must not remain pointed at a different host. GitHub's optional IPv6 records and current instructions are in its [custom-domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+
+6. Wait for the Pages DNS check and certificate provisioning. DNS propagation and HTTPS availability can take up to 24 hours. Enable Enforce HTTPS when available.
+7. Verify `https://joinoac.in/`, `https://www.joinoac.in/` (redirecting to the official root), HTTPS redirects, certificate validity, all page/image paths, a missing nested URL and the GitHub checks run. Retest Google forms from this origin once the endpoint is configured. Record actual results before calling the site live.
 
 ### SEO and sharing setup
 
