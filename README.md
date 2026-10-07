@@ -285,3 +285,5 @@ The initial zero-point entries are labelled samples, not real achievements. No s
 Test the four lead profiles, update two scores in a local preview, refresh and confirm the rank order and update date. Check ties, empty entries, phone-width wrapping and missing-photo initials. `checks/community-check.html` covers sorting/ties and input preservation. Local site checks and renderer tests passed using DOM stubs; browser visual verification remains pending.
 
 The separate Meet the crew section has been removed from Volunteers. The four guild leads, leaderboard, community photograph and application form remain. The `items` array is now used for leaderboard entries; it does not display a second profile-card grid on this page.
+
+Join Community uses the `join` photo entry in `data/photos.json`, with responsive compressed copies of the supplied `DSC_0985.JPG`. Its original remains local. Preview Join at phone and desktop widths to review the image and caption.

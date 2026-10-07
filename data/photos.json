@@ -63,6 +63,15 @@
       "src": "assets/images/web/oac-volunteers-960.jpg",
       "small": "assets/images/web/oac-volunteers-480.jpg",
       "width": 960
+    },
+    {
+      "id": "join",
+      "src": "assets/images/web/oac-join-960.jpg",
+      "small": "assets/images/web/oac-join-480.jpg",
+      "alt": "Three community cosplayers posing together and making heart shapes with their hands",
+      "caption": "Come for anime. Find your people.",
+      "width": 960,
+      "height": 640
     }
   ]
 }
