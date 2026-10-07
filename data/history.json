@@ -1,24 +1,60 @@
 {
-  "_comment": "Purpose: OAC history begins on the user-confirmed 2020-02-13 founding date. The end label is today in India. Initial branch entries are layout placeholders, not real achievements. Replace them with approved milestones; use YYYY-MM-DD dates, title, description and sample false. Events are sorted chronologically, not positioned on a proportional time scale.",
+  "_comment": "Purpose: OAC history supplied by the community organiser. Dates, turnout figures and descriptions reflect their account. Edit approved milestones here; sample false marks actual community history. Today updates in India time when Home loads.",
   "startDate": "2020-02-13",
   "items": [
     {
-      "date": null,
-      "title": "A gathering to remember",
-      "description": "Add the date and story of an important OAC event here.",
-      "sample": true
+      "date": "2020-02-13",
+      "title": "Our anime family begins",
+      "description": "A small group of friends founded OAC in Bhubaneswar, tired of watching anime alone. Casual meet-ups brought a few dozen fans, a borrowed screen and debates over the best opening. Group chats and Instagram helped the family grow.",
+      "sample": false
     },
     {
-      "date": null,
-      "title": "A milestone for our family",
-      "description": "Add a confirmed community achievement here.",
-      "sample": true
+      "date": "2025-02-13",
+      "title": "Five years of OAC · 100+ members",
+      "description": "Our fifth anniversary brought more than 100 members together for cake-cutting, a five-years-of-OAC photo wall and a fiercely contested quiz tie-breaker. For many, it was their first time seeing the whole community in one room.",
+      "sample": false
     },
     {
-      "date": null,
-      "title": "Our next chapter",
-      "description": "Add another approved highlight from OAC’s journey here.",
-      "sample": true
+      "date": "2025-07-01",
+      "title": "Naruto movie meet-up · 100+ fans",
+      "description": "Over 100 fans came together with headbands, hand signs and loud cheers at every big moment.",
+      "sample": false
+    },
+    {
+      "date": "2025-09-14",
+      "title": "Demon Slayer movie meet-up · 100+ fans",
+      "description": "More than 100 fans joined a movie meet-up filled with Corps uniforms, haori and emotional moments shared together.",
+      "sample": false
+    },
+    {
+      "date": "2025-11-23",
+      "title": "Weeb La Khai · 30–40 people",
+      "description": "A relaxed gathering built around games, fan-art sharing and plenty of snacks. Members still remember it as one of the community’s friendliest days.",
+      "sample": false
+    },
+    {
+      "date": "2026-02-01",
+      "title": "Ichigo · more than 410 people",
+      "description": "OAC’s largest turnout to date brought cosplayers, artists, gamers and first-timers together. The day showed that Odisha’s anime scene could fill a hall.",
+      "sample": false
+    },
+    {
+      "date": "2026-03-01",
+      "title": "Jujutsu Kaisen movie meet-up · 100+ fans",
+      "description": "More than 100 fans gathered with cursed-energy-themed photo spots and plenty of Gojo cosplayers.",
+      "sample": false
+    },
+    {
+      "date": "2026-03-30",
+      "title": "Solo Leveling meet-up · 30–40 fans",
+      "description": "A level-up-themed evening with trivia, a fan-art wall and a rank-based mini game that had everyone hunting for an S-rank title.",
+      "sample": false
+    },
+    {
+      "date": "2026-05-17",
+      "title": "Spirited Away watch party · 100+ attendees",
+      "description": "A calmer, cosier evening shared by more than 100 attendees. Many left saying it felt like a community hug.",
+      "sample": false
     }
   ]
 }

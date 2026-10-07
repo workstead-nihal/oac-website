@@ -290,8 +290,10 @@ Join Community uses the `join` photo entry in `data/photos.json`, with responsiv
 
 ## OAC history timeline
 
-Home has a branching timeline from the user-confirmed founding date, 13 February 2020, to the current date in India. `data/history.json` stores `startDate` and milestone `items`. Add approved `date` (YYYY-MM-DD), `title`, `description` and `sample: false` for each actual milestone. Initial undated sample branches demonstrate the layout and do not claim real achievements. Remove them when real history is supplied. Entries outside the founding-to-today range or invalid dates are excluded; valid milestones are sorted chronologically. The Today endpoint updates on page load.
+Home has a branching timeline from the user-confirmed founding date, 13 February 2020, to the current date in India. `data/history.json` stores `startDate` and milestone `items`. Add approved `date` (YYYY-MM-DD), `title`, `description` and `sample: false` for each actual milestone. The timeline now contains nine organiser-supplied milestones, from founding through the Spirited Away watch party on 17 May 2026. Turnout figures and descriptions reflect the organiser’s account; keep later updates approved by the team. Entries outside the founding-to-today range or invalid dates are excluded; valid milestones are sorted chronologically. The Today endpoint updates on page load.
 
 The timeline uses a horizontal spine with alternating branches on desktop and a vertical spine on phones so there is no sideways scrolling. Longer lists wrap into rows. Branch spacing is for readability, not proportional elapsed time. No external library is needed. Test chronological ordering, future/invalid exclusion, sample labelling, blocked-JSON retry, and Home at 360px and desktop. Visual browser verification remains pending.
 
 Open `checks/history-check.html` through the local HTTP preview for runnable date-order, range, sample and empty-state checks. These checks also passed against the actual script using DOM stubs; they do not replace browser layout review.
+
+History content update: all initial timeline placeholders have been replaced with the nine supplied milestones. Local checks confirm chronological ordering, valid dates and nine rendered entries through the current India date; visual browser review is still pending.
