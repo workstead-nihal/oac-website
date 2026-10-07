@@ -73,7 +73,7 @@ function eventCard(event, past) {
     const actions = contentElement('div', 'button-row', '');
     actions.append(ticketButton(event));
     const details = contentElement('a', 'button button-outline', 'Compare ticket tiers');
-    details.href = 'tickets.html?event=' + encodeURIComponent(event.id);
+    details.href = 'events.html?event=' + encodeURIComponent(event.id) + '#tickets';
     const calendar = contentElement('a', 'text-link', 'Add to Google Calendar ↗');
     calendar.href = calendarAddress(event);
     actions.append(details, calendar);
@@ -129,6 +129,9 @@ async function loadEventPage() {
     const data = await readData('data/events.json');
     if (document.body.dataset.page === 'events') {
       showEvents(data.events);
+      if (document.getElementById('ticket-tiers')) {
+        showTickets(data.events);
+      }
     } else {
       showTickets(data.events);
     }

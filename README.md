@@ -16,7 +16,7 @@ This repository is ready for your final review and remaining account/domain setu
 Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from the supplied `#FFC859`). The original yellow remains the gold hover shade. Warm off-white and lighter red support readable text. Theme colours live at the top of `css/style.css`; future pages must reuse them. The original manga-style speed lines, bold panel lettering, wheel motif and welcoming anime-family language connect anime fandom with Odisha without copyrighted characters. Brand red is used for accents and a white-text header button, rather than small red text on black.
 
 - `index.html`: Home structure and generic event fallback; actual event details come only from JSON.
-- `events.html` and `tickets.html`: catalogue and ticket tier pages; both read the same event JSON.
+- `events.html`: combined event catalogue and ticket tiers, with both past-event photo panels. `tickets.html` redirects old links to `events.html#tickets`, preserving the event query.
 - `join.html`: membership form and existing Google Form fallback.
 - `checkin.html`: volunteer-only direct link, deliberately absent from public navigation and marked noindex. The backend—not link hiding—enforces its code and opening window.
 - `volunteers.html`, `donate.html`, `about.html`, `contact.html`: volunteer profiles/application, donation explanation, story/rules/social links, and partnership enquiries/FAQ.
@@ -28,6 +28,8 @@ Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from
 - `js/events.js`: event cards, ticket tiers, calendar links and retry handling.
 - `js/forms.js`: signup/check-in validation, confirmed receipts, retry and double-click prevention.
 - `js/photos.js`: lazy-loaded community photo panels selected through JSON.
+- `about.html`: combined story, rules, social links, contact/enquiry form and FAQ. `contact.html` redirects old links to `about.html#contact`.
+- `js/redirect.js`: legacy page redirects; visible links work when JavaScript is disabled.
 - `showcase.html`: winners, artwork and community highlights; accessible from desktop navigation and mobile More.
 - `data/showcase.json`: editable showcase entries with category, title, creator credit, detail, sample flag and optional local image metadata.
 - `js/community.js`: volunteer cards, story, rules, FAQ, social links and verified-only donation rendering.
@@ -259,3 +261,9 @@ Home uses the `home` entry in `data/photos.json`, sourced from the team-provided
 The `events`, `tickets` and `volunteers` entries in `data/photos.json` use compressed copies of `WhatsApp Image 2026-03-09 at 9.54.21 AM.jpeg`, `20230422_160116.jpg` and `IMG_9181.JPG` respectively. Keep ticket/event memory captions clear that these photos show past gatherings, not the sample current event. Update photo paths, captions and alt text in JSON; original files remain local.
 
 Desktop navigation uses the same link order across all pages so Showcase stays in place when selected. Review Events, Tickets and Volunteers photos at 360px and desktop; click Showcase and Home repeatedly to confirm the tab stays in place. Automated path, asset-budget and navigation-order checks pass; browser layout testing is still pending.
+
+## Combined navigation pages
+
+Events and Tickets now share `events.html` (tickets section: `#tickets`). About and Contact share `about.html` (enquiry section: `#contact`), including the FAQ. Desktop navigation uses six consistent tabs; mobile navigation keeps Home, Events, Join and More, with About & Contact in More. The previous Tickets and Contact pages are noindex compatibility redirects with visible fallback links and are excluded from the sitemap.
+
+Test Events for upcoming/past cards, ticket tiers, calendar links and both photo panels. Test About for story/rules, social links, the enquiry form and keyboard FAQ controls. Open `tickets.html?event=halloween-2026` and `contact.html` to check redirects; disable JavaScript to check their fallback links. Existing form deployment requirements are unchanged. Automated site/navigation checks and merged-render/redirect checks with DOM stubs passed; browser layout and live form testing remain pending.

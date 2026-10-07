@@ -102,7 +102,7 @@ function checkHtml(file, html) {
   const desktopNav = html.match(/<nav class="desktop-nav"[^>]*>([\s\S]*?)<\/nav>/);
   assert(desktopNav, file + ': desktop navigation missing');
   const navigationLinks = [...desktopNav[1].matchAll(/href="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(navigationLinks, ['index.html', 'events.html', 'tickets.html', 'showcase.html', 'volunteers.html', 'about.html', 'contact.html', 'donate.html'], file + ': navigation order must stay consistent when switching pages');
+  assert.deepEqual(navigationLinks, ['index.html', 'events.html', 'showcase.html', 'volunteers.html', 'about.html', 'donate.html'], file + ': navigation order must stay consistent when switching pages');
   const tags = htmlTags(html);
   const ids = new Set();
   const stack = [];
@@ -247,7 +247,7 @@ async function checkSite(options = {}) {
   }
   const sitemap = await readFile('sitemap.xml');
   assert(!sitemap.includes('checkin.html') && !sitemap.includes('404.html'), 'Sitemap must exclude private/error pages');
-  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 9, 'Sitemap must include all nine public pages');
+  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 7, 'Sitemap must include all seven public pages');
   const provisional = (await readFile('index.html')).includes('https://example.invalid/');
   if (options.release) {
     assert(!provisional, 'Configure the confirmed website URL before release');
