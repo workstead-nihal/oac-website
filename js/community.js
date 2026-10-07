@@ -239,9 +239,11 @@ async function loadCommunityPage() {
     if (document.getElementById('showcase-winners')) {
       const showcase = await readData('data/showcase.json');
       showShowcase(showcase.items);
-    } else if (document.getElementById('volunteer-grid')) {
+    } else if (document.getElementById('volunteer-grid') || document.getElementById('volunteer-leads') || document.getElementById('volunteer-leaderboard')) {
       const volunteers = await readData('data/volunteers.json');
-      showVolunteers(volunteers.items);
+      if (document.getElementById('volunteer-grid')) {
+        showVolunteers(volunteers.items);
+      }
       if (document.getElementById('volunteer-leads')) {
         showVolunteers(volunteers.leads || [], 'volunteer-leads');
       }
