@@ -1,0 +1,18 @@
+{
+  "_comment": "Purpose: editable event catalogue. All details below are SAMPLE DATA; confirm before publishing. countdownDate marks the start of the calendar date, NOT the event start time. Use an explicit +05:30 offset for Odisha.",
+  "events": [
+    {
+      "id": "halloween-2026",
+      "sample": true,
+      "title": "Halloween Party",
+      "countdownDate": "2026-10-31T00:00:00+05:30",
+      "startTime": null,
+      "venue": "Esplanade One, Bhubaneswar",
+      "description": "Horror cosplay meets a chill party. Bring your favourite spooky look and meet your people.",
+      "ticketUrl": "",
+      "tiers": [
+        { "name": "Early bird", "price": 249, "description": "Sample entry tier; inclusions to be confirmed." }
+      ]
+    }
+  ]
+}

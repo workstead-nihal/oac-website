@@ -1,0 +1,8 @@
+{
+  "_comment": "Purpose: official community links. Replace empty URLs with verified HTTPS links; empty entries show 'link coming soon' instead of sending people to an incorrect account.",
+  "items": [
+    { "label": "Instagram", "url": "" },
+    { "label": "Discord", "url": "" },
+    { "label": "WhatsApp", "url": "" }
+  ]
+}

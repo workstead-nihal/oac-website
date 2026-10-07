@@ -1,0 +1,7 @@
+{
+  "_comment": "Purpose: Home noticeboard. Replace these editable SAMPLE announcements with approved community updates; use YYYY-MM-DD dates.",
+  "items": [
+    { "date": "2026-10-07", "title": "A new home for our community", "text": "Sample announcement: our website is taking shape. Follow along as events, membership and more arrive." },
+    { "date": "2026-10-07", "title": "Something spooky is on the horizon", "text": "Sample announcement: Halloween Party details are being planned. The listed venue and tickets still need organiser confirmation." }
+  ]
+}
