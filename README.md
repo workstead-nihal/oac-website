@@ -264,6 +264,12 @@ Desktop navigation uses the same link order across all pages so Showcase stays i
 
 ## Combined navigation pages
 
-Events and Tickets now share `events.html` (tickets section: `#tickets`). About and Contact share `about.html` (enquiry section: `#contact`), including the FAQ. Desktop navigation uses six consistent tabs; mobile navigation keeps Home, Events, Join and More, with About & Contact in More. The previous Tickets and Contact pages are noindex compatibility redirects with visible fallback links and are excluded from the sitemap.
+Events and Tickets now share `events.html` (tickets section: `#tickets`). About and Contact share `about.html` (enquiry section: `#contact`), including the FAQ. Desktop navigation uses five consistent tabs; mobile navigation keeps Home, Events, Join and More, with About in More. The previous Tickets and Contact pages are noindex compatibility redirects with visible fallback links and are excluded from the sitemap.
 
 Test Events for upcoming/past cards, ticket tiers, calendar links and both photo panels. Test About for story/rules, social links, the enquiry form and keyboard FAQ controls. Open `tickets.html?event=halloween-2026` and `contact.html` to check redirects; disable JavaScript to check their fallback links. Existing form deployment requirements are unchanged. Automated site/navigation checks and merged-render/redirect checks with DOM stubs passed; browser layout and live form testing remain pending.
+
+## About includes donations
+
+Navigation labels are now simply Events and About. Events still contains ticket tiers. About contains story, community rules, social links, donations, the contact form and FAQ. Donate has no separate navigation tab; Home’s Donate action opens `about.html#donate`. The legacy `donate.html` URL redirects to that section, with a visible fallback link if JavaScript is disabled. Donation information remains editable in `data/community.json` and disabled until verified payment details are supplied.
+
+Preview About and confirm the funding text, safe QR placeholder, contact form and FAQ all appear. Click Home’s Donate action and open the old Donate URL to check section navigation. Site/navigation checks and the legacy donation redirect check passed locally; browser layout review and live payment/form configuration remain pending.

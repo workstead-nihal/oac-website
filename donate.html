@@ -1,22 +1,20 @@
-<!-- Purpose: Donate page with shared OAC navigation and student-editable content. -->
+<!-- Purpose: legacy Donate URL redirects to the donation section on About with shared OAC navigation and student-editable content. -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0c0c0c">
-    <title>
-      Donate — Odisha Anime Community
-    </title>
-    <meta name="description" content="Learn how optional contributions can support OAC gatherings and creative community activities. Verified UPI details will appear when available.">
+    <title>Donate — Odisha Anime Community</title>
+    <meta name="description" content="Contact Odisha Anime Community about venue partnerships, sponsorships, brands and community questions, and browse our FAQ.">
     <!-- SEO: official OAC domain; keep sharing and canonical URLs aligned. -->
-    <link rel="canonical" href="https://joinoac.in/donate.html">
+    <link rel="canonical" href="https://joinoac.in/about.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Odisha Anime Community">
     <meta property="og:locale" content="en_IN">
     <meta property="og:title" content="Donate — Odisha Anime Community">
-    <meta property="og:description" content="Learn how optional contributions can support OAC gatherings and creative community activities. Verified UPI details will appear when available.">
-    <meta property="og:url" content="https://joinoac.in/donate.html">
+    <meta property="og:description" content="Contact Odisha Anime Community about venue partnerships, sponsorships, brands and community questions, and browse our FAQ.">
+    <meta property="og:url" content="https://joinoac.in/about.html">
     <meta property="og:image" content="https://joinoac.in/assets/og-cover.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -28,12 +26,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/content.js" defer>
-    </script>
-    <script src="js/photos.js" defer>
-    </script>
-    <script src="js/community.js" defer>
-    </script>
+    <meta name="robots" content="noindex, follow">
+    <script src="js/redirect.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">
@@ -56,11 +50,10 @@
       </a>
       <nav class="desktop-nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
-        <a href="events.html">Events &amp; Tickets</a>
+        <a href="events.html">Events</a>
         <a href="showcase.html">Showcase</a>
         <a href="volunteers.html">Volunteers</a>
-        <a href="about.html">About &amp; Contact</a>
-        <a href="donate.html" aria-current="page">Donate</a>
+        <a href="about.html">About</a>
       </nav>
       <a class="button button-small" href="join.html">
         Join the community
@@ -71,73 +64,16 @@
     </header>
     <main id="main">
       <section class="section page-intro">
-        <p class="eyebrow">
-          HELP OUR SHARED UNIVERSE GROW
-        </p>
-        <h1>
-          A little support.
-          <br>
-          <span>
-            More memories.
-          </span>
-        </h1>
-        <p id="donation-intro">
-          Donation information is being prepared by the OAC team.
-        </p>
+        <h1>Donate</h1>
+        <p>This page has moved into our combined page.</p>
+        <a id="merged-page-link" class="button" href="about.html#donate">View donations on About</a>
       </section>
-      <section class="section" aria-labelledby="funds-title">
-        <h2 id="funds-title">
-          What contributions can support
-        </h2>
-        <ul id="donation-funds" class="funding-list">
-        </ul>
-        <p id="donation-note" class="sample-note">
-        </p>
-      </section>
-      <section class="section donation-panel" aria-labelledby="upi-title">
-        <h2 id="upi-title">
-          Support by UPI
-        </h2>
-        <p id="donation-state" class="notice">
-          Donations are not enabled. Replace and verify the placeholder details before accepting payments.
-        </p>
-        <img id="upi-qr" src="assets/upi-placeholder.svg" width="320" height="320" loading="lazy" alt="UPI placeholder — not a QR code and not for payment">
-        <p class="eyebrow">
-          UPI ID
-        </p>
-        <p id="upi-id" class="tier-price">
-          REPLACE WITH VERIFIED UPI ID
-        </p>
-        <p id="upi-recipient">
-          Recipient name to be confirmed
-        </p>
-        <p>
-          Use your own UPI app and review its confirmation screen. This website never collects payment credentials, card details or bank account information.
-        </p>
-        <a class="text-link" href="about.html#contact">
-          Questions before contributing? Contact OAC ↗
-        </a>
-      </section>
-      <div class="section">
-        <p id="community-status" role="status">
-          Loading community details…
-        </p>
-        <button class="button" id="retry-community" type="button" hidden>
-          Retry loading
-        </button>
-        <noscript>
-          <p>
-            Enable JavaScript to load editable community content. Navigation and the enquiry fields remain visible, but website submissions require JavaScript.
-          </p>
-        </noscript>
-      </div>
     </main>
     <div class="footer-pages" id="community-pages">
       <nav aria-label="Community pages">
         <a href="showcase.html">Showcase</a>
         <a href="volunteers.html">Volunteers</a>
-        <a href="donate.html">Donate</a>
-        <a href="about.html">About &amp; Contact</a>
+        <a href="about.html">About</a>
       </nav>
     </div>
     <footer class="site-footer">
