@@ -953,3 +953,79 @@ textarea:focus-visible, summary:focus-visible {
   color: var(--gold);
   font-weight: 700;
 }
+
+/* History grows vertically on phones; at larger widths each row becomes a horizontal spine with alternating branches. */
+.history-endpoints {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--gold);
+}
+.history-endpoints p:last-child {
+  text-align: right;
+}
+.history-milestones {
+  list-style: none;
+  padding: 0 0 0 1rem;
+  margin: 2rem 0;
+  border-left: 2px solid var(--gold);
+}
+.history-branch {
+  position: relative;
+  padding: 0 0 1.5rem 1rem;
+}
+.history-branch::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: 2rem;
+  width: 2rem;
+  height: 2px;
+  background: var(--gold);
+}
+.history-branch::after {
+  content: '';
+  position: absolute;
+  left: calc(-1rem - 5px);
+  top: calc(2rem - 4px);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--red-light);
+}
+.history-card {
+  overflow-wrap: anywhere;
+}
+@media (min-width: 800px) {
+  .history-milestones {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-left: 0;
+    padding: 0;
+  }
+  .history-branch {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) 64px minmax(0, 1fr);
+    padding: 0 .5rem;
+    background: linear-gradient(var(--gold), var(--gold)) center / 100% 2px no-repeat;
+  }
+  .history-card {
+    grid-row: 1;
+  }
+  .history-branch:nth-child(even) .history-card {
+    grid-row: 3;
+  }
+  .history-branch::before {
+    left: 50%;
+    top: calc(50% - 32px);
+    width: 2px;
+    height: 32px;
+  }
+  .history-branch:nth-child(even)::before {
+    top: 50%;
+  }
+  .history-branch::after {
+    left: calc(50% - 4px);
+    top: calc(50% - 4px);
+  }
+}

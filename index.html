@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/content.js" defer>
     </script>
+    <script src="js/history.js" defer></script>
     <script src="js/home.js" defer>
     </script>
     <script src="js/photos.js" defer>
@@ -184,6 +185,20 @@
           MUSIC
         </span>
       </div>
+      <section class="section history-section" aria-labelledby="history-title">
+        <p class="eyebrow">THE OAC JOURNEY</p>
+        <h2 id="history-title">One line. So many stories.</h2>
+        <p>From 13 February 2020 to today: the gatherings, achievements and friendships that shape our anime family.</p>
+        <div class="history-endpoints">
+          <p>Our beginning<br><time id="history-start" datetime="2020-02-13">13 February 2020</time></p>
+          <p>Still writing our story<br><time id="history-today">Today</time></p>
+        </div>
+        <ol id="history-milestones" class="history-milestones" aria-label="OAC milestones in chronological order"></ol>
+        <p id="history-note" class="sample-note"></p>
+        <p id="history-status" role="status">Loading our journey…</p>
+        <button id="retry-history" class="button button-outline" type="button" hidden>Retry timeline</button>
+        <noscript><p>Our history began on 13 February 2020. Enable JavaScript to view the editable milestone branches.</p></noscript>
+      </section>
       <section class="section" id="next-event" aria-labelledby="event-heading">
         <div class="section-heading">
           <div>

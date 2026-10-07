@@ -1,0 +1,24 @@
+{
+  "_comment": "Purpose: OAC history begins on the user-confirmed 2020-02-13 founding date. The end label is today in India. Initial branch entries are layout placeholders, not real achievements. Replace them with approved milestones; use YYYY-MM-DD dates, title, description and sample false. Events are sorted chronologically, not positioned on a proportional time scale.",
+  "startDate": "2020-02-13",
+  "items": [
+    {
+      "date": null,
+      "title": "A gathering to remember",
+      "description": "Add the date and story of an important OAC event here.",
+      "sample": true
+    },
+    {
+      "date": null,
+      "title": "A milestone for our family",
+      "description": "Add a confirmed community achievement here.",
+      "sample": true
+    },
+    {
+      "date": null,
+      "title": "Our next chapter",
+      "description": "Add another approved highlight from OAC’s journey here.",
+      "sample": true
+    }
+  ]
+}
