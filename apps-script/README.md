@@ -18,6 +18,8 @@ The website links the existing signup as a fallback, but does not expose the old
 
 `setupOAC()` checks existing Members headers and stops on a mismatch. It creates a Members tab only if none exists. It creates a separate `OAC_CheckIns` tab with `EventId`, `Phone`, `CheckedInAt`, `RequestId`, keeping the old check-in form's responses intact.
 
+Phase 4 adds `OAC_Volunteers` (`Name`, `Email`, `City`, `Role`, `Availability`, `Message`, `Consent`, `SubmittedAt`, `RequestId`) and `OAC_Enquiries` (`Name`, `Email`, `Organisation`, `EnquiryType`, `Message`, `Consent`, `SubmittedAt`, `RequestId`). Run `setupOAC()` again to create these missing tabs; it verifies existing tabs without deleting or renaming anything. Copy the updated `Code.gs` and redeploy a new version before enabling the new forms. Applications/enquiries store email for follow-up, but do not send email notifications automatically; organisers should review their tabs regularly.
+
 ## 2. Create the Apps Script project
 
 1. In the test Sheet, choose Extensions → Apps Script. If an existing script is present, create a separate standalone Apps Script project at `script.google.com` so existing code is preserved. Do not overwrite an existing script.
@@ -75,6 +77,7 @@ If someone submits after the window closes, the backend rejects it even if the f
 - Simulate a slow/offline connection. The phone remains until receipt; retry and confirm a single row. Never infer failure from a timeout alone: the server might already have written it.
 - Check HTML-like names and formula-like input: JSON text must not become executable HTML or a spreadsheet formula.
 - Verify the existing Google Forms continue writing to their original tabs after any header additions.
+- Test volunteer and contact forms using test data. Check consent, role/topic validation, message length and email validation. Retry with the same request ID and confirm only one row appears in its tab. No phone number is collected on these two forms.
 - Test browser CORS and mobile behavior on the deployed domain. The supplied local mocks do not verify Google deployment or its permissions.
 
 ## Updating and handing over

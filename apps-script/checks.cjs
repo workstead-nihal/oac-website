@@ -31,7 +31,9 @@ function fakeSheet(headers) {
 
 const sheets = {
   Members: fakeSheet(['Name', 'Phone', 'Email', 'City', 'AgeGroup', 'Interests', 'Source', 'Consent', 'JoinedAt', 'RequestId']),
-  OAC_CheckIns: fakeSheet(['EventId', 'Phone', 'CheckedInAt', 'RequestId'])
+  OAC_CheckIns: fakeSheet(['EventId', 'Phone', 'CheckedInAt', 'RequestId']),
+  OAC_Volunteers: fakeSheet(['Name', 'Email', 'City', 'Role', 'Availability', 'Message', 'Consent', 'SubmittedAt', 'RequestId']),
+  OAC_Enquiries: fakeSheet(['Name', 'Email', 'Organisation', 'EnquiryType', 'Message', 'Consent', 'SubmittedAt', 'RequestId'])
 };
 const context = vm.createContext({
   PropertiesService: {
@@ -103,4 +105,28 @@ assert.equal(post(attendance).code, 'closed');
 lockAvailable = false;
 assert.equal(post({ ...member, phone: '9123456789' }).code, 'busy');
 assert.equal(sheets.Members.rows.length, 2);
-console.log('All backend checks passed: validation, formula escaping, duplicate prevention, protected lookup, window expiry and lock contention.');
+lockAvailable = true;
+const application = {
+  action: 'volunteer', name: 'Test helper', email: 'helper@example.com', city: 'Bhubaneswar',
+  role: 'events', availability: 'Weekends', message: '=A formula-like application message', consent: true,
+  requestId: '00000000-0000-4000-8000-999999999990'
+};
+assert.equal(post({ ...application, consent: false }).code, 'invalid');
+assert.equal(post({ ...application, role: 'unknown' }).code, 'invalid');
+assert.equal(post(application).code, 'volunteer_received');
+assert.equal(post(application).code, 'volunteer_received');
+assert.equal(sheets.OAC_Volunteers.rows.length, 2, 'Retry must not duplicate the application');
+assert.equal(sheets.OAC_Volunteers.rows[1][5][0], "'", 'Application message must not execute as a formula');
+const enquiry = {
+  action: 'contact', name: 'Test partner', email: 'partner@example.com', organisation: 'Test venue',
+  enquiryType: 'venue', message: 'A test venue enquiry for the community.', consent: true,
+  requestId: '00000000-0000-4000-8000-999999999991'
+};
+assert.equal(post({ ...enquiry, message: 'short' }).code, 'invalid');
+assert.equal(post({ ...enquiry, enquiryType: 'unknown' }).code, 'invalid');
+assert.equal(post({ ...enquiry, email: 'invalid' }).code, 'invalid');
+assert.equal(post({ ...enquiry, website: 'bot' }).code, 'invalid');
+assert.equal(post(enquiry).code, 'enquiry_received');
+assert.equal(post(enquiry).code, 'enquiry_received');
+assert.equal(sheets.OAC_Enquiries.rows.length, 2, 'Retry must not duplicate the enquiry');
+console.log('All backend checks passed: all four form actions, validation, formula escaping, deduplication, protected lookup, time windows and lock contention.');

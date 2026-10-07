@@ -1,10 +1,12 @@
-// Purpose: validate OAC membership and protected event check-in requests before writing private Sheets.
+// Purpose: validate membership, volunteer applications, enquiries and protected attendance before Sheet writes.
 // Configure Script Properties in Google; never copy access codes or Sheet IDs into the website.
 'use strict';
 
 const MEMBER_FIELDS = ['Name', 'Phone', 'Email', 'City', 'AgeGroup', 'Interests', 'Source', 'Consent', 'JoinedAt', 'RequestId'];
 const CHECKIN_FIELDS = ['EventId', 'Phone', 'CheckedInAt', 'RequestId'];
 const INTERESTS = ['anime', 'cosplay', 'art', 'gaming', 'K-pop/J-pop', 'other'];
+const VOLUNTEER_FIELDS = ['Name', 'Email', 'City', 'Role', 'Availability', 'Message', 'Consent', 'SubmittedAt', 'RequestId'];
+const ENQUIRY_FIELDS = ['Name', 'Email', 'Organisation', 'EnquiryType', 'Message', 'Consent', 'SubmittedAt', 'RequestId'];
 
 // Returns a JSON response for a result object; does not expose member data or internal exception text.
 function jsonResponse(result) {
@@ -40,14 +42,16 @@ function doPost(event) {
       throw new Error('invalid');
     }
     requestId = typeof data.requestId === 'string' ? data.requestId : '';
-    if (!/^[a-f0-9-]{36}$/i.test(requestId) || data.website || !['join', 'checkin'].includes(data.action)) {
+    if (!/^[a-f0-9-]{36}$/i.test(requestId) || data.website || !['join', 'checkin', 'volunteer', 'contact'].includes(data.action)) {
       throw new Error('invalid');
     }
-    const phone = normalPhone(data.phone);
+    const phone = ['join', 'checkin'].includes(data.action) ? normalPhone(data.phone) : '';
     if (data.action === 'checkin') {
       authorizeCheckin(data);
-    } else {
+    } else if (data.action === 'join') {
       validateMember(data);
+    } else {
+      validateEnquiry(data);
     }
     // ponytail: one lock serializes all writes; use indexed transactional storage if event traffic outgrows it.
     lock = LockService.getScriptLock();
@@ -64,7 +68,14 @@ function doPost(event) {
       throw new Error('setup');
     }
     const spreadsheet = SpreadsheetApp.openById(sheetId);
-    const result = data.action === 'join' ? saveMember(spreadsheet, data, phone) : saveCheckin(spreadsheet, data, phone);
+    let result;
+    if (data.action === 'join') {
+      result = saveMember(spreadsheet, data, phone);
+    } else if (data.action === 'checkin') {
+      result = saveCheckin(spreadsheet, data, phone);
+    } else {
+      result = saveEnquiry(spreadsheet, data);
+    }
     SpreadsheetApp.flush();
     return jsonResponse({ ok: result !== 'not_found', code: result, requestId: requestId });
   } catch (error) {
@@ -112,6 +123,53 @@ function validateMember(data) {
   if (!['friend', 'instagram', 'event', 'search', 'other'].includes(data.source)) {
     throw new Error('invalid');
   }
+}
+
+// Validates a volunteer/partner request; takes submitted data and throws for missing, oversized or unknown fields.
+function validateEnquiry(data) {
+  const limits = { name: 80, email: 254, message: 2000 };
+  if (data.action === 'volunteer') {
+    Object.assign(limits, { city: 80, availability: 240 });
+    if (!['events', 'art', 'photo', 'social', 'other'].includes(data.role)) {
+      throw new Error('invalid');
+    }
+  } else {
+    limits.organisation = 120;
+    if (!['venue', 'sponsor', 'brand', 'community', 'other'].includes(data.enquiryType)) {
+      throw new Error('invalid');
+    }
+  }
+  for (const field of Object.keys(limits)) {
+    if (typeof data[field] !== 'string' || !data[field].trim() || data[field].length > limits[field] || /[\x00-\x08\x0b\x0c\x0e-\x1f]/.test(data[field])) {
+      throw new Error('invalid');
+    }
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) || data.message.trim().length < 10 || data.consent !== true) {
+    throw new Error('invalid');
+  }
+}
+
+// Saves an application/enquiry once per request ID; returns a receipt code, with no email notifications sent.
+function saveEnquiry(spreadsheet, data) {
+  const volunteer = data.action === 'volunteer';
+  const table = sheetTable(spreadsheet, volunteer ? 'OAC_Volunteers' : 'OAC_Enquiries', volunteer ? VOLUNTEER_FIELDS : ENQUIRY_FIELDS, {});
+  const receipt = volunteer ? 'volunteer_received' : 'enquiry_received';
+  for (const row of table.values.slice(1)) {
+    if (row[table.indexes.RequestId] === data.requestId) {
+      return receipt;
+    }
+  }
+  const values = {
+    Name: data.name.trim(), Email: data.email.trim(), Message: data.message.trim(),
+    Consent: 'Yes', SubmittedAt: new Date().toISOString(), RequestId: data.requestId
+  };
+  if (volunteer) {
+    Object.assign(values, { City: data.city.trim(), Role: data.role, Availability: data.availability.trim() });
+  } else {
+    Object.assign(values, { Organisation: data.organisation.trim(), EnquiryType: data.enquiryType });
+  }
+  appendMapped(table, values);
+  return receipt;
 }
 
 // Validates the privately entered volunteer code and approved event ID; returns nothing or throws.
@@ -240,4 +298,10 @@ function setupOAC() {
     spreadsheet.insertSheet('OAC_CheckIns').appendRow(CHECKIN_FIELDS);
   }
   sheetTable(spreadsheet, 'OAC_CheckIns', CHECKIN_FIELDS, {});
+  for (const item of [{ name: 'OAC_Volunteers', fields: VOLUNTEER_FIELDS }, { name: 'OAC_Enquiries', fields: ENQUIRY_FIELDS }]) {
+    if (!spreadsheet.getSheetByName(item.name)) {
+      spreadsheet.insertSheet(item.name).appendRow(item.fields);
+    }
+    sheetTable(spreadsheet, item.name, item.fields, {});
+  }
 }

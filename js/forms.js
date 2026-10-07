@@ -1,4 +1,4 @@
-// Purpose: validated membership and volunteer check-in requests with explicit receipts and safe retries.
+// Purpose: validated membership, applications, enquiries and check-in with explicit receipts and safe retries.
 'use strict';
 
 const communityForm = document.getElementById('community-form');
@@ -24,24 +24,32 @@ function formPhone(value) {
 function collectEntry() {
   const fields = new FormData(communityForm);
   const phoneInput = communityForm.elements.phone;
-  const phone = formPhone(String(fields.get('phone') || ''));
-  phoneInput.setCustomValidity(phone ? '' : 'Enter a 10-digit Indian mobile number, optionally with +91.');
+  const phone = phoneInput ? formPhone(String(fields.get('phone') || '')) : null;
+  if (phoneInput) {
+    phoneInput.setCustomValidity(phone ? '' : 'Enter a 10-digit Indian mobile number, optionally with +91.');
+  }
+  for (const field of ['name', 'city', 'organisation', 'availability', 'message']) {
+    const input = communityForm.elements[field];
+    if (input && input.required) {
+      input.setCustomValidity(input.value.trim() ? '' : 'Please fill in this field.');
+    }
+  }
   if (communityForm.dataset.action === 'join') {
     const interest = communityForm.querySelector('[name="interests"]');
     interest.setCustomValidity(fields.getAll('interests').length ? '' : 'Choose at least one interest.');
-    for (const field of ['name', 'city']) {
-      const input = communityForm.elements[field];
-      input.setCustomValidity(input.value.trim() ? '' : 'Please fill in this field.');
-    }
   }
   if (!communityForm.reportValidity()) {
     return null;
   }
   const data = Object.fromEntries(fields.entries());
   data.action = communityForm.dataset.action;
-  data.phone = phone;
+  if (phoneInput) {
+    data.phone = phone;
+  }
   if (data.action === 'join') {
     data.interests = fields.getAll('interests');
+  }
+  if (data.action !== 'checkin') {
     data.consent = fields.get('consent') === 'on';
   }
   return data;
@@ -50,10 +58,12 @@ function collectEntry() {
 // Clears only custom error flags when any field changes; native required/email checks still apply.
 // Otherwise an old error can block the next submit before our validation handler gets a chance to run.
 function clearFieldErrors(event) {
-  communityForm.elements.phone.setCustomValidity('');
+  for (const field of ['phone', 'name', 'city', 'organisation', 'availability', 'message']) {
+    if (communityForm.elements[field]) {
+      communityForm.elements[field].setCustomValidity('');
+    }
+  }
   if (communityForm.dataset.action === 'join') {
-    communityForm.elements.name.setCustomValidity('');
-    communityForm.elements.city.setCustomValidity('');
     communityForm.querySelector('[name="interests"]').setCustomValidity('');
   }
 }
@@ -115,16 +125,26 @@ async function submitEntry(event) {
   showFormStatus('pending', 'Sending… please keep this page open.');
   try {
     const result = await sendEntry(pendingEntry.data);
-    const accepted = data.action === 'join' ? 'joined' : 'checked_in';
+    const accepted = {
+      join: 'joined', checkin: 'checked_in', volunteer: 'volunteer_received', contact: 'enquiry_received'
+    }[data.action];
     if (result.ok && result.code === accepted) {
-      showFormStatus('success', data.action === 'join' ? 'You’re in! Your membership request is confirmed. Welcome to the OAC family.' : '✓ Checked in — attendance confirmed.');
+      const successMessages = {
+        join: 'You’re in! Your membership request is confirmed. Welcome to the OAC family.',
+        checkin: '✓ Checked in — attendance confirmed.',
+        volunteer: 'Application received! The OAC team can follow up by email. Thank you for offering to help.',
+        contact: 'Enquiry received! The OAC team can follow up by email. Thank you for getting in touch.'
+      };
+      showFormStatus('success', successMessages[data.action]);
       pendingEntry = null;
-      submitButton.textContent = data.action === 'join' ? 'Membership confirmed' : 'Check in next member';
+      submitButton.textContent = data.action === 'checkin' ? 'Check in next member' : 'Submission confirmed';
       if (data.action === 'join') {
         document.getElementById('join-success').hidden = false;
         communityForm.hidden = true;
-      } else {
+      } else if (data.action === 'checkin') {
         communityForm.elements.phone.value = '';
+      } else {
+        communityForm.hidden = true;
       }
     } else {
       const messages = {
@@ -238,8 +258,8 @@ async function loadJoinLinks() {
 
 communityForm.addEventListener('submit', submitEntry);
 communityForm.addEventListener('input', clearFieldErrors);
-if (communityForm.dataset.action === 'join' && window.OAC_CONFIG.appsScriptUrl) {
-  showFormStatus('pending', 'Complete your details below. Keep this page open until your membership receipt arrives.');
+if (communityForm.dataset.action !== 'checkin' && window.OAC_CONFIG.appsScriptUrl) {
+  showFormStatus('pending', 'Complete your details below. Keep this page open until your submission receipt arrives.');
 }
 window.addEventListener('beforeunload', warnPending);
 loadCheckinEvents();

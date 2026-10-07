@@ -1,0 +1,62 @@
+<!-- Purpose: browser checks for safe volunteer rendering and disabled/verified donation states; no payments occur. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../">
+  <title>OAC community checks</title>
+</head>
+<body>
+  <h1>Community checks — no payments</h1>
+  <p id="result">Running…</p>
+  <div hidden>
+    <div id="volunteer-grid"></div>
+    <p id="community-status"></p>
+    <button id="retry-community" type="button">Retry</button>
+    <p id="donation-intro"></p>
+    <p id="donation-note"></p>
+    <ul id="donation-funds"></ul>
+    <img id="upi-qr" alt="Hidden test image">
+    <p id="upi-id"></p><p id="upi-recipient"></p><p id="donation-state"></p>
+  </div>
+  <script src="js/content.js"></script>
+  <script src="js/community.js"></script>
+  <script>
+    // Exercises actual rendering and payment gates with fixture data; no inputs, displays pass/fail text.
+    function runChecks() {
+      const checks = [
+        communityImage('https://example.com/photo.jpg') === null,
+        communityImage('assets/images/web/../secret.jpg') === null,
+        communityImage('assets/images/web/oac-family-480.jpg') !== null
+      ];
+      // Split the test markup so an HTML parser cannot mistake it for this test script's closing tag.
+      const markupText = '<scr' + 'ipt>bad</scr' + 'ipt>';
+      showVolunteers([{ name: markupText, role: 'Test role', line: 'Test line', initials: 'TT', photo: null, sample: true }]);
+      checks.push(document.querySelector('#volunteer-grid h3').textContent === markupText);
+      checks.push(document.querySelector('#volunteer-grid script') === null);
+      const donation = {
+        intro: 'Test', note: 'Test only', funds: ['Test materials'], verified: false,
+        upiId: 'test@example', recipientName: 'Test recipient', qrImage: 'assets/images/web/oac-family-480.jpg'
+      };
+      showDonation(donation);
+      checks.push(document.getElementById('upi-id').textContent === 'REPLACE WITH VERIFIED UPI ID');
+      donation.verified = true;
+      showDonation(donation);
+      checks.push(document.getElementById('upi-id').textContent === 'test@example');
+      donation.verified = false;
+      showDonation(donation);
+      checks.push(document.getElementById('upi-id').textContent === 'REPLACE WITH VERIFIED UPI ID');
+      donation.verified = true;
+      donation.upiId = 'invalid';
+      showDonation(donation);
+      checks.push(document.getElementById('upi-id').textContent === 'REPLACE WITH VERIFIED UPI ID');
+      document.getElementById('result').textContent = checks.every(Boolean) ? 'All checks passed' : 'A check failed';
+      if (!checks.every(Boolean)) {
+        throw new Error('Community checks failed');
+      }
+    }
+    runChecks();
+  </script>
+</body>
+</html>

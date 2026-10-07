@@ -5,9 +5,9 @@ A lightweight website for anime and pop-culture fans in Bhubaneswar, Odisha. It 
 
 ## Current status
 
-Phases 1–3 provide Home, Events, Tickets, Join and a privately shared Check-in page. They share the OAC black/red/gold design, original artwork, real community photos and editable JSON content. Events include upcoming/past sections and Google Calendar reminders. Membership forms and the Apps Script backend are implemented, but website submissions are not live until the team deploys/configures the endpoint. The existing Google signup form is available as a fallback. Navigation for unfinished pages leads to a preview notice.
+Phases 1–4 provide all requested pages, including Home, Events, Tickets, Join, private Check-in, Volunteers, Donate, About/Community, Contact/FAQ and 404. They share OAC's black/red/gold design, original artwork, real community photos and editable JSON. All four website form actions have backend code, but live submissions require deployment/configuration. The existing Google signup form remains a fallback. Sample profiles, draft policies and unverified donation details remain clearly labelled.
 
-Phases 1–3 are implemented; Phase 3 still needs live backend configuration and testing. Next: Phase 4 — Volunteers/Donate/About/Contact/404; Phase 5 — SEO/accessibility/performance/CI/final handover.
+Phases 1–4 are implemented; live backend configuration/testing is outstanding. Next: Phase 5 — SEO/accessibility/performance/CI/final handover.
 
 ## Folder guide
 
@@ -19,17 +19,22 @@ Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from
 - `events.html` and `tickets.html`: catalogue and ticket tier pages; both read the same event JSON.
 - `join.html`: membership form and existing Google Form fallback.
 - `checkin.html`: volunteer-only direct link, deliberately absent from public navigation and marked noindex. The backend—not link hiding—enforces its code and opening window.
+- `volunteers.html`, `donate.html`, `about.html`, `contact.html`: volunteer profiles/application, donation explanation, story/rules/social links, and partnership enquiries/FAQ.
+- `404.html`: lost-page recovery. Its labelled `<base href="/">` supports nested missing URLs on a root/custom-domain site; change it to `/REPOSITORY-NAME/` for a GitHub Pages project site before deployment.
 - `css/style.css`: theme variables at the top, then shared components and responsive layouts.
 - `js/home.js`: reads JSON safely and updates the countdown.
 - `js/content.js`: shared JSON reader, safe ticket URLs and India-date event grouping.
 - `js/events.js`: event cards, ticket tiers, calendar links and retry handling.
 - `js/forms.js`: signup/check-in validation, confirmed receipts, retry and double-click prevention.
 - `js/photos.js`: lazy-loaded community photo panels selected through JSON.
+- `js/community.js`: volunteer cards, story, rules, FAQ, social links and verified-only donation rendering.
 - `js/config.js`: the one clearly labelled place for the public Apps Script URL; currently empty.
 - `data/events.json`: editable sample event and ticket details.
 - `data/announcements.json`: Home noticeboard content.
 - `data/links.json`: verified community social URLs; currently placeholders.
 - `data/photos.json`: photo paths, descriptions and captions that you can edit without touching page code.
+- `data/volunteers.json`: editable showcase entries; currently labelled sample profiles with initials.
+- `data/community.json`: editable story, draft code of conduct, FAQ and disabled donation settings.
 - `assets/images/web/`: compressed copies of your original community photographs. Large originals stay in your local `assets/images` folder and are excluded from Git. Only publish the web copies.
 - `assets/favicon.svg`: small original wheel motif. Home artwork uses inline SVG and CSS, requiring no image downloads.
 - `AGENTS.md`: rules for future coding sessions.
@@ -62,7 +67,19 @@ Announcements have `date`, `title`, and `text`. Social URLs must start with `htt
 
 ## Volunteers
 
-Phase 4 will add `data/volunteers.json` with names, roles, short descriptions and optional photos. Until then no volunteer information is collected or published. Obtain permission before publishing someone's photo or personal details.
+Edit `data/volunteers.json`. Each entry has `name`, `initials`, `role`, `line`, `photo` and `sample`. Replace the labelled sample names with approved real profiles, then set `sample` to false. `photo: null` displays initials; an approved path such as `assets/images/web/volunteer-name.jpg` displays a lazy-loaded photo. Missing photos fall back to initials. Use a small square photo, obtain permission, and never put phone/email details in public JSON.
+
+The application form collects name, email, city, help area, availability, a short message and consent. Applications go to the private `OAC_Volunteers` tab only after a confirmed receipt. Submission is not a promise of a volunteer role. Organisers review the tab and reply privately; there is no automatic email sender.
+
+## About, FAQ, contact and donations
+
+Edit `story`, `rules` and `faq` in `data/community.json`. Each rule has `title` and `text`; each FAQ has `question` and `answer`. FAQ uses native expandable `<details>` controls so keyboard support needs no library. The About copy avoids invented founding dates and member counts; its draft policies require team approval.
+
+The Contact form is for venue/mall partnerships, sponsors, brands and community enquiries. It collects name, email, organisation (individuals can write “Individual”), topic, message and consent; it does not need a phone number. Confirmed submissions go to `OAC_Enquiries`. Contact is not an emergency channel and no response time is promised.
+
+Donations start disabled. In `data/community.json`, fill `donation.upiId`, `recipientName`, and a local `qrImage` path under `assets/images/web`, then set `verified: true` ONLY after checking that the QR and ID both lead to the approved recipient. Also review funding descriptions and the note. Blank, invalid or unverified settings keep a visibly non-scannable placeholder. Recheck the displayed recipient inside your own UPI app before public release; do not make a test payment unless the team explicitly authorises it. The website does not process payments, store banking details, or invent tax/refund claims.
+
+Desktop navigation reaches every public page. On mobile, More jumps to the footer's accessible community links; there is no JavaScript menu to maintain. Check-in remains absent from public navigation. The root `404.html` is recognised by common static hosts; verify actual missing-path routing after deployment, since hosting settings differ.
 
 ## Google Sheet and Apps Script
 
@@ -111,6 +128,8 @@ For Phase 2, open Events and Tickets from both navigation bars. Confirm three sa
 
 For Phase 3, open `checks/forms-check.html` in your HTTP preview; its fetch calls are mocked, and it should display “All checks passed”. If Node is already installed, `node apps-script/checks.cjs` verifies the backend against a fake Sheet without sending real data. Do not install a runtime without approval. Follow the backend guide's test-copy checklist for real integration: closed/wrong-code/expired checks must not write attendance, retries must not duplicate rows, and a green confirmation must match a row in the test Sheet. Check 360px layout, keyboard labels and photo loading manually.
 
+For Phase 4, check all new pages at 360px and desktop. Try mobile More and keyboard FAQ controls. Edit a volunteer role or FAQ in JSON and refresh; verify sample labels and missing-photo initials. Ensure Donate shows a non-payment placeholder by default. Open `checks/community-check.html` for safe text/image rendering and donation state checks. Test volunteer/contact validation, honeypots, consent and duplicate retry against the test deployment; run `setupOAC()` and redeploy the updated backend first. Open `/404.html` directly locally; test a missing nested URL on the deployed host, not just the development server.
+
 ## Known limitations
 
 - Website forms need a deployed endpoint and confirmed Members headers. No live Google Sheet submissions have been verified. The existing signup form remains available.
@@ -135,6 +154,10 @@ Passed: JavaScript syntax, local page links and anchors, current-page navigation
 ## Phase 3 verification record
 
 Passed against local mocks: membership validation and formula escaping, phone normalization, duplicate registration/attendance prevention, closed/expired-window rejection, wrong-code rejection before reading Members, event authorization, unknown-member results and busy-lock handling. Frontend checks covered entry retention, retry ID reuse, double-submit prevention, matching receipts and incorrect-receipt rejection. All page references and JSON/JavaScript syntax passed; no public check-in links were found. Three photos were compressed with Windows' built-in image APIs, preserving originals and requiring no dependencies. Browser layout and a live Google Sheet/CORS deployment remain unverified.
+
+## Phase 4 verification record
+
+Passed: all ten pages' local file links, anchors and unique IDs; JSON/JavaScript syntax; absence of public check-in links; backend validation and retry deduplication for all four actions; application/enquiry frontend retries and receipt success using mock DOM/fetch; literal volunteer text; safe local image paths; and disabled/verified/revoked donation rendering. Regression checks covered existing membership and attendance backend behavior. No dependencies were added. Visual browser, keyboard FAQ behavior, live Google Sheet submissions and hosting-specific missing-path handling still require manual checks. Phase 5 is not started.
 
 ## Handover guide
 

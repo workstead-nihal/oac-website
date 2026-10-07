@@ -1,12 +1,15 @@
-<!-- Purpose: upcoming and past event catalogue loaded from editable JSON. -->
+<!-- Purpose: Page not found page with shared OAC navigation and student-editable content. -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <!-- For a GitHub project site, change this to /REPOSITORY-NAME/ before deploying. -->
+  <base href="/">
+  <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c0c0c">
-  <title>Events — Odisha Anime Community</title>
-  <meta name="description" content="Explore upcoming OAC anime and cosplay events in Odisha, plus our past event archive.">
+  <title>Page not found — Odisha Anime Community</title>
+  <meta name="description" content="This OAC page could not be found. Return home or explore our community events.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +17,11 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="js/content.js" defer>
 </script>
-  <script src="js/events.js" defer>
-</script>
+
   <script src="js/photos.js" defer>
 </script>
 </head>
-<body data-page="events">
+<body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Odisha Anime Community home">
@@ -28,7 +30,7 @@
 </a>
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="index.html">Home</a>
-<a href="events.html" aria-current="page">Events</a>
+<a href="events.html">Events</a>
 <a href="tickets.html">Tickets</a>
 <a href="volunteers.html">Volunteers</a>
 <a href="about.html">About</a>
@@ -40,38 +42,18 @@
   </header>
 
   <main id="main">
-    <section class="section page-intro">
-<p class="eyebrow">YOUR NEXT SIDE QUEST</p>
-<h1>Meet your crew.<br>
-<span>Make a memory.</span>
+<section class="section page-intro lost-page">
+<p class="eyebrow">404 · A SIDE QUEST GONE OFF MAP</p>
+<h1>Lost in another arc?<br>
+<span>Let’s get you home.</span>
 </h1>
-<p>Anime, cosplay and good company. Find our next gathering in Odisha.</p>
-</section>
-    <section class="section" aria-labelledby="upcoming-title">
-<h2 id="upcoming-title">Upcoming events</h2>
-<div id="upcoming-events" class="catalogue-grid">
+<p>The page may have moved or the address may be mistyped. Your OAC family is still here.</p>
+<div class="button-row">
+<a class="button" href="index.html">Back to Home ↗</a>
+<a class="button button-outline" href="events.html">Explore events</a>
 </div>
 </section>
-    <section class="section" aria-labelledby="past-title">
-<h2 id="past-title">Past adventures</h2>
-<div id="past-events" class="catalogue-grid">
-</div>
-</section>
-    <div class="section">
-<p id="catalogue-status" role="status">
-</p>
-<button class="button" id="retry-content" type="button" hidden>Retry loading</button>
-<noscript>
-<p>Enable JavaScript to load the editable event catalogue. Event and ticket details cannot be confirmed on this page without it.</p>
-</noscript>
-</div>
-<section class="section" aria-label="OAC community memories">
-<figure class="community-photo" data-photo="gathering">
-<img width="960" height="720" loading="lazy" decoding="async" sizes="(min-width: 1200px) 1120px, calc(100vw - 40px)" alt="OAC community photograph loading">
-<figcaption>Our community, together.</figcaption>
-</figure>
-</section>
-  </main>
+</main>
   <div class="footer-pages" id="community-pages">
 <nav aria-label="Community pages">
 <a href="volunteers.html">Volunteers</a>
@@ -90,7 +72,7 @@
   <nav class="mobile-nav" aria-label="Main navigation">
 <a href="index.html">
 <span aria-hidden="true">⌂</span>Home</a>
-<a href="events.html" aria-current="page">
+<a href="events.html">
 <span aria-hidden="true">▦</span>Events</a>
 <a href="tickets.html">
 <span aria-hidden="true">◈</span>Tickets</a>

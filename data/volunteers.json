@@ -1,0 +1,8 @@
+{
+  "_comment": "Purpose: editable volunteer showcase. These are labelled SAMPLE roles, not invented real members. Replace names/roles/lines and set sample false after approval. A photo can be an approved local assets/images/web path; null shows initials. Never publish contact details here.",
+  "items": [
+    { "name": "Your volunteer name", "initials": "EC", "role": "Event crew", "line": "Sample profile: helping every fan feel welcome.", "photo": null, "sample": true },
+    { "name": "Your volunteer name", "initials": "AC", "role": "Art & cosplay crew", "line": "Sample profile: making room for everyone's creativity.", "photo": null, "sample": true },
+    { "name": "Your volunteer name", "initials": "CC", "role": "Community crew", "line": "Sample profile: turning first hellos into friendships.", "photo": null, "sample": true }
+  ]
+}
