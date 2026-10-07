@@ -1,14 +1,18 @@
 /* Purpose: shared OAC theme and responsive components. Change these variables to restyle the site. */
 :root {
   color-scheme: dark;
-  --background: #11121b;
-  --surface: #1b1c28;
-  --text: #f5f3fa;
-  --muted: #b9b6ca;
-  --pink: #ff85b6;
-  --violet: #b49aff;
-  --cyan: #83e9e5;
-  --border: #383745;
+  --background: #0c0c0c;
+  --surface: #191919;
+  --text: #fff8ed;
+  --muted: #c5bfb5;
+  --red: #d91515;
+  --red-light: #ff8585;
+  --gold: #f3b334;
+  --gold-hover: #ffc859;
+  --red-glow: #d9151540;
+  --gold-glow: #f3b33450;
+  --art-shadow: #3b1111;
+  --border: #45403a;
   --font: 'Space Grotesk', system-ui, sans-serif;
   --space: 1rem;
   --radius: 1.25rem;
@@ -37,7 +41,7 @@ button, input {
   font: inherit;
 }
 a:focus-visible, button:focus-visible {
-  outline: 3px solid var(--cyan);
+  outline: 3px solid var(--gold);
   outline-offset: 5px;
 }
 h1, h2, h3, p {
@@ -63,7 +67,7 @@ p {
   left: 1rem;
   z-index: 10;
   padding: 1rem;
-  background: var(--cyan);
+  background: var(--gold);
   color: var(--background);
 }
 .skip-link:focus {
@@ -95,7 +99,7 @@ p {
   letter-spacing: -.1em;
 }
 .brand-mark span {
-  color: var(--pink);
+  color: var(--gold);
 }
 .desktop-nav {
   display: none;
@@ -112,8 +116,8 @@ p {
   gap: 1rem;
   padding: .85rem 1.25rem;
   border-radius: .7rem;
-  background: var(--pink);
-  color: #21121b;
+  background: var(--gold);
+  color: var(--background);
   font-weight: 700;
   font-size: .9rem;
   border: 1px solid transparent;
@@ -121,7 +125,7 @@ p {
 }
 .button:hover {
   transform: translateY(-2px);
-  background: #ffa5ca;
+  background: var(--gold-hover);
 }
 .button-outline {
   background: transparent;
@@ -145,7 +149,7 @@ p {
   font-size: .67rem;
   font-weight: 700;
   letter-spacing: .12em;
-  color: var(--pink);
+  color: var(--gold);
   margin-bottom: 1rem;
 }
 .status-dot {
@@ -153,7 +157,7 @@ p {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--cyan);
+  background: var(--gold);
   margin-right: .35rem;
 }
 h1 {
@@ -161,7 +165,7 @@ h1 {
   margin-bottom: 1.5rem;
 }
 h1 > span {
-  color: var(--pink);
+  color: var(--gold);
 }
 .hero-description {
   max-width: 33rem;
@@ -177,22 +181,23 @@ h1 > span {
   min-height: 310px;
   overflow: hidden;
   border-radius: var(--radius);
-  background: radial-gradient(ellipse at center, #473052 0%, #251c35 45%, var(--background) 75%);
+  background: repeating-conic-gradient(from 15deg at 50% 48%, transparent 0deg 13deg, var(--red-glow) 13deg 15deg, transparent 15deg 30deg), radial-gradient(ellipse at center, var(--art-shadow), var(--background) 75%);
 }
 .wheel {
   width: 100%;
   height: 100%;
   position: absolute;
   inset: 0;
-  stroke: var(--pink);
+  stroke: var(--gold);
   stroke-width: 2;
-  filter: drop-shadow(0 0 10px #ff85b650);
+  filter: drop-shadow(0 0 10px var(--gold-glow));
   transform: rotate(-12deg);
+  opacity: .35;
 }
 .orbit {
   position: absolute;
   inset: 17% 4%;
-  border: 1px solid #b49aff60;
+  border: 1px solid var(--red);
   border-radius: 50%;
   transform: rotate(-30deg);
 }
@@ -202,7 +207,7 @@ h1 > span {
 }
 .art-star {
   position: absolute;
-  color: var(--cyan);
+  color: var(--gold);
   font-size: 3rem;
 }
 .star-one {
@@ -212,7 +217,7 @@ h1 > span {
 .star-two {
   right: 8%;
   bottom: 17%;
-  color: var(--pink);
+  color: var(--gold);
 }
 .art-label {
   position: absolute;
@@ -225,13 +230,13 @@ h1 > span {
   letter-spacing: .07em;
 }
 .label-one {
-  right: 0;
-  top: 14%;
+  right: 4%;
+  top: 7%;
   transform: rotate(8deg);
 }
 .label-two {
-  left: 0;
-  bottom: 15%;
+  left: 4%;
+  bottom: 14%;
   transform: rotate(-7deg);
 }
 .art-caption {
@@ -255,7 +260,7 @@ h1 > span {
   letter-spacing: .13em;
 }
 .interest-strip b {
-  color: var(--pink);
+  color: var(--gold);
 }
 .section {
   padding: 3rem 1.25rem 0;
@@ -274,7 +279,7 @@ h1 > span {
   flex-shrink: 0;
 }
 .text-link {
-  color: var(--pink);
+  color: var(--gold);
   font-size: .85rem;
   font-weight: 600;
   display: inline-flex;
@@ -291,7 +296,7 @@ h1 > span {
 .event-art {
   min-height: 280px;
   position: relative;
-  background: radial-gradient(circle at 70% 20%, #754858, transparent 55%), #292037;
+  background: radial-gradient(circle at 70% 20%, var(--art-shadow), transparent 55%), var(--background);
   overflow: hidden;
   padding: 1.5rem;
 }
@@ -311,8 +316,8 @@ h1 > span {
   width: 175px;
   height: 175px;
   border-radius: 50%;
-  background: #ffc5ae;
-  box-shadow: 0 0 70px #ff85b640;
+  background: var(--gold);
+  box-shadow: 0 0 70px var(--red-glow);
 }
 .moon::after {
   content: '';
@@ -320,7 +325,7 @@ h1 > span {
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  background: #473045;
+  background: var(--art-shadow);
   left: -25px;
   top: -15px;
 }
@@ -334,7 +339,7 @@ h1 > span {
   margin-top: 2rem;
 }
 .event-art-title i {
-  color: var(--pink);
+  color: var(--gold);
   font-style: normal;
 }
 .event-art-note {
@@ -363,7 +368,7 @@ h1 > span {
   font-size: .75rem !important;
 }
 .countdown {
-  color: var(--cyan);
+  color: var(--gold);
   padding-block: .8rem;
   border-block: 1px solid var(--border);
   font-weight: 600;
@@ -394,7 +399,7 @@ h1 > span {
   transition: border-color .2s;
 }
 .quick-card:hover {
-  border-color: var(--pink);
+  border-color: var(--gold);
 }
 .quick-card h3 {
   margin-bottom: .7rem;
@@ -404,15 +409,15 @@ h1 > span {
 }
 .card-icon {
   display: block;
-  color: var(--pink);
+  color: var(--gold);
   font-size: 2rem;
   margin-bottom: 1rem;
 }
-.cyan {
-  color: var(--cyan);
+.gold {
+  color: var(--gold);
 }
-.violet {
-  color: var(--violet);
+.red {
+  color: var(--red-light);
 }
 .news-card h3 {
   font-size: 1.2rem;
@@ -425,9 +430,9 @@ h1 > span {
   margin: 3rem 1.25rem 0;
   padding: 2.5rem 1.25rem;
   text-align: center;
-  border: 1px solid #614154;
+  border: 1px solid var(--red);
   border-radius: var(--radius);
-  background: radial-gradient(ellipse at top, #382333, var(--surface));
+  background: radial-gradient(ellipse at top, var(--art-shadow), var(--surface));
 }
 .community-banner h2 {
   margin-bottom: 1rem;
@@ -457,7 +462,7 @@ h1 > span {
 }
 .notice {
   padding: 1rem;
-  border: 1px solid var(--pink);
+  border: 1px solid var(--gold);
   border-radius: .7rem;
 }
 .site-footer {
@@ -481,7 +486,7 @@ h1 > span {
   right: 0;
   display: flex;
   justify-content: space-around;
-  background: #171822f5;
+  background: var(--background);
   border-top: 1px solid var(--border);
   padding: .3rem .25rem max(.3rem, env(safe-area-inset-bottom));
   z-index: 5;
@@ -501,7 +506,7 @@ h1 > span {
   line-height: 1.2;
 }
 .mobile-nav [aria-current] {
-  color: var(--pink);
+  color: var(--gold);
 }
 @media (min-width: 700px) {
   .hero {
@@ -550,7 +555,7 @@ h1 > span {
     color: var(--muted);
   }
   .desktop-nav [aria-current] {
-    color: var(--pink);
+    color: var(--gold);
   }
   .mobile-nav {
     display: none;
@@ -570,6 +575,45 @@ h1 > span {
     margin: 0;
   }
 }
+
+/* Manga panel lettering and speed lines evoke anime using only original CSS artwork. */
+.anime-lettering {
+  position: absolute;
+  inset: 23% 10% auto;
+  text-align: center;
+  font-size: clamp(2.7rem, 6vw, 4rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: .95;
+  letter-spacing: -.06em;
+  color: var(--text);
+  text-shadow: 4px 4px 0 var(--red);
+  transform: rotate(-5deg);
+}
+.anime-lettering strong {
+  color: var(--gold);
+}
+/* White text on brand red keeps the main invitation readable; small text uses lighter red. */
+.site-header > .button {
+  background: var(--red);
+  color: var(--text);
+}
+.site-header > .button:hover {
+  background: #b51111;
+}
+.hero-copy .eyebrow {
+  color: var(--red-light);
+}
+.quick-card {
+  border-top: 3px solid var(--red);
+}
+.news-card {
+  border-left: 3px solid var(--gold);
+}
+.community-banner .eyebrow {
+  color: var(--red-light);
+}
+
 /* Motion is optional; reduced-motion users get the same information without movement. */
 @media (prefers-reduced-motion: reduce) {
   html {

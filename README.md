@@ -11,6 +11,10 @@ Planned phases: 2 — Events/Tickets; 3 — Join/Check-in/Google Apps Script; 4 
 
 ## Folder guide
 
+### OAC visual identity
+
+Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from the supplied `#FFC859`). The original yellow remains the gold hover shade. Warm off-white and lighter red support readable text. Theme colours live at the top of `css/style.css`; future pages must reuse them. The original manga-style speed lines, bold panel lettering, wheel motif and welcoming anime-family language connect anime fandom with Odisha without copyrighted characters. Brand red is used for accents and a white-text header button, rather than small red text on black.
+
 - `index.html`: Home structure and static fallback event information.
 - `css/style.css`: theme variables at the top, then shared components and responsive layouts.
 - `js/home.js`: reads JSON safely and updates the countdown.
