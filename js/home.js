@@ -76,11 +76,13 @@ function showSocialLinks(links) {
       button.className = 'button button-outline';
       button.href = url.href;
       button.textContent = link.label + ' ↗';
+      addSocialIcon(button, link.label);
       container.append(button);
     } else {
       const label = document.createElement('span');
       label.className = 'placeholder-link';
       label.textContent = link.label + ' · link coming soon';
+      addSocialIcon(label, link.label);
       container.append(label);
     }
   }

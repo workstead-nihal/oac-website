@@ -243,3 +243,9 @@ Edit `data/showcase.json` to add winners, artwork or other community highlights.
 For an image, place a compressed JPG/PNG/WebP under `assets/images/web/` (under 300 KB). Use a filename with letters, digits, hyphens or underscores, put its path in `image`, and supply descriptive `alt` plus its actual pixel `width` and `height`. Keep `image: null` for a visible placeholder. Images preserve their proportions and lazy-load. Publish only work/photos approved by the creator and people shown; obtain permission for any third-party material. Contact is an enquiry route, not an upload form.
 
 Review Showcase at 360px and desktop, follow its links from desktop and mobile More, and test retry with its JSON request blocked. Open `checks/community-check.html` to check literal text, unsafe image rejection and empty categories. Local source/link checks and renderer DOM-stub checks passed; visual/browser review remains pending.
+
+## Social platform links and icons
+
+Set the official Instagram, Discord invite, Reddit community and WhatsApp group HTTPS URLs in `data/links.json`. Keep an empty URL until verified; the website shows a coming-soon label instead of sending visitors to an invented account. Home and About show all four platforms; membership success offers the configured WhatsApp and Discord links. Small local SVG platform symbols live in `assets/icons/`, require no external icon request or package, and are decorative beside readable text. These are simplified monochrome symbols, not downloaded official brand artwork.
+
+Test an actual link after editing JSON, including whether group invites have expired. Review icon alignment at 360px and desktop and tab through the social buttons. Do not publish an invite intended to remain private.

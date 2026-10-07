@@ -136,6 +136,7 @@ async function loadCommunityLinks() {
       if (address) {
         node.href = address;
       }
+      addSocialIcon(node, link.label);
       container.append(node);
     }
   } catch {

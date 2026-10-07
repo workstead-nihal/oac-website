@@ -2,8 +2,21 @@
   "_comment": "Purpose: official community links. Replace empty URLs with verified HTTPS links; empty entries show 'link coming soon' instead of sending people to an incorrect account.",
   "signupFormUrl": "https://forms.gle/rW8hMV5NVkHinpzq7",
   "items": [
-    { "label": "Instagram", "url": "" },
-    { "label": "Discord", "url": "" },
-    { "label": "WhatsApp", "url": "" }
+    {
+      "label": "Instagram",
+      "url": ""
+    },
+    {
+      "label": "Discord",
+      "url": ""
+    },
+    {
+      "label": "Reddit",
+      "url": ""
+    },
+    {
+      "label": "WhatsApp",
+      "url": ""
+    }
   ]
 }

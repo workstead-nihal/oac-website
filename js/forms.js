@@ -251,6 +251,7 @@ async function loadJoinLinks() {
         button.className = 'button';
         button.href = ticketAddress(social.url);
         button.textContent = 'Join our ' + social.label + ' ↗';
+        addSocialIcon(button, social.label);
         container.append(button);
       }
     }

@@ -33,3 +33,22 @@ function ticketAddress(value) {
     return null;
   }
 }
+
+// Adds a small local platform icon before the existing visible label; input: element/platform, output: no value.
+// Empty alt text avoids repeating the label for screen readers; a fixed allowlist prevents injected asset paths.
+function addSocialIcon(element, platform) {
+  const icons = { Instagram: 'instagram', Discord: 'discord', Reddit: 'reddit', WhatsApp: 'whatsapp' };
+  const icon = icons[platform];
+  if (!icon) {
+    return;
+  }
+  const image = document.createElement('img');
+  image.src = 'assets/icons/' + icon + '.svg';
+  image.alt = '';
+  image.width = 22;
+  image.height = 22;
+  image.className = 'social-icon';
+  image.setAttribute('aria-hidden', 'true');
+  element.classList.add('social-platform');
+  element.prepend(image);
+}

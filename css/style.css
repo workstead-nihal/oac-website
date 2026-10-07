@@ -913,3 +913,20 @@ textarea:focus-visible, summary:focus-visible {
   background: var(--surface);
   color: var(--muted);
 }
+
+/* Keep platform symbols small; visible text and the existing button size provide accessible tap targets. */
+.social-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+}
+.social-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+}
+
+/* Gold-filled buttons need dark icons, while dark outline buttons retain the white symbols. */
+.button:not(.button-outline) .social-icon {
+  filter: invert(1);
+}
