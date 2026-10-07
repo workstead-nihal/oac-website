@@ -1,15 +1,6 @@
 // Purpose: load editable Home content and update the event countdown without dependencies.
 'use strict';
 
-// Reads a local JSON file by path and returns its parsed content, or throws a friendly load error.
-async function readData(path) {
-  const response = await fetch(path);
-  if (!response.ok) {
-    throw new Error('Community content could not be loaded.');
-  }
-  return response.json();
-}
-
 // Converts an event date string and current milliseconds into readable countdown text.
 // A confirmed time is required before we can promise an exact countdown.
 function countdownText(start, now) {
@@ -38,7 +29,7 @@ function showEvent(event) {
   document.getElementById('event-price').textContent = 'Early bird from ₹' + event.tiers[0].price;
   // Updates the timer from the event date; returns nothing. Date-only wording avoids inventing an event time.
   function updateCountdown() {
-    document.getElementById('countdown').textContent = 'Sample date · ' + countdownText(event.countdownDate, Date.now());
+    document.getElementById('countdown').textContent = (event.sample ? 'Sample date · ' : '') + countdownText(event.countdownDate, Date.now());
   }
   updateCountdown();
   // ponytail: one minute resolution is enough for event planning; use seconds only if the community needs them.
@@ -101,7 +92,17 @@ async function loadHome() {
     try {
       const data = await readData(request.path);
       if (request.path === 'data/events.json') {
-        request.render(data.events[0]);
+        const event = groupEvents(data.events, new Date()).upcoming[0];
+        if (event) {
+          request.render(event);
+        } else {
+          document.getElementById('event-title').textContent = 'Your next adventure is on the way';
+          document.getElementById('countdown').textContent = 'No upcoming event announced.';
+          document.getElementById('event-description').textContent = 'Visit Events for community updates.';
+          document.getElementById('event-venue').textContent = '';
+          document.getElementById('event-date').textContent = '';
+          document.getElementById('event-price').textContent = '';
+        }
       } else {
         request.render(data.items);
       }

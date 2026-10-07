@@ -5,7 +5,7 @@ A lightweight website for anime and pop-culture fans in Bhubaneswar, Odisha. It 
 
 ## Current status
 
-Phase 1 provides the Home page, original artwork, design system, responsive navigation, editable noticeboard and sample-event countdown. Navigation for unfinished pages leads to an explicit preview notice. Registration, check-in and payments are not available yet.
+Phases 1 and 2 provide Home, Events and Tickets, original artwork, a shared design system, responsive navigation, editable noticeboard and sample-event countdown. Events include upcoming/past sections and Google Calendar reminders. Navigation for unfinished pages leads to an explicit preview notice. Registration, check-in and payments are not available yet.
 
 Planned phases: 2 — Events/Tickets; 3 — Join/Check-in/Google Apps Script; 4 — Volunteers/Donate/About/Contact/404; 5 — SEO/accessibility/performance/CI/final handover.
 
@@ -16,8 +16,11 @@ Planned phases: 2 — Events/Tickets; 3 — Join/Check-in/Google Apps Script; 4 
 Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from the supplied `#FFC859`). The original yellow remains the gold hover shade. Warm off-white and lighter red support readable text. Theme colours live at the top of `css/style.css`; future pages must reuse them. The original manga-style speed lines, bold panel lettering, wheel motif and welcoming anime-family language connect anime fandom with Odisha without copyrighted characters. Brand red is used for accents and a white-text header button, rather than small red text on black.
 
 - `index.html`: Home structure and static fallback event information.
+- `events.html` and `tickets.html`: catalogue and ticket tier pages; both read the same event JSON.
 - `css/style.css`: theme variables at the top, then shared components and responsive layouts.
 - `js/home.js`: reads JSON safely and updates the countdown.
+- `js/content.js`: shared JSON reader, safe ticket URLs and India-date event grouping.
+- `js/events.js`: event cards, ticket tiers, calendar links and retry handling.
 - `js/config.js`: the one clearly labelled place for the public Apps Script URL; currently empty.
 - `data/events.json`: editable sample event and ticket details.
 - `data/announcements.json`: Home noticeboard content.
@@ -42,7 +45,11 @@ Open `http://localhost:8000`. Stop the server with Ctrl+C. Python is an optional
 
 Open the corresponding file in `/data`, change the text inside quotes, save, then refresh the website. Keep commas between entries and never add a trailing comma. `_comment` explains the file and is not displayed. Prices are numbers without a rupee symbol. Dates use the formats shown in the sample.
 
-The Halloween event is entirely editable SAMPLE data: 31 October 2026, Esplanade One, Bhubaneswar, horror cosplay and a chill party, early bird from ₹249. Confirm all details before release. `countdownDate` uses midnight in India to count toward the date; it does not claim an event start time. `startTime` stays null until confirmed. Event/ticket pages and calendar links are scheduled for Phase 2.
+The Halloween event is entirely editable SAMPLE data: 31 October 2026, Esplanade One, Bhubaneswar, horror cosplay and a chill party, early bird from ₹249. Confirm all details before release. `countdownDate` uses midnight in India to count toward the date; it does not claim an event start time. `startTime` and `endTime` stay null until confirmed. Calendar links create an all-day reminder with a warning until both times are supplied. Confirmed ISO timestamps such as `2026-10-31T18:00:00+05:30` create timed entries; the end must follow the start. Opening a calendar link does not automatically save an event: visitors review and save it in Google Calendar themselves.
+
+Add an event by copying one object in the `events` array and giving it a unique `id`. Events are grouped and sorted by India calendar date; the current date remains upcoming until midnight. Invalid event dates are omitted. Home picks the next upcoming event. Past events appear in the archive without booking buttons. `tickets.html?event=YOUR-ID` selects a particular upcoming event; an unknown or past ID shows an unavailable message.
+
+Each tier has `name`, `price` and `description`. The sample includes early bird ₹249, group pricing to be confirmed, and premium pricing to be confirmed with take-home goodies. A `null` price displays “Price to be confirmed”; do not invent an unapproved price. Set `ticketUrl` to the organiser-approved HTTPS ticketing URL. All tiers link to that platform, where visitors choose and pay; no financial details enter this site. Empty or unsafe URLs display a sales-unavailable notice. `sample: true` visibly labels catalogue details; only switch it off after confirmation.
 
 Announcements have `date`, `title`, and `text`. Social URLs must start with `https://`; empty URLs show a coming-soon label. Do not guess official social handles. Phase 1 has static event fallback text in `index.html` for failed downloads; update that fallback too if you replace the sample event before Phase 2.
 
@@ -81,9 +88,11 @@ Copy the Home HTML structure into a new `.html` file. Replace the main content, 
 
 `checks/home-check.html` runs the countdown and social-URL checks in a browser using the actual Home script. Open it through your local server and look for “All checks passed”. No test dependency is required.
 
+For Phase 2, open Events and Tickets from both navigation bars. Confirm three sample tiers, no invented group/premium prices, and no booking button until a verified URL exists. Open the Google Calendar link and inspect the sample date, venue and all-day warning without saving it. Add a temporary past event to JSON and check the archive; restore it afterwards. Block the JSON request and test the Retry button. Open `checks/events-check.html` for calendar encoding, India date boundaries and safe URL checks.
+
 ## Known limitations
 
-- Phase 1 has no live forms, payment collection or member lookup.
+- Phases 1 and 2 have no live forms, payment collection or member lookup.
 - Social links, event information and tickets are placeholders; do not treat them as confirmed.
 - A static site cannot protect check-in using a hidden page or client-side password. Phase 3 must document and enforce backend access controls and their limits before member lookup goes live.
 - Google Fonts requires an external request; system fonts work if it fails. No analytics are installed.
@@ -96,6 +105,10 @@ Copy the Home HTML structure into a new `.html` file. Replace the main content, 
 Passed: JSON parsing, JavaScript syntax, Home local-file/anchor references, countdown future/past/invalid inputs, HTTPS-only social links, content loading over the preview HTTP server, and offline retry states. Logic checks used the existing Node runtime and a small DOM stub; they do not replace browser layout or accessibility testing. No dependencies were installed. Browser inspection was unavailable in this coding session, so 360px/desktop visual checks, keyboard behavior and Lighthouse remain manual checks for review.
 
 Git was initialized for this project. If no author identity is configured, the first agent commit uses the command-scoped author `Codex <codex@localhost>`; this does not change your global Git settings. Future maintainers should set their own name and email before committing.
+
+## Phase 2 verification record
+
+Passed: JavaScript syntax, local page links and anchors, current-page navigation labels, India calendar-day boundaries, all-day and timed calendar URL generation, safe ticket URLs, three editable ticket tiers, unavailable event IDs, offline retry messaging and recovery. Checks ran against the actual scripts with a minimal DOM stub, not a browser. Browser layout, keyboard interaction and a real Google Calendar preview still require manual review. No dependencies were added.
 
 ## Handover guide
 

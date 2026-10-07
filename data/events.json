@@ -1,5 +1,5 @@
 {
-  "_comment": "Purpose: editable event catalogue. All details below are SAMPLE DATA; confirm before publishing. countdownDate marks the start of the calendar date, NOT the event start time. Use an explicit +05:30 offset for Odisha.",
+  "_comment": "Purpose: editable event catalogue. All details below are SAMPLE DATA; confirm before publishing. countdownDate marks the start of the calendar date, NOT the event start time. Use an explicit +05:30 offset for Odisha. ticketUrl must be a verified HTTPS ticketing platform URL. Set both startTime and endTime to ISO timestamps for timed calendar entries; otherwise calendars use an all-day reminder. Add past events to this same array; pages group them automatically by India calendar date. A null price means not yet confirmed.",
   "events": [
     {
       "id": "halloween-2026",
@@ -11,8 +11,23 @@
       "description": "Horror cosplay meets a chill party. Bring your favourite spooky look and meet your people.",
       "ticketUrl": "",
       "tiers": [
-        { "name": "Early bird", "price": 249, "description": "Sample entry tier; inclusions to be confirmed." }
-      ]
+        {
+          "name": "Early bird",
+          "price": 249,
+          "description": "Sample entry tier; inclusions to be confirmed."
+        },
+        {
+          "name": "Group",
+          "price": null,
+          "description": "Editable sample: attend together. Group size and pricing to be confirmed."
+        },
+        {
+          "name": "Premium",
+          "price": null,
+          "description": "Editable sample: entry plus take-home goodies. Goodies and pricing to be confirmed."
+        }
+      ],
+      "endTime": null
     }
   ]
 }
