@@ -273,3 +273,13 @@ Test Events for upcoming/past cards, ticket tiers, calendar links and both photo
 Navigation labels are now simply Events and About. Events still contains ticket tiers. About contains story, community rules, social links, donations, the contact form and FAQ. Donate has no separate navigation tab; Home’s Donate action opens `about.html#donate`. The legacy `donate.html` URL redirects to that section, with a visible fallback link if JavaScript is disabled. Donation information remains editable in `data/community.json` and disabled until verified payment details are supplied.
 
 Preview About and confirm the funding text, safe QR placeholder, contact form and FAQ all appear. Click Home’s Donate action and open the old Donate URL to check section navigation. Site/navigation checks and the legacy donation redirect check passed locally; browser layout review and live payment/form configuration remain pending.
+
+## Guild leads and volunteer leaderboard
+
+Edit `data/volunteers.json`. The `leads` array contains the Guild Master, Quartermaster, Chronicler and Diplomat profile cards. Replace placeholder names, initials, proposed role descriptions and photos with team-approved information, then set `sample` to false. Photo rules are the same as the existing volunteer profiles.
+
+The crew `items` array also drives the leaderboard. Give each volunteer a unique stable `id` and a nonnegative whole-number `points` total. Organisers must agree on scoring rules, review contributions, and update the totals fairly. Update `leaderboard.period`, `leaderboard.note` and `leaderboard.updatedAt` (YYYY-MM-DD) with each approved score update. Commit and publish the JSON; visitors see the new totals when they refresh. Equal scores share a competition rank (1, 1, 3). Invalid/missing point totals are excluded from ranking; all crew profiles remain visible. Leads can also appear in `items` if the team chooses to rank them. Do not publish email, phone or private attendance data.
+
+The initial zero-point entries are labelled samples, not real achievements. No scoring policy or real lead identity has been invented. This is a manually maintained public leaderboard; it does not automatically award points from check-ins or applications. Individual volunteer login, live score editing and push updates are not implemented.
+
+Test the four lead profiles, update two scores in a local preview, refresh and confirm the rank order and update date. Check ties, empty entries, phone-width wrapping and missing-photo initials. `checks/community-check.html` covers sorting/ties and input preservation. Local site checks and renderer tests passed using DOM stubs; browser visual verification remains pending.

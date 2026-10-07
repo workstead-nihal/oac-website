@@ -17,9 +17,9 @@ function communityImage(value) {
   return value;
 }
 
-// Fills volunteer cards from an array; returns nothing, uses initials when no approved photo exists.
-function showVolunteers(items) {
-  const grid = document.getElementById('volunteer-grid');
+// Fills crew or lead cards from an array and optional grid ID; returns nothing, uses initials without a photo.
+function showVolunteers(items, gridId = 'volunteer-grid') {
+  const grid = document.getElementById(gridId);
   grid.replaceChildren();
   for (const volunteer of items) {
     const card = communityElement('article', 'catalogue-card volunteer-card', '');
@@ -48,6 +48,50 @@ function showVolunteers(items) {
   }
   if (!items.length) {
     grid.append(communityElement('p', '', 'Our volunteer showcase is being prepared. You can still apply below.'));
+  }
+}
+
+// Sorts a copy of volunteer records by nonnegative whole points; returns ranked entries without changing JSON data.
+// Equal scores share a rank; names only stabilise their display order, never break the scoring tie.
+function rankVolunteers(items) {
+  const scored = items.filter(item => Number.isSafeInteger(item.points) && item.points >= 0);
+  scored.sort((first, second) => second.points - first.points || first.name.localeCompare(second.name));
+  let rank = 0;
+  let previousPoints = null;
+  return scored.map((item, index) => {
+    if (item.points !== previousPoints) {
+      rank = index + 1;
+    }
+    previousPoints = item.points;
+    return { ...item, rank };
+  });
+}
+
+// Shows points, shared ranks and the organiser's update note; input: volunteer JSON, output: no value.
+// ponytail: scores are manually approved in JSON and refreshed on page load; add authenticated score entry only if needed.
+function showVolunteerLeaderboard(data) {
+  const grid = document.getElementById('volunteer-leaderboard');
+  grid.replaceChildren();
+  const settings = data.leaderboard || {};
+  document.getElementById('leaderboard-period').textContent = settings.period || 'Volunteer contributions';
+  const date = typeof settings.updatedAt === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(settings.updatedAt) ? Date.parse(settings.updatedAt) : NaN;
+  document.getElementById('leaderboard-updated').textContent = Number.isFinite(date) ? 'Scores updated: ' + settings.updatedAt : 'Real scores have not been published yet.';
+  document.getElementById('leaderboard-note').textContent = settings.note || 'Organisers review contributions before updating points.';
+  const ranked = rankVolunteers(data.items);
+  for (const volunteer of ranked) {
+    const row = communityElement('li', 'catalogue-card leaderboard-row', '');
+    row.append(communityElement('span', 'role-label', 'Rank ' + volunteer.rank));
+    const profile = communityElement('div', 'leaderboard-profile', '');
+    profile.append(communityElement('h3', '', volunteer.name), communityElement('p', '', volunteer.role));
+    if (volunteer.sample) {
+      profile.append(communityElement('p', 'eyebrow', 'EDITABLE SAMPLE'));
+    }
+    row.append(profile, communityElement('span', 'leaderboard-points', volunteer.points + ' points'));
+    grid.append(row);
+  }
+  if (!ranked.length) {
+    const row = communityElement('li', 'catalogue-card', 'Leaderboard entries will appear after organisers publish approved scores.');
+    grid.append(row);
   }
 }
 
@@ -198,6 +242,12 @@ async function loadCommunityPage() {
     } else if (document.getElementById('volunteer-grid')) {
       const volunteers = await readData('data/volunteers.json');
       showVolunteers(volunteers.items);
+      if (document.getElementById('volunteer-leads')) {
+        showVolunteers(volunteers.leads || [], 'volunteer-leads');
+      }
+      if (document.getElementById('volunteer-leaderboard')) {
+        showVolunteerLeaderboard(volunteers);
+      }
     } else {
       showCommunity(await readData('data/community.json'));
     }

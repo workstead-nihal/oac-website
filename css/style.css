@@ -930,3 +930,26 @@ textarea:focus-visible, summary:focus-visible {
 .button:not(.button-outline) .social-icon {
   filter: invert(1);
 }
+
+/* Leaderboard rows wrap at phone widths so long names and scores never require sideways scrolling. */
+.volunteer-leaderboard {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.leaderboard-profile {
+  flex: 1 1 160px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.leaderboard-points {
+  color: var(--gold);
+  font-weight: 700;
+}

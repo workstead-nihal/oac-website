@@ -44,6 +44,11 @@
       checks.push(document.querySelector('#showcase-artwork').textContent.includes('on its way'));
       showShowcase([]);
       checks.push(document.querySelector('#showcase-winners').textContent.includes('on its way'));
+      const scores = [{ name: 'First', points: 20 }, { name: 'Second', points: 20 }, { name: 'Third', points: 5 }, { name: 'Invalid', points: -1 }];
+      const ranks = rankVolunteers(scores);
+      checks.push(ranks.length === 3 && ranks[0].rank === 1 && ranks[1].rank === 1 && ranks[2].rank === 3);
+      checks.push(scores.length === 4 && scores[3].points === -1);
+      checks.push(rankVolunteers([]).length === 0);
       const donation = {
         intro: 'Test', note: 'Test only', funds: ['Test materials'], verified: false,
         upiId: 'test@example', recipientName: 'Test recipient', qrImage: 'assets/images/web/oac-family-480.jpg'
