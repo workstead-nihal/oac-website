@@ -5,9 +5,9 @@ A lightweight website for anime and pop-culture fans in Bhubaneswar, Odisha. It 
 
 ## Current status
 
-Phases 1 and 2 provide Home, Events and Tickets, original artwork, a shared design system, responsive navigation, editable noticeboard and sample-event countdown. Events include upcoming/past sections and Google Calendar reminders. Navigation for unfinished pages leads to an explicit preview notice. Registration, check-in and payments are not available yet.
+Phases 1–3 provide Home, Events, Tickets, Join and a privately shared Check-in page. They share the OAC black/red/gold design, original artwork, real community photos and editable JSON content. Events include upcoming/past sections and Google Calendar reminders. Membership forms and the Apps Script backend are implemented, but website submissions are not live until the team deploys/configures the endpoint. The existing Google signup form is available as a fallback. Navigation for unfinished pages leads to a preview notice.
 
-Planned phases: 2 — Events/Tickets; 3 — Join/Check-in/Google Apps Script; 4 — Volunteers/Donate/About/Contact/404; 5 — SEO/accessibility/performance/CI/final handover.
+Phases 1–3 are implemented; Phase 3 still needs live backend configuration and testing. Next: Phase 4 — Volunteers/Donate/About/Contact/404; Phase 5 — SEO/accessibility/performance/CI/final handover.
 
 ## Folder guide
 
@@ -17,19 +17,26 @@ Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from
 
 - `index.html`: Home structure and static fallback event information.
 - `events.html` and `tickets.html`: catalogue and ticket tier pages; both read the same event JSON.
+- `join.html`: membership form and existing Google Form fallback.
+- `checkin.html`: volunteer-only direct link, deliberately absent from public navigation and marked noindex. The backend—not link hiding—enforces its code and opening window.
 - `css/style.css`: theme variables at the top, then shared components and responsive layouts.
 - `js/home.js`: reads JSON safely and updates the countdown.
 - `js/content.js`: shared JSON reader, safe ticket URLs and India-date event grouping.
 - `js/events.js`: event cards, ticket tiers, calendar links and retry handling.
+- `js/forms.js`: signup/check-in validation, confirmed receipts, retry and double-click prevention.
+- `js/photos.js`: lazy-loaded community photo panels selected through JSON.
 - `js/config.js`: the one clearly labelled place for the public Apps Script URL; currently empty.
 - `data/events.json`: editable sample event and ticket details.
 - `data/announcements.json`: Home noticeboard content.
 - `data/links.json`: verified community social URLs; currently placeholders.
+- `data/photos.json`: photo paths, descriptions and captions that you can edit without touching page code.
+- `assets/images/web/`: compressed copies of your original community photographs. Large originals stay in your local `assets/images` folder and are excluded from Git. Only publish the web copies.
 - `assets/favicon.svg`: small original wheel motif. Home artwork uses inline SVG and CSS, requiring no image downloads.
 - `AGENTS.md`: rules for future coding sessions.
 - `CONTRIBUTING.md`: branch, review and code-style instructions.
 - `.gitignore`: excludes credentials and local temporary files.
-- `apps-script/` and `.github/workflows/` will be added in their approved phases.
+- `apps-script/`: backend, detailed deployment guide and dependency-free mock Sheet checks.
+- `.github/workflows/` will be added in Phase 5.
 
 ## Run locally
 
@@ -59,7 +66,19 @@ Phase 4 will add `data/volunteers.json` with names, roles, short descriptions an
 
 ## Google Sheet and Apps Script
 
-Phase 3 will supply `/apps-script/` code and exact deployment steps after the existing Members tab, signup/check-in forms and column names are confirmed. Do not publish member records in this repository. The public endpoint will go in `js/config.js`; credentials never belong there. Live success/error testing requires a deployed endpoint and a test Sheet.
+Follow [the complete setup guide](apps-script/README.md). Start with a test Sheet, confirm the Members row-1 headers, map existing headers without renaming Google Form columns, add private Script Properties, run `setupOAC`, deploy a public web app and paste its `/exec` URL into `js/config.js`. Member records, the Sheet ID and volunteer access code never belong in this repository. Live success/error testing requires your actual endpoint and Sheet.
+
+Your existing signup link is recorded in `data/links.json` and shown on Join. Keep the legacy check-in form URL in private team notes, not public website files. It is an independent Google Form: close its responses separately when check-in is not in use.
+
+For the website, set `CHECKIN_ENABLED`, `CHECKIN_OPENS_AT`, `CHECKIN_CLOSES_AT`, `ACTIVE_EVENT_IDS` and a private `CHECKIN_CODE` in Apps Script Properties. The page remains closed unless the backend says the window is open. The backend rejects requests outside the window, even if someone discovers the URL or leaves the form open. You can toggle it off immediately and schedule automatic opening a few hours before the event. Only share `checkin.html` with volunteers; do not add it to public navigation.
+
+Website submissions validate on both ends, use a honeypot, disable double submits, and require a matching server receipt. An uncertain request stays in the tab for retry with the same request ID. Membership is unique by phone; attendance is unique by event/phone under a shared write lock. No names or contact lists are returned by check-in. The success screen uses your approved WhatsApp/Discord JSON links; until supplied, it honestly labels them as coming soon.
+
+### Community photos
+
+Home, Events and Join use three selected group photographs from your local archive. Responsive JPEG copies range from roughly 50–232 KB instead of multi-megabyte downloads; image metadata is not carried into the web copies. The JSON selects each photo and its caption/alt text. These are real past memories, not images of the sample Halloween event. Confirm participant permission before public release. Originals remain untouched and local; include only `/assets/images/web` when publishing manually.
+
+To replace a photo, save small 480px and 960px wide copies in `assets/images/web`, using a photo tool you already have. Aim for about 250 KB or less per copy. Set its `src`, `small`, `width`, `height`, `alt` and `caption` in `data/photos.json`; the width/height describe the large copy. Keep the record's `id` unchanged to reuse the current panel. Give alt text a concise description of the scene; do not identify members by name without permission. Whole frames are displayed to avoid cropping people out.
 
 ## Free hosting and custom domain
 
@@ -90,11 +109,14 @@ Copy the Home HTML structure into a new `.html` file. Replace the main content, 
 
 For Phase 2, open Events and Tickets from both navigation bars. Confirm three sample tiers, no invented group/premium prices, and no booking button until a verified URL exists. Open the Google Calendar link and inspect the sample date, venue and all-day warning without saving it. Add a temporary past event to JSON and check the archive; restore it afterwards. Block the JSON request and test the Retry button. Open `checks/events-check.html` for calendar encoding, India date boundaries and safe URL checks.
 
+For Phase 3, open `checks/forms-check.html` in your HTTP preview; its fetch calls are mocked, and it should display “All checks passed”. If Node is already installed, `node apps-script/checks.cjs` verifies the backend against a fake Sheet without sending real data. Do not install a runtime without approval. Follow the backend guide's test-copy checklist for real integration: closed/wrong-code/expired checks must not write attendance, retries must not duplicate rows, and a green confirmation must match a row in the test Sheet. Check 360px layout, keyboard labels and photo loading manually.
+
 ## Known limitations
 
-- Phases 1 and 2 have no live forms, payment collection or member lookup.
+- Website forms need a deployed endpoint and confirmed Members headers. No live Google Sheet submissions have been verified. The existing signup form remains available.
 - Social links, event information and tickets are placeholders; do not treat them as confirmed.
-- A static site cannot protect check-in using a hidden page or client-side password. Phase 3 must document and enforce backend access controls and their limits before member lookup goes live.
+- Hidden navigation/noindex does not secure check-in. Apps Script enforces a shared private code, allowed event IDs and a bounded time window. A shared code has no per-volunteer identity, and a public endpoint can still receive spam traffic. Close the independent legacy Google Form separately. See the backend guide for detailed limits.
+- In-tab retention prevents silent loss during a network failure while the tab stays open, but does not survive a PC shutdown, crash or reload. No personal details or access codes are stored in localStorage.
 - Google Fonts requires an external request; system fonts work if it fails. No analytics are installed.
 - JSON needs an HTTP connection. Failed downloads show a refresh/retry message; offline caching is not implemented.
 - The static fallback duplicates the sample event text; later event rendering must keep failure messaging accurate.
@@ -109,6 +131,10 @@ Git was initialized for this project. If no author identity is configured, the f
 ## Phase 2 verification record
 
 Passed: JavaScript syntax, local page links and anchors, current-page navigation labels, India calendar-day boundaries, all-day and timed calendar URL generation, safe ticket URLs, three editable ticket tiers, unavailable event IDs, offline retry messaging and recovery. Checks ran against the actual scripts with a minimal DOM stub, not a browser. Browser layout, keyboard interaction and a real Google Calendar preview still require manual review. No dependencies were added.
+
+## Phase 3 verification record
+
+Passed against local mocks: membership validation and formula escaping, phone normalization, duplicate registration/attendance prevention, closed/expired-window rejection, wrong-code rejection before reading Members, event authorization, unknown-member results and busy-lock handling. Frontend checks covered entry retention, retry ID reuse, double-submit prevention, matching receipts and incorrect-receipt rejection. All page references and JSON/JavaScript syntax passed; no public check-in links were found. Three photos were compressed with Windows' built-in image APIs, preserving originals and requiring no dependencies. Browser layout and a live Google Sheet/CORS deployment remain unverified.
 
 ## Handover guide
 

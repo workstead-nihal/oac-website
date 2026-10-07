@@ -664,6 +664,127 @@ button.button {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+/* Real community memories use lightweight responsive images instead of large original downloads. */
+.community-photo {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.community-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+.community-photo figcaption {
+  padding: 1rem;
+  color: var(--gold);
+  font-size: .9rem;
+}
+.page-intro .community-photo {
+  max-width: 550px;
+  margin-top: 1.5rem;
+}
+.page-intro .community-photo img {
+  aspect-ratio: auto;
+}
+.form-section {
+  max-width: 780px;
+}
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 1.5rem 0;
+  min-width: 0;
+}
+legend {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+label {
+  display: block;
+  margin-bottom: .5rem;
+  color: var(--text);
+}
+input, select {
+  width: 100%;
+  min-height: 48px;
+  padding: .75rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  border-radius: .6rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+input[type="checkbox"] {
+  width: 22px;
+  min-height: 22px;
+  height: 22px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--gold);
+}
+.interest-options label, .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  min-height: 44px;
+}
+.checkbox-label {
+  align-items: flex-start;
+  line-height: 1.6;
+}
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.form-status {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: .7rem;
+}
+.form-status.success {
+  color: #b5f0c8;
+  background: #102b19;
+  border-color: #5cba79;
+}
+.form-status.error {
+  color: var(--red-light);
+  background: #2c1010;
+  border-color: var(--red-light);
+}
+.success-panel {
+  padding: 1.5rem;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+}
+button:disabled {
+  opacity: .7;
+  cursor: wait;
+}
+.checkin-button {
+  width: 100%;
+  min-height: 64px;
+  font-size: 1.2rem;
+}
+@media (min-width: 700px) {
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1.5rem;
+  }
+}
 /* Motion is optional; reduced-motion users get the same information without movement. */
 @media (prefers-reduced-motion: reduce) {
   html {

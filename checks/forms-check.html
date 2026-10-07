@@ -1,0 +1,101 @@
+<!-- Purpose: browser checks for actual form validation, uncertain receipts, safe retry and double-click prevention. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../">
+  <title>OAC form checks</title>
+</head>
+<body>
+  <h1>Form checks — no Google data is sent</h1>
+  <p id="result">Running…</p>
+  <div hidden>
+    <p id="form-status"></p>
+    <form id="community-form" data-action="join">
+      <fieldset id="form-fields">
+        <label>Name<input name="name" value="Test Member" required></label>
+        <label>Phone<input name="phone" value="9876543210" required></label>
+        <label>Email<input name="email" type="email" value="test@example.com" required></label>
+        <label>City<input name="city" value="Bhubaneswar" required></label>
+        <label>Age<input name="ageGroup" value="18-24" required></label>
+        <label>Source<input name="source" value="friend" required></label>
+        <label>Interest<input name="interests" type="checkbox" value="anime" checked></label>
+        <label>Consent<input name="consent" type="checkbox" checked required></label>
+        <label>Honeypot<input name="website" value=""></label>
+      </fieldset>
+      <button id="submit-form" type="submit">Submit</button>
+    </form>
+    <div id="join-success" hidden></div>
+    <div id="join-socials"></div>
+    <a id="signup-link" hidden>Signup</a>
+    <a id="existing-signup" hidden>Google form</a>
+  </div>
+  <script src="js/content.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/forms.js"></script>
+  <script>
+    // Tests the real submit flow with mocked fetch; takes no inputs and prints one pass/fail result.
+    async function runChecks() {
+      const checks = [formPhone('+91 98765 43210') === '9876543210', formPhone('letters') === null];
+      communityForm.elements.phone.setCustomValidity('Old error');
+      clearFieldErrors();
+      checks.push(communityForm.elements.phone.validity.customError === false);
+      const originalFetch = window.fetch;
+      let firstId;
+      let retryId;
+      let calls = 0;
+      window.OAC_CONFIG.appsScriptUrl = 'https://script.google.com/macros/s/TEST_ONLY/exec';
+      try {
+        // Records the pending ID, then simulates connection loss; no real endpoint is called.
+        window.fetch = async function offlineFetch(url, options) {
+          const payload = JSON.parse(options.body.get('payload'));
+          firstId = payload.requestId;
+          throw new Error('offline');
+        };
+        await submitEntry({ preventDefault() {} });
+        checks.push(communityForm.elements.phone.value === '9876543210');
+        checks.push(formStatus.textContent.includes('No confirmation received'));
+        checks.push(submitButton.disabled === false);
+        // Delays a valid receipt until two submit attempts have occurred; returns a mocked response.
+        let finish;
+        window.fetch = function confirmedFetch(url, options) {
+          calls++;
+          const payload = JSON.parse(options.body.get('payload'));
+          retryId = payload.requestId;
+          checks.push(options.credentials === 'omit' && options.mode !== 'no-cors');
+          return new Promise(resolve => {
+            finish = () => resolve({ ok: true, json: async () => ({ ok: true, code: 'joined', requestId: payload.requestId }) });
+          });
+        };
+        const first = submitEntry({ preventDefault() {} });
+        const second = submitEntry({ preventDefault() {} });
+        checks.push(submitButton.disabled === true && calls === 1);
+        finish();
+        await Promise.all([first, second]);
+        checks.push(firstId === retryId);
+        checks.push(document.getElementById('join-success').hidden === false);
+        checks.push(formStatus.className.includes('success'));
+        window.fetch = async function wrongReceipt() {
+          return { ok: true, json: async () => ({ ok: true, code: 'joined', requestId: 'wrong' }) };
+        };
+        let rejected = false;
+        try {
+          await sendEntry({ requestId: 'expected' });
+        } catch {
+          rejected = true;
+        }
+        checks.push(rejected);
+        document.getElementById('result').textContent = checks.every(Boolean) ? 'All checks passed' : 'A check failed';
+        if (!checks.every(Boolean)) {
+          throw new Error('Form checks failed');
+        }
+      } finally {
+        window.fetch = originalFetch;
+        pendingEntry = null;
+      }
+    }
+    runChecks();
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "_comment": "Purpose: approved community photography for Home, Events and Join. Paths point to compressed copies; original photos stay local. Confirm participant permission before public release. Keep actual past memories separate from the sample Halloween event.",
+  "items": [
+    {
+      "id": "family",
+      "src": "assets/images/web/oac-family-960.jpg",
+      "small": "assets/images/web/oac-family-480.jpg",
+      "alt": "OAC members sitting and standing together for a group photograph",
+      "caption": "Different fandoms. One OAC family.",
+      "width": 960,
+      "height": 720
+    },
+    {
+      "id": "friends",
+      "src": "assets/images/web/oac-friends-960.jpg",
+      "small": "assets/images/web/oac-friends-480.jpg",
+      "alt": "Community members smiling together in a close group selfie",
+      "caption": "Come for anime. Find your people.",
+      "width": 960,
+      "height": 1280
+    },
+    {
+      "id": "gathering",
+      "src": "assets/images/web/oac-gathering-960.jpg",
+      "small": "assets/images/web/oac-gathering-480.jpg",
+      "alt": "A large OAC gathering seated together around tables in a public venue",
+      "caption": "A memory from a previous community gathering.",
+      "width": 960,
+      "height": 720
+    }
+  ]
+}

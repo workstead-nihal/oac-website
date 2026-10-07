@@ -7,3 +7,6 @@ Thumbs.db
 .codex/
 .aws/
 .tmp/
+# Purpose: publish compressed web copies, keeping the large original photo archive local.
+assets/images/*
+!assets/images/web/
