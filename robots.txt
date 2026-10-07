@@ -1,0 +1,6 @@
+# Purpose: crawler guidance. Replace example.invalid with the confirmed site URL before release.
+User-agent: *
+Disallow: /checkin.html
+Disallow: /checks/
+Disallow: /apps-script/
+Sitemap: https://example.invalid/sitemap.xml

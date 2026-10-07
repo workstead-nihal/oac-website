@@ -12,6 +12,12 @@
   --red-glow: #d9151540;
   --gold-glow: #f3b33450;
   --art-shadow: #3b1111;
+  --red-hover: #b51111;
+  /* Green is reserved for confirmed success, including event check-in. */
+  --success-text: #b5f0c8;
+  --success-background: #102b19;
+  --success-border: #5cba79;
+  --error-background: #2c1010;
   --border: #45403a;
   --font: 'Space Grotesk', system-ui, sans-serif;
   --space: 1rem;
@@ -89,7 +95,7 @@ p {
   display: flex;
   align-items: center;
   gap: .65rem;
-  font-size: .65rem;
+  font-size: .75rem;
   font-weight: 700;
   line-height: 1.35;
   letter-spacing: .08em;
@@ -105,7 +111,7 @@ p {
   display: none;
 }
 .site-header > .button {
-  font-size: .72rem;
+  font-size: .8rem;
   padding: .65rem;
 }
 .button {
@@ -146,7 +152,7 @@ p {
   gap: 2rem;
 }
 .eyebrow {
-  font-size: .67rem;
+  font-size: .75rem;
   font-weight: 700;
   letter-spacing: .12em;
   color: var(--gold);
@@ -221,7 +227,7 @@ h1 > span {
 }
 .art-label {
   position: absolute;
-  font-size: .65rem;
+  font-size: .75rem;
   font-weight: 700;
   padding: .55rem .75rem;
   border: 1px solid var(--border);
@@ -301,7 +307,7 @@ h1 > span {
   padding: 1.5rem;
 }
 .sample-tag {
-  font-size: .6rem;
+  font-size: .7rem;
   letter-spacing: .1em;
   padding: .4rem .65rem;
   border: 1px solid #ffffff50;
@@ -344,7 +350,7 @@ h1 > span {
 }
 .event-art-note {
   display: block;
-  font-size: .6rem;
+  font-size: .7rem;
   letter-spacing: .15em;
   margin-top: 1rem;
 }
@@ -359,7 +365,7 @@ h1 > span {
   font-size: .9rem;
 }
 .event-details .eyebrow {
-  font-size: .65rem;
+  font-size: .75rem;
 }
 .venue {
   color: var(--text);
@@ -473,7 +479,7 @@ h1 > span {
   font-size: 1.5rem;
 }
 .site-footer .brand span {
-  font-size: .6rem;
+  font-size: .7rem;
 }
 .site-footer p {
   font-size: .75rem;
@@ -498,7 +504,7 @@ h1 > span {
   flex-direction: column;
   min-height: 54px;
   justify-content: center;
-  font-size: .65rem;
+  font-size: .75rem;
   color: var(--muted);
 }
 .mobile-nav a span {
@@ -510,7 +516,7 @@ h1 > span {
 }
 @media (min-width: 700px) {
   .hero {
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     padding-block: 4.5rem;
     align-items: center;
   }
@@ -518,13 +524,13 @@ h1 > span {
     min-height: 380px;
   }
   .quick-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .news-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .event-card {
-    grid-template-columns: .85fr 1.15fr;
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
   }
   .event-art {
     min-height: 360px;
@@ -599,7 +605,7 @@ h1 > span {
   color: var(--text);
 }
 .site-header > .button:hover {
-  background: #b51111;
+  background: var(--red-hover);
 }
 .hero-copy .eyebrow {
   color: var(--red-light);
@@ -755,13 +761,13 @@ input[type="checkbox"] {
   border-radius: .7rem;
 }
 .form-status.success {
-  color: #b5f0c8;
-  background: #102b19;
-  border-color: #5cba79;
+  color: var(--success-text);
+  background: var(--success-background);
+  border-color: var(--success-border);
 }
 .form-status.error {
   color: var(--red-light);
-  background: #2c1010;
+  background: var(--error-background);
   border-color: var(--red-light);
 }
 .success-panel {

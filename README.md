@@ -5,9 +5,9 @@ A lightweight website for anime and pop-culture fans in Bhubaneswar, Odisha. It 
 
 ## Current status
 
-Phases 1–4 provide all requested pages, including Home, Events, Tickets, Join, private Check-in, Volunteers, Donate, About/Community, Contact/FAQ and 404. They share OAC's black/red/gold design, original artwork, real community photos and editable JSON. All four website form actions have backend code, but live submissions require deployment/configuration. The existing Google signup form remains a fallback. Sample profiles, draft policies and unverified donation details remain clearly labelled.
+All five implementation phases are present: ten requested pages, the OAC theme, real community photos, editable JSON, all four Apps Script form actions, static SEO metadata and automated checks. Live submissions still require deployment/configuration, and launch still requires the final website URL and real browser/Lighthouse verification. The existing Google signup form remains a fallback. Sample profiles, draft policies and unverified donation details are clearly labelled.
 
-Phases 1–4 are implemented; live backend configuration/testing is outstanding. Next: Phase 5 — SEO/accessibility/performance/CI/final handover.
+This repository is ready for your final review and remaining account/domain setup; it has not been published by this coding session. Do not treat local mock checks as proof of live integration or a Lighthouse score.
 
 ## Folder guide
 
@@ -15,7 +15,7 @@ Phases 1–4 are implemented; live backend configuration/testing is outstanding.
 
 Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from the supplied `#FFC859`). The original yellow remains the gold hover shade. Warm off-white and lighter red support readable text. Theme colours live at the top of `css/style.css`; future pages must reuse them. The original manga-style speed lines, bold panel lettering, wheel motif and welcoming anime-family language connect anime fandom with Odisha without copyrighted characters. Brand red is used for accents and a white-text header button, rather than small red text on black.
 
-- `index.html`: Home structure and static fallback event information.
+- `index.html`: Home structure and generic event fallback; actual event details come only from JSON.
 - `events.html` and `tickets.html`: catalogue and ticket tier pages; both read the same event JSON.
 - `join.html`: membership form and existing Google Form fallback.
 - `checkin.html`: volunteer-only direct link, deliberately absent from public navigation and marked noindex. The backend—not link hiding—enforces its code and opening window.
@@ -37,11 +37,16 @@ Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from
 - `data/community.json`: editable story, draft code of conduct, FAQ and disabled donation settings.
 - `assets/images/web/`: compressed copies of your original community photographs. Large originals stay in your local `assets/images` folder and are excluded from Git. Only publish the web copies.
 - `assets/favicon.svg`: small original wheel motif. Home artwork uses inline SVG and CSS, requiring no image downloads.
+- `assets/og-cover.jpg`: original 1200×630 OAC sharing card (about 71 KB), used by static Open Graph metadata.
+- `sitemap.xml` and `robots.txt`: public-page indexing list and crawler guidance. Check-in/tests are excluded from discovery; robots.txt is not authentication.
 - `AGENTS.md`: rules for future coding sessions.
 - `CONTRIBUTING.md`: branch, review and code-style instructions.
 - `.gitignore`: excludes credentials and local temporary files.
 - `apps-script/`: backend, detailed deployment guide and dependency-free mock Sheet checks.
-- `.github/workflows/` will be added in Phase 5.
+- `.github/workflows/checks.yml`: formatting, syntax, local/public link and backend checks on push/PR.
+- `checks/`: browser fixtures and a dependency-free Node source/link/accessibility checker.
+- `.editorconfig` and `.gitattributes`: consistent two-space indentation and portable text line endings.
+- `.nojekyll`: disables Jekyll processing for plain GitHub Pages hosting.
 
 ## Run locally
 
@@ -63,7 +68,7 @@ Add an event by copying one object in the `events` array and giving it a unique 
 
 Each tier has `name`, `price` and `description`. The sample includes early bird ₹249, group pricing to be confirmed, and premium pricing to be confirmed with take-home goodies. A `null` price displays “Price to be confirmed”; do not invent an unapproved price. Set `ticketUrl` to the organiser-approved HTTPS ticketing URL. All tiers link to that platform, where visitors choose and pay; no financial details enter this site. Empty or unsafe URLs display a sales-unavailable notice. `sample: true` visibly labels catalogue details; only switch it off after confirmation.
 
-Announcements have `date`, `title`, and `text`. Social URLs must start with `https://`; empty URLs show a coming-soon label. Do not guess official social handles. Phase 1 has static event fallback text in `index.html` for failed downloads; update that fallback too if you replace the sample event before Phase 2.
+Announcements have `date`, `title`, and `text`. Social URLs must start with `https://`; empty URLs show a coming-soon label. Do not guess official social handles. Home's fallback is intentionally generic, so an event edit requires only JSON and cannot leave an old venue/date visible after a failed download. The sample badge hides when `sample` is false. A confirmed start time becomes the countdown target; otherwise the date-only reminder remains.
 
 ## Volunteers
 
@@ -93,17 +98,43 @@ Website submissions validate on both ends, use a honeypot, disable double submit
 
 ### Community photos
 
-Home, Events and Join use three selected group photographs from your local archive. Responsive JPEG copies range from roughly 50–232 KB instead of multi-megabyte downloads; image metadata is not carried into the web copies. The JSON selects each photo and its caption/alt text. These are real past memories, not images of the sample Halloween event. Confirm participant permission before public release. Originals remain untouched and local; include only `/assets/images/web` when publishing manually.
+Home, Events, Join, Volunteers and About reuse three selected group photographs from your local archive. Responsive JPEG copies range from roughly 50–232 KB instead of multi-megabyte downloads; image metadata is not carried into the web copies. JSON selects each photo and its caption/alt text. These are real past memories, not images of the sample Halloween event. Confirm participant permission before public release. Originals remain untouched and local; publish only `/assets/images/web` from the image archive. Failed photo downloads hide their panel; responsive choices are assigned before the fallback image to reduce unnecessary downloads.
 
 To replace a photo, save small 480px and 960px wide copies in `assets/images/web`, using a photo tool you already have. Aim for about 250 KB or less per copy. Set its `src`, `small`, `width`, `height`, `alt` and `caption` in `data/photos.json`; the width/height describe the large copy. Keep the record's `id` unchanged to reuse the current panel. Give alt text a concise description of the scene; do not identify members by name without permission. Whole frames are displayed to avoid cropping people out.
 
 ## Free hosting and custom domain
 
-For GitHub Pages: create a GitHub repository, push these files, open Settings → Pages, select deployment from the main branch and root folder, then save. No build command is needed. Relative asset URLs support a repository subdirectory.
+The website needs no package install or compilation. Keep the Apps Script deployed separately; a static host cannot execute `.gs` files.
 
-For Cloudflare Pages or Netlify: connect the repository, select a static site with no build command, and publish the repository root. Exact provider screens can change; confirm current provider guidance during Phase 5 deployment.
+For GitHub Pages:
 
-For a custom domain, add the domain in the hosting dashboard, copy the DNS records it supplies into your domain registrar, and wait for DNS and HTTPS activation. Domain registration may cost money even when hosting is free. Do not invent DNS records. Phase 5 will add the confirmed canonical domain to metadata, sitemap and robots.txt.
+1. Create a public repository on the team's GitHub account. This folder already has Git history; do not reinitialise it. Set your own author identity before new commits.
+2. Add the repository's remote URL with `git remote add origin YOUR-REPOSITORY-URL` if none exists. Push your existing branch. The initial commits used `master`; choose that branch in hosting settings, or deliberately rename it to `main` with `git branch -m main` and push that branch.
+3. Open repository Settings → Pages. Select deployment from a branch, choose your actual branch and `/ (root)`, then save. `.nojekyll` keeps this a plain static site. Follow [GitHub's Pages guide](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) if the dashboard changes.
+4. Review the published URL and Actions results. For a project URL such as `https://TEAM.github.io/REPOSITORY/`, change the labelled `<base href="/">` in `404.html` to `/REPOSITORY/`. Root/custom-domain sites keep `/`.
+5. Open a missing nested address and check that 404 links, styles and navigation still work. No deployment has been performed here.
+
+For Cloudflare Pages, import the repository through Workers & Pages → Create application → Pages → Import an existing Git repository. Select the actual branch, no framework preset, `exit 0` as the optional no-op build command and the repository root (`.`) as the output directory. This does not introduce a website build step. See [Cloudflare's static HTML guide](https://developers.cloudflare.com/pages/framework-guides/deploy-anything/).
+
+For Netlify, import the Git repository, leave the build command empty and set the publish directory to the repository root (`.`). If uploading manually, use a clean copy of the tracked website files, never the local original-photo archive or credentials. See [Netlify's deployment guide](https://docs.netlify.com/deploy/create-deploys/). A Git connection is easier to hand over because it publishes reviewed commits.
+
+For a custom domain:
+
+1. Add the owned domain in the host's domain settings; select your preferred root or `www` address.
+2. Copy the exact current DNS records from that provider's instructions into your registrar's DNS settings. Do not guess record values. GitHub has [custom-domain guidance](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages).
+3. Wait for domain verification and HTTPS activation, then enable HTTPS enforcement where offered.
+4. Use the final HTTPS address in the metadata steps below and retest the forms from that origin.
+5. Keep domain renewal and recovery access with the team. Hosting can be free while domain registration costs money; provider plan limits and policies can change.
+
+### SEO and sharing setup
+
+Until the final URL is supplied, canonical links, `og:url`, `og:image`, sitemap entries and the robots sitemap line use the reserved placeholder `https://example.invalid/`. It does not belong to OAC and must not be published as the canonical domain.
+
+Use your editor's project-wide find/replace to replace the exact string `https://example.invalid/` with your final HTTPS base URL, keeping a trailing slash. Include `/REPOSITORY/` if using a GitHub Pages project address. Review the HTML files, `sitemap.xml` and `robots.txt` before committing. This is one-time domain setup, not a site build. Normal event/profile/photo updates still need only JSON edits.
+
+Each public page has a title, description, canonical link, Open Graph tags and a large-image card. Crawlers can read these without running JavaScript. Keep a new page's sharing title/description aligned with its HTML title/description, and add its absolute URL to `sitemap.xml`. Never put Check-in or test pages in the sitemap. Follow [Google's sitemap guidance](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap) for submission after release.
+
+With an existing Node runtime, run `node checks/site-check.cjs --release` after configuring the domain and Apps Script URL. It rejects those setup placeholders but cannot confirm DNS, Google permissions, response readability or live writes. Test those separately. Use the browser's Lighthouse panel in mobile mode on each public page, save the results privately with the release notes, and fix actual failures until the target of 90+ is met. No Lighthouse run or score is claimed here.
 
 ## Add a page
 
@@ -113,11 +144,11 @@ Copy the Home HTML structure into a new `.html` file. Replace the main content, 
 
 - Serve over HTTP and open Home at 360px, 768px and desktop widths; check for horizontal scrolling.
 - Tab through the page; confirm visible focus and the skip link. Verify all targets are easy to tap.
-- Confirm Home links work and unfinished navigation explains the phase preview.
+- Confirm all public navigation links and mobile More work; Check-in must have no public navigation entry.
 - Change an announcement or social link in JSON, refresh and confirm the change appears.
 - Confirm countdown text refers to the sample date. Test invalid/past dates with the runnable check below.
 - Temporarily block a JSON request in browser developer tools; verify retry messaging and readable fallback content.
-- Disable JavaScript: the event fallback and preview explanation remain readable.
+- Disable JavaScript: generic event fallback and navigation remain readable; no stale event details should be presented as current.
 - Enable reduced motion in OS/browser settings; no smooth scrolling or transitions should remain.
 - Inspect the browser console and Network panel. No missing local files or unexpected errors should appear during normal use.
 - Before launch, run mobile Lighthouse and fix issues. Scores of 90+ are targets, not verified results yet.
@@ -138,8 +169,9 @@ For Phase 4, check all new pages at 360px and desktop. Try mobile More and keybo
 - In-tab retention prevents silent loss during a network failure while the tab stays open, but does not survive a PC shutdown, crash or reload. No personal details or access codes are stored in localStorage.
 - Google Fonts requires an external request; system fonts work if it fails. No analytics are installed.
 - JSON needs an HTTP connection. Failed downloads show a refresh/retry message; offline caching is not implemented.
-- The static fallback duplicates the sample event text; later event rendering must keep failure messaging accurate.
-- Full browser/Lighthouse validation and CI are still pending; no score claim is made.
+- Canonical/social/sitemap URLs remain reserved placeholders until the team supplies the final domain. This is a launch prerequisite, not a live SEO claim.
+- The custom CI checker is intentionally narrow: formatting, tag pairing, selected labels/contrast, syntax, paths and asset budgets. It does not replace standards validators, screen-reader testing, visual review or Lighthouse. External reachability checks do not prove form submissions work.
+- The workflow is written and its commands are tested locally; its actual GitHub run is pending a repository push. Browser/Lighthouse and live Google Sheet validation remain pending; no score or production-readiness claim is made.
 
 ## Phase 1 verification record
 
@@ -157,8 +189,23 @@ Passed against local mocks: membership validation and formula escaping, phone no
 
 ## Phase 4 verification record
 
-Passed: all ten pages' local file links, anchors and unique IDs; JSON/JavaScript syntax; absence of public check-in links; backend validation and retry deduplication for all four actions; application/enquiry frontend retries and receipt success using mock DOM/fetch; literal volunteer text; safe local image paths; and disabled/verified/revoked donation rendering. Regression checks covered existing membership and attendance backend behavior. No dependencies were added. Visual browser, keyboard FAQ behavior, live Google Sheet submissions and hosting-specific missing-path handling still require manual checks. Phase 5 is not started.
+Passed: all ten pages' local file links, anchors and unique IDs; JSON/JavaScript syntax; absence of public check-in links; backend validation and retry deduplication for all four actions; application/enquiry frontend retries and receipt success using mock DOM/fetch; literal volunteer text; safe local image paths; and disabled/verified/revoked donation rendering. Regression checks covered existing membership and attendance backend behavior. No dependencies were added. Visual browser, keyboard FAQ behavior, live Google Sheet submissions and hosting-specific missing-path handling still require manual checks. Phase 5 was pending at this checkpoint; see the final record below.
+
+## Phase 5 verification record
+
+Passed: source formatting and JavaScript syntax, all ten pages' local links/anchors/tag pairing, JSON content paths, selected accessibility and colour-contrast checks, image/script size budgets, sitemap exclusions and reachability of the existing public signup link. Backend mock checks passed for all four actions. Updated Home rendering and form success/error focus passed with DOM stubs. No dependencies were added. The GitHub workflow runs these same commands after a push; it has not yet run on GitHub. Browser layout, screen-reader/keyboard review, Lighthouse, the final domain and live Google Sheet integration remain release checks.
 
 ## Handover guide
 
 Give the next team repository access, hosting/domain ownership details and the list of official social links. Transfer Google Sheet and Apps Script ownership privately, never through commits. Explain which sample values still need confirmation. Walk through one JSON edit, one local preview and the testing checklist together. Review access when a student leaves. Record the approved phase and outstanding work in this README so the next maintainer can continue safely.
+
+### Before the next team launches
+
+1. Confirm the final HTTPS domain, replace the reserved metadata URLs and test a missing nested URL on the host.
+2. Confirm Members column headers; deploy and configure the Apps Script endpoint using `apps-script/README.md`. Use a test Sheet for the full receipt/retry checklist before accepting real members.
+3. Replace all sample events, volunteer profiles, social/ticket links and donation placeholders with approved community content. Confirm permission to publish participant photos.
+4. Record hosting, domain renewal, Sheet and script owners in a private team handover document. Share account access through the providers, never passwords in this repository.
+5. Complete the browser/mobile/Lighthouse checklist, push the repository and inspect the Website checks run before launch.
+6. For each event, let the event lead set and close the backend check-in window, rotate the private code and close the independent legacy check-in form.
+
+At handover, demonstrate editing one JSON file, previewing the page, running the existing checks and reverting an accidental edit with Git. Keep unresolved release checks above visible until they have evidence of completion.

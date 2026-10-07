@@ -1,93 +1,190 @@
 <!-- Purpose: ticket tiers and external booking links loaded from editable JSON. -->
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0c0c0c">
-  <title>Tickets — Odisha Anime Community</title>
-  <meta name="description" content="Compare OAC event ticket tiers and find the official ticketing link.">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/content.js" defer>
-</script>
-  <script src="js/events.js" defer>
-</script>
-</head>
-<body data-page="tickets">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <a class="brand" href="index.html" aria-label="Odisha Anime Community home">
-<span class="brand-mark" aria-hidden="true">O<span>✦</span>C</span>
-<span>ODISHA ANIME<br>COMMUNITY</span>
-</a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-<a href="events.html">Events</a>
-<a href="tickets.html" aria-current="page">Tickets</a>
-<a href="volunteers.html">Volunteers</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="donate.html">Donate</a>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0c0c0c">
+    <title>
+      Tickets — Odisha Anime Community
+    </title>
+    <meta name="description" content="Compare OAC event ticket tiers and find the official ticketing link.">
+    <!-- SEO: replace https://example.invalid/ with the final site URL before release. -->
+    <link rel="canonical" href="https://example.invalid/tickets.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Odisha Anime Community">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="Tickets — Odisha Anime Community">
+    <meta property="og:description" content="Compare OAC event ticket tiers and find the official ticketing link.">
+    <meta property="og:url" content="https://example.invalid/tickets.html">
+    <meta property="og:image" content="https://example.invalid/assets/og-cover.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="OAC — Odisha Anime Community. Your anime family in Bhubaneswar.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/content.js" defer>
+    </script>
+    <script src="js/events.js" defer>
+    </script>
+  </head>
+  <body data-page="tickets">
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Odisha Anime Community home">
+        <span class="brand-mark" aria-hidden="true">
+          O
+          <span>
+            ✦
+          </span>
+          C
+        </span>
+        <span>
+          ODISHA ANIME
+          <br>
+          COMMUNITY
+        </span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="index.html">
+          Home
+        </a>
+        <a href="events.html">
+          Events
+        </a>
+        <a href="tickets.html" aria-current="page">
+          Tickets
+        </a>
+        <a href="volunteers.html">
+          Volunteers
+        </a>
+        <a href="about.html">
+          About
+        </a>
+        <a href="contact.html">
+          Contact
+        </a>
+        <a href="donate.html">
+          Donate
+        </a>
+      </nav>
+      <a class="button button-small" href="join.html">
+        Join the community
+        <span aria-hidden="true">
+          ↗
+        </span>
+      </a>
+    </header>
+    <main id="main">
+      <section class="section page-intro">
+        <p class="eyebrow">
+          YOUR PASS TO THE NEXT ARC
+        </p>
+        <h1>
+          Pick your ticket.
+          <br>
+          <span>
+            Bring your crew.
+          </span>
+        </h1>
+        <p>
+          No payments are collected on this website. Book only through a confirmed ticketing link.
+        </p>
+      </section>
+      <section class="section" aria-labelledby="ticket-event-title">
+        <h2 id="ticket-event-title">
+          Current event tickets
+        </h2>
+        <p id="ticket-event-note">
+        </p>
+        <div id="ticket-tiers" class="catalogue-grid">
+        </div>
+        <a class="text-link" href="events.html">
+          Browse all events ↗
+        </a>
+      </section>
+      <div class="section">
+        <p id="catalogue-status" role="status">
+        </p>
+        <button class="button" id="retry-content" type="button" hidden>
+          Retry loading
+        </button>
+        <noscript>
+          <p>
+            Enable JavaScript to load the editable event catalogue. Event and ticket details cannot be confirmed on this page without it.
+          </p>
+        </noscript>
+      </div>
+    </main>
+    <div class="footer-pages" id="community-pages">
+      <nav aria-label="Community pages">
+        <a href="volunteers.html">
+          Volunteers
+        </a>
+        <a href="donate.html">
+          Donate
+        </a>
+        <a href="about.html">
+          About &amp; Community
+        </a>
+        <a href="contact.html">
+          Contact &amp; FAQ
+        </a>
+      </nav>
+    </div>
+    <footer class="site-footer">
+      <a class="brand" href="index.html">
+        OAC
+        <span>
+          ODISHA ANIME COMMUNITY
+        </span>
+      </a>
+      <p>
+        One anime family. Rooted in Odisha.
+      </p>
+      <p>
+        © 2026 Odisha Anime Community
+      </p>
+    </footer>
+    <!-- More opens the footer community links; it stays usable without a JavaScript menu. -->
+    <nav class="mobile-nav" aria-label="Main navigation">
+      <a href="index.html">
+        <span aria-hidden="true">
+          ⌂
+        </span>
+        Home
+      </a>
+      <a href="events.html">
+        <span aria-hidden="true">
+          ▦
+        </span>
+        Events
+      </a>
+      <a href="tickets.html" aria-current="page">
+        <span aria-hidden="true">
+          ◈
+        </span>
+        Tickets
+      </a>
+      <a href="join.html">
+        <span aria-hidden="true">
+          ＋
+        </span>
+        Join
+      </a>
+      <a href="#community-pages">
+        <span aria-hidden="true">
+          ☰
+        </span>
+        More
+      </a>
     </nav>
-    <a class="button button-small" href="join.html">Join the community <span aria-hidden="true">↗</span>
-</a>
-  </header>
-
-  <main id="main">
-    <section class="section page-intro">
-<p class="eyebrow">YOUR PASS TO THE NEXT ARC</p>
-<h1>Pick your ticket.<br>
-<span>Bring your crew.</span>
-</h1>
-<p>No payments are collected on this website. Book only through a confirmed ticketing link.</p>
-</section>
-    <section class="section" aria-labelledby="ticket-event-title">
-<h2 id="ticket-event-title">Current event tickets</h2>
-<p id="ticket-event-note">
-</p>
-<div id="ticket-tiers" class="catalogue-grid">
-</div>
-<a class="text-link" href="events.html">Browse all events ↗</a>
-</section>
-    <div class="section">
-<p id="catalogue-status" role="status">
-</p>
-<button class="button" id="retry-content" type="button" hidden>Retry loading</button>
-<noscript>
-<p>Enable JavaScript to load the editable event catalogue. Event and ticket details cannot be confirmed on this page without it.</p>
-</noscript>
-</div>
-  </main>
-  <div class="footer-pages" id="community-pages">
-<nav aria-label="Community pages">
-<a href="volunteers.html">Volunteers</a>
-<a href="donate.html">Donate</a>
-<a href="about.html">About &amp; Community</a>
-<a href="contact.html">Contact &amp; FAQ</a>
-</nav>
-</div>
-  <footer class="site-footer">
-<a class="brand" href="index.html">OAC <span>ODISHA ANIME COMMUNITY</span>
-</a>
-<p>One anime family. Rooted in Odisha.</p>
-<p>© 2026 Odisha Anime Community</p>
-</footer>
-  <!-- More opens the footer community links; it stays usable without a JavaScript menu. -->
-  <nav class="mobile-nav" aria-label="Main navigation">
-<a href="index.html">
-<span aria-hidden="true">⌂</span>Home</a>
-<a href="events.html">
-<span aria-hidden="true">▦</span>Events</a>
-<a href="tickets.html" aria-current="page">
-<span aria-hidden="true">◈</span>Tickets</a>
-<a href="join.html">
-<span aria-hidden="true">＋</span>Join</a>
-<a href="#community-pages">
-<span aria-hidden="true">☰</span>More</a>
-</nav>
-</body>
+  </body>
 </html>

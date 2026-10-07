@@ -15,8 +15,11 @@ async function loadPhotos() {
       image.alt = photo.alt;
       image.width = photo.width;
       image.height = photo.height;
-      image.src = photo.src;
       image.srcset = photo.small + ' 480w, ' + photo.src + ' 960w';
+      // Set responsive choices first so a small phone need not start downloading the large fallback.
+      image.src = photo.src;
+      // Hides a broken image panel; input: image error event, output: no value.
+      image.addEventListener('error', function hideMissingPhoto() { figure.hidden = true; }, { once: true });
       figure.querySelector('figcaption').textContent = photo.caption;
     }
   } catch {

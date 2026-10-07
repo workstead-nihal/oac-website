@@ -1,168 +1,333 @@
 <!-- Purpose: member signup with validated private Sheet submissions. -->
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0c0c0c">
-  <title>Join OAC — Odisha Anime Community</title>
-  <meta name="description" content="Join Odisha Anime Community and meet anime, cosplay, art and gaming fans in Bhubaneswar.">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/content.js" defer>
-</script>
-  <script src="js/config.js" defer>
-</script>
-  <script src="js/forms.js" defer>
-</script>
-  <script src="js/photos.js" defer>
-</script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <a class="brand" href="index.html" aria-label="Odisha Anime Community home">
-<span class="brand-mark" aria-hidden="true">O<span>✦</span>C</span>
-<span>ODISHA ANIME<br>COMMUNITY</span>
-</a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-<a href="events.html">Events</a>
-<a href="tickets.html">Tickets</a>
-<a href="volunteers.html">Volunteers</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="donate.html">Donate</a>
-    </nav>
-    <a class="button button-small" href="join.html" aria-current="page">Join the community <span aria-hidden="true">↗</span>
-</a>
-  </header>
-
-  <main id="main">
-    <section class="section page-intro">
-      <p class="eyebrow">YOUR FANDOM. YOUR FAMILY.</p>
-      <h1>Join OAC.<br>
-<span>Find your people.</span>
-</h1>
-      <p>Meet fellow anime fans, artists, cosplayers and gamers in Odisha. Tell us a little about yourself.</p>
-      <figure class="community-photo" data-photo="friends">
-        <img width="960" height="1280" loading="lazy" decoding="async" sizes="(min-width: 700px) 550px, calc(100vw - 40px)" alt="Community group photograph loading">
-        <figcaption>Community memories.</figcaption>
-      </figure>
-      <p>
-<a id="existing-signup" class="text-link" hidden>Prefer our existing Google sign-up form? ↗</a>
-</p>
-    </section>
-    <section class="section form-section" aria-labelledby="form-heading">
-      <h2 id="form-heading">A new face in the crew.</h2>
-      <p id="privacy-note">OAC uses these details for membership and community contact. Only authorised organisers can access the private Sheet. We don’t collect your date of birth or payment details. Under 18? Ask a parent or guardian to review this before agreeing.</p>
-      <p id="form-status" class="form-status pending" role="status" tabindex="-1">Backend setup is required before website submissions can be confirmed. You can use the existing Google form instead.</p>
-      <form id="community-form" data-action="join" aria-describedby="privacy-note">
-        <fieldset id="form-fields">
-          <legend>Your membership details</legend>
-          <div class="form-grid">
-            <div>
-<label for="member-name">Name</label>
-<input id="member-name" name="name" autocomplete="name" maxlength="80" required>
-</div>
-            <div>
-<label for="member-phone">Phone / WhatsApp</label>
-<input id="member-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="10 digits or +91" required>
-</div>
-            <div>
-<label for="member-email">Email</label>
-<input id="member-email" name="email" type="email" autocomplete="email" maxlength="254" required>
-</div>
-            <div>
-<label for="member-city">City</label>
-<input id="member-city" name="city" autocomplete="address-level2" maxlength="80" required>
-</div>
-            <div>
-<label for="age-group">Age group</label>
-<select id="age-group" name="ageGroup" required>
-<option value="">Choose your age group</option>
-<option value="under-18">Under 18</option>
-<option value="18-24">18–24</option>
-<option value="25-34">25–34</option>
-<option value="35-plus">35+</option>
-</select>
-</div>
-            <div>
-<label for="found-us">How did you find us?</label>
-<select id="found-us" name="source" required>
-<option value="">Choose one</option>
-<option value="friend">A friend</option>
-<option value="instagram">Instagram</option>
-<option value="event">An event</option>
-<option value="search">Online search</option>
-<option value="other">Other</option>
-</select>
-</div>
-          </div>
-          <fieldset class="interest-options">
-<legend>Interests — choose at least one</legend>
-            <label>
-<input type="checkbox" name="interests" value="anime"> Anime</label>
-            <label>
-<input type="checkbox" name="interests" value="cosplay"> Cosplay</label>
-            <label>
-<input type="checkbox" name="interests" value="art"> Art</label>
-            <label>
-<input type="checkbox" name="interests" value="gaming"> Gaming</label>
-            <label>
-<input type="checkbox" name="interests" value="K-pop/J-pop"> K-pop / J-pop</label>
-            <label>
-<input type="checkbox" name="interests" value="other"> Other</label>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0c0c0c">
+    <title>
+      Join OAC — Odisha Anime Community
+    </title>
+    <meta name="description" content="Join Odisha Anime Community and meet anime, cosplay, art and gaming fans in Bhubaneswar.">
+    <!-- SEO: replace https://example.invalid/ with the final site URL before release. -->
+    <link rel="canonical" href="https://example.invalid/join.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Odisha Anime Community">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="Join OAC — Odisha Anime Community">
+    <meta property="og:description" content="Join Odisha Anime Community and meet anime, cosplay, art and gaming fans in Bhubaneswar.">
+    <meta property="og:url" content="https://example.invalid/join.html">
+    <meta property="og:image" content="https://example.invalid/assets/og-cover.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="OAC — Odisha Anime Community. Your anime family in Bhubaneswar.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/content.js" defer>
+    </script>
+    <script src="js/config.js" defer>
+    </script>
+    <script src="js/forms.js" defer>
+    </script>
+    <script src="js/photos.js" defer>
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Odisha Anime Community home">
+        <span class="brand-mark" aria-hidden="true">
+          O
+          <span>
+            ✦
+          </span>
+          C
+        </span>
+        <span>
+          ODISHA ANIME
+          <br>
+          COMMUNITY
+        </span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="index.html">
+          Home
+        </a>
+        <a href="events.html">
+          Events
+        </a>
+        <a href="tickets.html">
+          Tickets
+        </a>
+        <a href="volunteers.html">
+          Volunteers
+        </a>
+        <a href="about.html">
+          About
+        </a>
+        <a href="contact.html">
+          Contact
+        </a>
+        <a href="donate.html">
+          Donate
+        </a>
+      </nav>
+      <a class="button button-small" href="join.html" aria-current="page">
+        Join the community
+        <span aria-hidden="true">
+          ↗
+        </span>
+      </a>
+    </header>
+    <main id="main">
+      <section class="section page-intro">
+        <p class="eyebrow">
+          YOUR FANDOM. YOUR FAMILY.
+        </p>
+        <h1>
+          Join OAC.
+          <br>
+          <span>
+            Find your people.
+          </span>
+        </h1>
+        <p>
+          Meet fellow anime fans, artists, cosplayers and gamers in Odisha. Tell us a little about yourself.
+        </p>
+        <figure class="community-photo" data-photo="friends">
+          <img width="960" height="1280" loading="lazy" decoding="async" sizes="(min-width: 700px) 550px, calc(100vw - 40px)" alt="Community group photograph loading">
+          <figcaption>
+            Community memories.
+          </figcaption>
+        </figure>
+        <p>
+          <a id="existing-signup" class="text-link" hidden>
+            Prefer our existing Google sign-up form? ↗
+          </a>
+        </p>
+      </section>
+      <section class="section form-section" aria-labelledby="form-heading">
+        <h2 id="form-heading">
+          A new face in the crew.
+        </h2>
+        <p id="privacy-note">
+          OAC uses these details for membership and community contact. Only authorised organisers can access the private Sheet. We don’t collect your date of birth or payment details. Under 18? Ask a parent or guardian to review this before agreeing.
+        </p>
+        <p id="form-status" class="form-status pending" role="status" tabindex="-1">
+          Backend setup is required before website submissions can be confirmed. You can use the existing Google form instead.
+        </p>
+        <form id="community-form" data-action="join" aria-describedby="privacy-note">
+          <fieldset id="form-fields">
+            <legend>
+              Your membership details
+            </legend>
+            <div class="form-grid">
+              <div>
+                <label for="member-name">
+                  Name
+                </label>
+                <input id="member-name" name="name" autocomplete="name" maxlength="80" required>
+              </div>
+              <div>
+                <label for="member-phone">
+                  Phone / WhatsApp
+                </label>
+                <input id="member-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="10 digits or +91" required>
+              </div>
+              <div>
+                <label for="member-email">
+                  Email
+                </label>
+                <input id="member-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+              </div>
+              <div>
+                <label for="member-city">
+                  City
+                </label>
+                <input id="member-city" name="city" autocomplete="address-level2" maxlength="80" required>
+              </div>
+              <div>
+                <label for="age-group">
+                  Age group
+                </label>
+                <select id="age-group" name="ageGroup" required>
+                  <option value="">
+                    Choose your age group
+                  </option>
+                  <option value="under-18">
+                    Under 18
+                  </option>
+                  <option value="18-24">
+                    18–24
+                  </option>
+                  <option value="25-34">
+                    25–34
+                  </option>
+                  <option value="35-plus">
+                    35+
+                  </option>
+                </select>
+              </div>
+              <div>
+                <label for="found-us">
+                  How did you find us?
+                </label>
+                <select id="found-us" name="source" required>
+                  <option value="">
+                    Choose one
+                  </option>
+                  <option value="friend">
+                    A friend
+                  </option>
+                  <option value="instagram">
+                    Instagram
+                  </option>
+                  <option value="event">
+                    An event
+                  </option>
+                  <option value="search">
+                    Online search
+                  </option>
+                  <option value="other">
+                    Other
+                  </option>
+                </select>
+              </div>
+            </div>
+            <fieldset class="interest-options">
+              <legend>
+                Interests — choose at least one
+              </legend>
+              <label>
+                <input type="checkbox" name="interests" value="anime">
+                Anime
+              </label>
+              <label>
+                <input type="checkbox" name="interests" value="cosplay">
+                Cosplay
+              </label>
+              <label>
+                <input type="checkbox" name="interests" value="art">
+                Art
+              </label>
+              <label>
+                <input type="checkbox" name="interests" value="gaming">
+                Gaming
+              </label>
+              <label>
+                <input type="checkbox" name="interests" value="K-pop/J-pop">
+                K-pop / J-pop
+              </label>
+              <label>
+                <input type="checkbox" name="interests" value="other">
+                Other
+              </label>
+            </fieldset>
+            <label class="checkbox-label">
+              <input type="checkbox" name="consent" required>
+              I agree to OAC storing these details for membership and contacting me about the community. If I am under 18, my parent or guardian has reviewed and agreed.
+            </label>
+            <div class="honeypot" aria-hidden="true">
+              <label for="website">
+                Leave this field empty
+              </label>
+              <input id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
           </fieldset>
-          <label class="checkbox-label">
-<input type="checkbox" name="consent" required> I agree to OAC storing these details for membership and contacting me about the community. If I am under 18, my parent or guardian has reviewed and agreed.</label>
-          <div class="honeypot" aria-hidden="true">
-<label for="website">Leave this field empty</label>
-<input id="website" name="website" tabindex="-1" autocomplete="off">
-</div>
-        </fieldset>
-        <button id="submit-form" class="button" type="submit">Join the OAC family</button>
-        <p class="sample-note">If your signal drops, keep this page open and retry. We confirm success only after receiving a server receipt.</p>
-      </form>
-      <div id="join-success" class="success-panel" hidden>
-        <h3>Welcome to your next arc.</h3>
-        <p>Now find the crew online.</p>
-        <div id="join-socials" class="button-row">
-<button class="button" disabled>WhatsApp / Discord links coming soon</button>
-</div>
-      </div>
-      <a id="signup-link" class="text-link" href="join.html" hidden>Not found? Sign up now ↗</a>
-    </section>
-  </main>
-  <div class="footer-pages" id="community-pages">
-<nav aria-label="Community pages">
-<a href="volunteers.html">Volunteers</a>
-<a href="donate.html">Donate</a>
-<a href="about.html">About &amp; Community</a>
-<a href="contact.html">Contact &amp; FAQ</a>
-</nav>
-</div>
-  <footer class="site-footer">
-<a class="brand" href="index.html">OAC <span>ODISHA ANIME COMMUNITY</span>
-</a>
-<p>One anime family. Rooted in Odisha.</p>
-<p>© 2026 Odisha Anime Community</p>
-</footer>
-  <!-- More opens the footer community links; it stays usable without a JavaScript menu. -->
-  <nav class="mobile-nav" aria-label="Main navigation">
-<a href="index.html">
-<span aria-hidden="true">⌂</span>Home</a>
-<a href="events.html">
-<span aria-hidden="true">▦</span>Events</a>
-<a href="tickets.html">
-<span aria-hidden="true">◈</span>Tickets</a>
-<a href="join.html" aria-current="page">
-<span aria-hidden="true">＋</span>Join</a>
-<a href="#community-pages">
-<span aria-hidden="true">☰</span>More</a>
-</nav>
-</body>
+          <button id="submit-form" class="button" type="submit">
+            Join the OAC family
+          </button>
+          <p class="sample-note">
+            If your signal drops, keep this page open and retry. We confirm success only after receiving a server receipt.
+          </p>
+        </form>
+        <div id="join-success" class="success-panel" hidden>
+          <h3>
+            Welcome to your next arc.
+          </h3>
+          <p>
+            Now find the crew online.
+          </p>
+          <div id="join-socials" class="button-row">
+            <button class="button" disabled>
+              WhatsApp / Discord links coming soon
+            </button>
+          </div>
+        </div>
+        <a id="signup-link" class="text-link" href="join.html" hidden>
+          Not found? Sign up now ↗
+        </a>
+      </section>
+    </main>
+    <div class="footer-pages" id="community-pages">
+      <nav aria-label="Community pages">
+        <a href="volunteers.html">
+          Volunteers
+        </a>
+        <a href="donate.html">
+          Donate
+        </a>
+        <a href="about.html">
+          About &amp; Community
+        </a>
+        <a href="contact.html">
+          Contact &amp; FAQ
+        </a>
+      </nav>
+    </div>
+    <footer class="site-footer">
+      <a class="brand" href="index.html">
+        OAC
+        <span>
+          ODISHA ANIME COMMUNITY
+        </span>
+      </a>
+      <p>
+        One anime family. Rooted in Odisha.
+      </p>
+      <p>
+        © 2026 Odisha Anime Community
+      </p>
+    </footer>
+    <!-- More opens the footer community links; it stays usable without a JavaScript menu. -->
+    <nav class="mobile-nav" aria-label="Main navigation">
+      <a href="index.html">
+        <span aria-hidden="true">
+          ⌂
+        </span>
+        Home
+      </a>
+      <a href="events.html">
+        <span aria-hidden="true">
+          ▦
+        </span>
+        Events
+      </a>
+      <a href="tickets.html">
+        <span aria-hidden="true">
+          ◈
+        </span>
+        Tickets
+      </a>
+      <a href="join.html" aria-current="page">
+        <span aria-hidden="true">
+          ＋
+        </span>
+        Join
+      </a>
+      <a href="#community-pages">
+        <span aria-hidden="true">
+          ☰
+        </span>
+        More
+      </a>
+    </nav>
+  </body>
 </html>

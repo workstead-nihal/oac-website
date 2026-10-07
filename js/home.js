@@ -17,7 +17,7 @@ function countdownText(start, now) {
   return days + ' days · ' + hours + ' hours · ' + minutes + ' minutes to go';
 }
 
-// Places the next event object into existing HTML; returns nothing and preserves a static fallback.
+// Places the next event into HTML; returns nothing. Generic fallback copy never shows stale sample details.
 function showEvent(event) {
   document.getElementById('event-title').textContent = event.title;
   document.getElementById('event-description').textContent = event.description;
@@ -25,11 +25,16 @@ function showEvent(event) {
   const date = new Date(event.countdownDate);
   document.getElementById('event-date').textContent = date.toLocaleDateString('en-IN', {
     day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Kolkata'
-  }).toUpperCase() + ' · TIME TO BE CONFIRMED';
-  document.getElementById('event-price').textContent = 'Early bird from ₹' + event.tiers[0].price;
+  }).toUpperCase() + ' · ' + (event.startTime ? new Date(event.startTime).toLocaleTimeString('en-IN', {
+    timeZone: 'Asia/Kolkata', hour: 'numeric', minute: '2-digit'
+  }) + ' IST' : 'TIME TO BE CONFIRMED');
+  const tier = event.tiers[0];
+  document.getElementById('event-price').textContent = tier && tier.price !== null ? tier.name + ' from ₹' + tier.price : 'Ticket prices to be confirmed';
+  document.getElementById('event-sample').hidden = !event.sample;
+  document.getElementById('event-sample-note').hidden = !event.sample;
   // Updates the timer from the event date; returns nothing. Date-only wording avoids inventing an event time.
   function updateCountdown() {
-    document.getElementById('countdown').textContent = (event.sample ? 'Sample date · ' : '') + countdownText(event.countdownDate, Date.now());
+    document.getElementById('countdown').textContent = (event.sample ? 'Sample · ' : '') + countdownText(event.startTime || event.countdownDate, Date.now());
   }
   updateCountdown();
   // ponytail: one minute resolution is enough for event planning; use seconds only if the community needs them.
@@ -102,6 +107,8 @@ async function loadHome() {
           document.getElementById('event-venue').textContent = '';
           document.getElementById('event-date').textContent = '';
           document.getElementById('event-price').textContent = '';
+          document.getElementById('event-sample').hidden = true;
+          document.getElementById('event-sample-note').hidden = true;
         }
       } else {
         request.render(data.items);
@@ -109,7 +116,7 @@ async function loadHome() {
     } catch {
       const status = document.getElementById('data-status');
       status.hidden = false;
-      status.textContent = 'Some updates could not load. Check your connection and refresh to retry. The event shown above is sample information.';
+      status.textContent = 'Some updates could not load. Check your connection and refresh to retry. Confirm event details with the organisers before attending.';
       if (request.path === 'data/announcements.json') {
         document.getElementById('announcements').textContent = 'Updates unavailable. Please refresh to retry.';
       }

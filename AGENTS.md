@@ -11,3 +11,6 @@
 - Keep README setup, testing, limitations and handover guidance current with every phase.
 - Build only the approved phase. After each phase, verify, commit, summarize and provide testing instructions. Wait for approval before the next phase.
 - Do not claim live form integration, Lighthouse scores or browser testing without evidence.
+- Keep check-in absent from public navigation and out of the sitemap. Its backend code and bounded opening window are the access controls; never replace them with link hiding alone.
+- Use `node checks/site-check.cjs --external` and `node apps-script/checks.cjs` with an existing Node runtime. Do not install npm packages or tooling without user approval.
+- Canonical/OG/sitemap URLs must use the confirmed final site URL before release. `example.invalid` is an intentional setup placeholder, not an official OAC domain.

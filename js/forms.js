@@ -72,6 +72,9 @@ function clearFieldErrors(event) {
 function showFormStatus(state, message) {
   formStatus.className = 'form-status ' + state;
   formStatus.textContent = message;
+  if (state === 'error' || state === 'success') {
+    formStatus.focus();
+  }
 }
 
 // Sends one request using a simple CORS POST; returns a confirmed receipt or throws on uncertainty.
