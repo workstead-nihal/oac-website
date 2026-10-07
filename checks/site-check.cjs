@@ -99,6 +99,10 @@ function htmlTags(html) {
 // Checks a simple hand-authored page's tag pairing and accessibility basics; returns IDs and links.
 // ponytail: this is a narrow checker for our static markup, not a full HTML/WCAG validator; browser review remains required.
 function checkHtml(file, html) {
+  const desktopNav = html.match(/<nav class="desktop-nav"[^>]*>([\s\S]*?)<\/nav>/);
+  assert(desktopNav, file + ': desktop navigation missing');
+  const navigationLinks = [...desktopNav[1].matchAll(/href="([^"]+)"/g)].map(match => match[1]);
+  assert.deepEqual(navigationLinks, ['index.html', 'events.html', 'tickets.html', 'showcase.html', 'volunteers.html', 'about.html', 'contact.html', 'donate.html'], file + ': navigation order must stay consistent when switching pages');
   const tags = htmlTags(html);
   const ids = new Set();
   const stack = [];

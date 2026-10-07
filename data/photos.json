@@ -1,5 +1,5 @@
 {
-  "_comment": "Purpose: approved community photography for Home, Events and Join. Paths point to compressed copies; original photos stay local. Confirm participant permission before public release. Keep actual past memories separate from the sample Halloween event.",
+  "_comment": "Purpose: community photo panels selected by page via data-photo IDs. Compressed responsive copies keep mobile downloads small; originals remain local. Past-event photographs do not advertise the sample upcoming event.",
   "items": [
     {
       "id": "family",
@@ -36,6 +36,33 @@
       "caption": "Different fandoms. One OAC family.",
       "width": 960,
       "height": 540
+    },
+    {
+      "id": "events",
+      "height": 540,
+      "alt": "OAC members and cosplayers posing together with posters at a cinema gathering",
+      "caption": "A memory from a previous community cinema gathering.",
+      "src": "assets/images/web/oac-events-960.jpg",
+      "small": "assets/images/web/oac-events-480.jpg",
+      "width": 960
+    },
+    {
+      "id": "tickets",
+      "height": 540,
+      "alt": "Printed tickets from a previous OAC community movie screening arranged on a table",
+      "caption": "A keepsake from a past screening — these are not tickets for the current event.",
+      "src": "assets/images/web/oac-tickets-960.jpg",
+      "small": "assets/images/web/oac-tickets-480.jpg",
+      "width": 960
+    },
+    {
+      "id": "volunteers",
+      "height": 721,
+      "alt": "The OAC volunteer crew posing together with certificates at an event",
+      "caption": "The people who bring our community events to life.",
+      "src": "assets/images/web/oac-volunteers-960.jpg",
+      "small": "assets/images/web/oac-volunteers-480.jpg",
+      "width": 960
     }
   ]
 }

@@ -253,3 +253,9 @@ Test an actual link after editing JSON, including whether group invites have exp
 ### Home photograph
 
 Home uses the `home` entry in `data/photos.json`, sourced from the team-provided `assets/images/DSC00453.JPG`. Compressed 480px and 960px copies live at `assets/images/web/oac-home-480.jpg` and `oac-home-960.jpg`; the original stays local and ignored by Git. Edit this entry to change Home’s photo, alt text or caption. The other pages retain their own photo entries. Preview Home at phone and desktop widths to check the picture and caption.
+
+### Page photos and stable navigation
+
+The `events`, `tickets` and `volunteers` entries in `data/photos.json` use compressed copies of `WhatsApp Image 2026-03-09 at 9.54.21 AM.jpeg`, `20230422_160116.jpg` and `IMG_9181.JPG` respectively. Keep ticket/event memory captions clear that these photos show past gatherings, not the sample current event. Update photo paths, captions and alt text in JSON; original files remain local.
+
+Desktop navigation uses the same link order across all pages so Showcase stays in place when selected. Review Events, Tickets and Volunteers photos at 360px and desktop; click Showcase and Home repeatedly to confirm the tab stays in place. Automated path, asset-budget and navigation-order checks pass; browser layout testing is still pending.
