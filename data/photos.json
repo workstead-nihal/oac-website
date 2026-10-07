@@ -27,6 +27,15 @@
       "caption": "A memory from a previous community gathering.",
       "width": 960,
       "height": 720
+    },
+    {
+      "id": "home",
+      "src": "assets/images/web/oac-home-960.jpg",
+      "small": "assets/images/web/oac-home-480.jpg",
+      "alt": "OAC members smiling and posing together at an indoor community gathering",
+      "caption": "Different fandoms. One OAC family.",
+      "width": 960,
+      "height": 540
     }
   ]
 }

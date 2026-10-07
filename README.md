@@ -249,3 +249,7 @@ Review Showcase at 360px and desktop, follow its links from desktop and mobile M
 The user-supplied official Instagram, Discord invite and WhatsApp group HTTPS URLs are configured in `data/links.json`. Update them there when accounts or invite links change. Keep an empty URL until verified; the website shows a coming-soon label instead of sending visitors to an invented account. Home and About show all three platforms; membership success offers the configured WhatsApp and Discord links. Small local SVG platform symbols live in `assets/icons/`, require no external icon request or package, and are decorative beside readable text. These are simplified monochrome symbols, not downloaded official brand artwork.
 
 Test an actual link after editing JSON, including whether group invites have expired. Review icon alignment at 360px and desktop and tab through the social buttons. Do not publish an invite intended to remain private.
+
+### Home photograph
+
+Home uses the `home` entry in `data/photos.json`, sourced from the team-provided `assets/images/DSC00453.JPG`. Compressed 480px and 960px copies live at `assets/images/web/oac-home-480.jpg` and `oac-home-960.jpg`; the original stays local and ignored by Git. Edit this entry to change Home’s photo, alt text or caption. The other pages retain their own photo entries. Preview Home at phone and desktop widths to check the picture and caption.
