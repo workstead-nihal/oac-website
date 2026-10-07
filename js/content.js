@@ -37,7 +37,7 @@ function ticketAddress(value) {
 // Adds a small local platform icon before the existing visible label; input: element/platform, output: no value.
 // Empty alt text avoids repeating the label for screen readers; a fixed allowlist prevents injected asset paths.
 function addSocialIcon(element, platform) {
-  const icons = { Instagram: 'instagram', Discord: 'discord', Reddit: 'reddit', WhatsApp: 'whatsapp' };
+  const icons = { Instagram: 'instagram', Discord: 'discord', WhatsApp: 'whatsapp' };
   const icon = icons[platform];
   if (!icon) {
     return;

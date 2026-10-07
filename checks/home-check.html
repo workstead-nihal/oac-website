@@ -17,8 +17,8 @@ function runChecks() {
   ];
   showSocialLinks([{ label: 'Unsafe', url: 'javascript:alert(1)' }, { label: 'Empty', url: '' }, { label: 'Valid', url: 'https://example.com' }]);
   checks.push(document.querySelectorAll('#social-links a').length === 1);
-  showSocialLinks(['Instagram', 'Discord', 'Reddit', 'WhatsApp'].map(label => ({ label, url: 'https://example.com' })));
-  checks.push(document.querySelectorAll('#social-links .social-icon').length === 4);
+  showSocialLinks(['Instagram', 'Discord', 'WhatsApp'].map(label => ({ label, url: 'https://example.com' })));
+  checks.push(document.querySelectorAll('#social-links .social-icon').length === 3);
   checks.push(Array.from(document.querySelectorAll('#social-links .social-icon')).every(icon => icon.alt === '' && icon.width === 22));
   document.getElementById('result').textContent = checks.every(Boolean) ? 'All checks passed' : 'A check failed';
   if (!checks.every(Boolean)) { throw new Error('Home checks failed'); }

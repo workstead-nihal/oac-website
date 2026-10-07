@@ -246,6 +246,6 @@ Review Showcase at 360px and desktop, follow its links from desktop and mobile M
 
 ## Social platform links and icons
 
-Set the official Instagram, Discord invite, Reddit community and WhatsApp group HTTPS URLs in `data/links.json`. Keep an empty URL until verified; the website shows a coming-soon label instead of sending visitors to an invented account. Home and About show all four platforms; membership success offers the configured WhatsApp and Discord links. Small local SVG platform symbols live in `assets/icons/`, require no external icon request or package, and are decorative beside readable text. These are simplified monochrome symbols, not downloaded official brand artwork.
+The user-supplied official Instagram, Discord invite and WhatsApp group HTTPS URLs are configured in `data/links.json`. Update them there when accounts or invite links change. Keep an empty URL until verified; the website shows a coming-soon label instead of sending visitors to an invented account. Home and About show all three platforms; membership success offers the configured WhatsApp and Discord links. Small local SVG platform symbols live in `assets/icons/`, require no external icon request or package, and are decorative beside readable text. These are simplified monochrome symbols, not downloaded official brand artwork.
 
 Test an actual link after editing JSON, including whether group invites have expired. Review icon alignment at 360px and desktop and tab through the social buttons. Do not publish an invite intended to remain private.
