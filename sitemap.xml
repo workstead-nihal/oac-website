@@ -1,11 +1,11 @@
-<!-- Purpose: public page sitemap; replace the reserved example.invalid URL before launch. Check-in and tests are excluded. -->
+<!-- Purpose: public page sitemap; official domain joinoac.in. Check-in and tests are excluded. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://example.invalid/</loc></url>
-  <url><loc>https://example.invalid/events.html</loc></url>
-  <url><loc>https://example.invalid/tickets.html</loc></url>
-  <url><loc>https://example.invalid/join.html</loc></url>
-  <url><loc>https://example.invalid/volunteers.html</loc></url>
-  <url><loc>https://example.invalid/donate.html</loc></url>
-  <url><loc>https://example.invalid/about.html</loc></url>
-  <url><loc>https://example.invalid/contact.html</loc></url>
+  <url><loc>https://joinoac.in/</loc></url>
+  <url><loc>https://joinoac.in/events.html</loc></url>
+  <url><loc>https://joinoac.in/tickets.html</loc></url>
+  <url><loc>https://joinoac.in/join.html</loc></url>
+  <url><loc>https://joinoac.in/volunteers.html</loc></url>
+  <url><loc>https://joinoac.in/donate.html</loc></url>
+  <url><loc>https://joinoac.in/about.html</loc></url>
+  <url><loc>https://joinoac.in/contact.html</loc></url>
 </urlset>

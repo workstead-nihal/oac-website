@@ -128,9 +128,9 @@ For a custom domain:
 
 ### SEO and sharing setup
 
-Until the final URL is supplied, canonical links, `og:url`, `og:image`, sitemap entries and the robots sitemap line use the reserved placeholder `https://example.invalid/`. It does not belong to OAC and must not be published as the canonical domain.
+The confirmed official domain is `https://joinoac.in/`. Canonical links, `og:url`, `og:image`, sitemap entries and the robots sitemap line use this HTTPS address. Domain configuration in these files does not confirm that DNS or hosting is live.
 
-Use your editor's project-wide find/replace to replace the exact string `https://example.invalid/` with your final HTTPS base URL, keeping a trailing slash. Include `/REPOSITORY/` if using a GitHub Pages project address. Review the HTML files, `sitemap.xml` and `robots.txt` before committing. This is one-time domain setup, not a site build. Normal event/profile/photo updates still need only JSON edits.
+Configure `joinoac.in` in your chosen hosting provider and follow its exact DNS instructions. If the domain changes later, update the absolute URLs in all HTML files, `sitemap.xml` and `robots.txt` together. Normal event/profile/photo updates still need only JSON edits.
 
 Each public page has a title, description, canonical link, Open Graph tags and a large-image card. Crawlers can read these without running JavaScript. Keep a new page's sharing title/description aligned with its HTML title/description, and add its absolute URL to `sitemap.xml`. Never put Check-in or test pages in the sitemap. Follow [Google's sitemap guidance](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap) for submission after release.
 
@@ -169,7 +169,7 @@ For Phase 4, check all new pages at 360px and desktop. Try mobile More and keybo
 - In-tab retention prevents silent loss during a network failure while the tab stays open, but does not survive a PC shutdown, crash or reload. No personal details or access codes are stored in localStorage.
 - Google Fonts requires an external request; system fonts work if it fails. No analytics are installed.
 - JSON needs an HTTP connection. Failed downloads show a refresh/retry message; offline caching is not implemented.
-- Canonical/social/sitemap URLs remain reserved placeholders until the team supplies the final domain. This is a launch prerequisite, not a live SEO claim.
+- Canonical/social/sitemap URLs use the confirmed domain `joinoac.in`; DNS, hosting and HTTPS still require verification before launch.
 - The custom CI checker is intentionally narrow: formatting, tag pairing, selected labels/contrast, syntax, paths and asset budgets. It does not replace standards validators, screen-reader testing, visual review or Lighthouse. External reachability checks do not prove form submissions work.
 - The workflow is written and its commands are tested locally; its actual GitHub run is pending a repository push. Browser/Lighthouse and live Google Sheet validation remain pending; no score or production-readiness claim is made.
 
@@ -193,7 +193,7 @@ Passed: all ten pages' local file links, anchors and unique IDs; JSON/JavaScript
 
 ## Phase 5 verification record
 
-Passed: source formatting and JavaScript syntax, all ten pages' local links/anchors/tag pairing, JSON content paths, selected accessibility and colour-contrast checks, image/script size budgets, sitemap exclusions and reachability of the existing public signup link. Backend mock checks passed for all four actions. Updated Home rendering and form success/error focus passed with DOM stubs. No dependencies were added. The GitHub workflow runs these same commands after a push; it has not yet run on GitHub. Browser layout, screen-reader/keyboard review, Lighthouse, the final domain and live Google Sheet integration remain release checks.
+Passed: source formatting and JavaScript syntax, all ten pages' local links/anchors/tag pairing, JSON content paths, selected accessibility and colour-contrast checks, image/script size budgets, sitemap exclusions and reachability of the existing public signup link. Backend mock checks passed for all four actions. Updated Home rendering and form success/error focus passed with DOM stubs. No dependencies were added. The GitHub workflow runs these same commands after a push; it has not yet run on GitHub. Browser layout, screen-reader/keyboard review, Lighthouse, domain hosting/HTTPS and live Google Sheet integration remain release checks.
 
 ## Handover guide
 
@@ -201,7 +201,7 @@ Give the next team repository access, hosting/domain ownership details and the l
 
 ### Before the next team launches
 
-1. Confirm the final HTTPS domain, replace the reserved metadata URLs and test a missing nested URL on the host.
+1. Connect the confirmed domain `joinoac.in` to the host, verify HTTPS and test a missing nested URL on the host.
 2. Confirm Members column headers; deploy and configure the Apps Script endpoint using `apps-script/README.md`. Use a test Sheet for the full receipt/retry checklist before accepting real members.
 3. Replace all sample events, volunteer profiles, social/ticket links and donation placeholders with approved community content. Confirm permission to publish participant photos.
 4. Record hosting, domain renewal, Sheet and script owners in a private team handover document. Share account access through the providers, never passwords in this repository.

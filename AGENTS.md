@@ -13,4 +13,4 @@
 - Do not claim live form integration, Lighthouse scores or browser testing without evidence.
 - Keep check-in absent from public navigation and out of the sitemap. Its backend code and bounded opening window are the access controls; never replace them with link hiding alone.
 - Use `node checks/site-check.cjs --external` and `node apps-script/checks.cjs` with an existing Node runtime. Do not install npm packages or tooling without user approval.
-- Canonical/OG/sitemap URLs must use the confirmed final site URL before release. `example.invalid` is an intentional setup placeholder, not an official OAC domain.
+- Canonical/OG/sitemap URLs use the confirmed official base URL `https://joinoac.in/`. Keep them aligned when adding pages; verify DNS, hosting and HTTPS separately before release.

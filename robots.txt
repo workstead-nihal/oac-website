@@ -1,6 +1,6 @@
-# Purpose: crawler guidance. Replace example.invalid with the confirmed site URL before release.
+# Purpose: crawler guidance. Official domain: joinoac.in.
 User-agent: *
 Disallow: /checkin.html
 Disallow: /checks/
 Disallow: /apps-script/
-Sitemap: https://example.invalid/sitemap.xml
+Sitemap: https://joinoac.in/sitemap.xml
