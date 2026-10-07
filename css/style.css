@@ -898,3 +898,18 @@ textarea:focus-visible, summary:focus-visible {
     animation: none !important;
   }
 }
+
+/* Showcase cards preserve artwork proportions and keep placeholders clearly separate from real submissions. */
+.showcase-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+.showcase-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  background: var(--surface);
+  color: var(--muted);
+}

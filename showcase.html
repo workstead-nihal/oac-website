@@ -1,4 +1,4 @@
-<!-- Purpose: upcoming and past event catalogue loaded from editable JSON. -->
+<!-- Purpose: Showcase page with shared OAC navigation and student-editable content. -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0c0c0c">
     <title>
-      Events — Odisha Anime Community
+      Showcase — Odisha Anime Community
     </title>
-    <meta name="description" content="Explore upcoming OAC anime and cosplay events in Odisha, plus our past event archive.">
+    <meta name="description" content="Celebrate OAC winners, community artwork and creative highlights from our anime family in Odisha.">
     <!-- SEO: official OAC domain; keep sharing and canonical URLs aligned. -->
-    <link rel="canonical" href="https://joinoac.in/events.html">
+    <link rel="canonical" href="https://joinoac.in/showcase.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Odisha Anime Community">
     <meta property="og:locale" content="en_IN">
-    <meta property="og:title" content="Events — Odisha Anime Community">
-    <meta property="og:description" content="Explore upcoming OAC anime and cosplay events in Odisha, plus our past event archive.">
-    <meta property="og:url" content="https://joinoac.in/events.html">
+    <meta property="og:title" content="Showcase — Odisha Anime Community">
+    <meta property="og:description" content="Celebrate OAC winners, community artwork and creative highlights from our anime family in Odisha.">
+    <meta property="og:url" content="https://joinoac.in/showcase.html">
     <meta property="og:image" content="https://joinoac.in/assets/og-cover.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -30,12 +30,10 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/content.js" defer>
     </script>
-    <script src="js/events.js" defer>
-    </script>
-    <script src="js/photos.js" defer>
+    <script src="js/community.js" defer>
     </script>
   </head>
-  <body data-page="events">
+  <body>
     <a class="skip-link" href="#main">
       Skip to content
     </a>
@@ -55,19 +53,19 @@
         </span>
       </a>
       <nav class="desktop-nav" aria-label="Main navigation">
-        <a href="showcase.html">Showcase</a>
         <a href="index.html">
           Home
         </a>
-        <a href="events.html" aria-current="page">
+        <a href="events.html">
           Events
         </a>
         <a href="tickets.html">
           Tickets
         </a>
-        <a href="volunteers.html">
-          Volunteers
+        <a href="showcase.html" aria-current="page">
+          Showcase
         </a>
+        <a href="volunteers.html">Volunteers</a>
         <a href="about.html">
           About
         </a>
@@ -87,58 +85,35 @@
     </header>
     <main id="main">
       <section class="section page-intro">
-        <p class="eyebrow">
-          YOUR NEXT SIDE QUEST
-        </p>
-        <h1>
-          Meet your crew.
-          <br>
-          <span>
-            Make a memory.
-          </span>
-        </h1>
-        <p>
-          Anime, cosplay and good company. Find our next gathering in Odisha.
-        </p>
+        <p class="eyebrow">OUR FAMILY. OUR CREATIVE SPIRIT.</p>
+        <h1>Your talent.<br><span>Our spotlight.</span></h1>
+        <p>From competition wins to art made with heart, celebrate the people who make our anime family shine.</p>
+        <a class="button" href="contact.html">Ask to share your work ↗</a>
       </section>
-      <section class="section" aria-labelledby="upcoming-title">
-        <h2 id="upcoming-title">
-          Upcoming events
-        </h2>
-        <div id="upcoming-events" class="catalogue-grid">
-        </div>
+      <section class="section" aria-labelledby="winners-title">
+        <h2 id="winners-title">Winners’ circle.</h2>
+        <p>Celebrate the fans who bring their best to our community events.</p>
+        <div id="showcase-winners" class="catalogue-grid"></div>
       </section>
-      <section class="section" aria-labelledby="past-title">
-        <h2 id="past-title">
-          Past adventures
-        </h2>
-        <div id="past-events" class="catalogue-grid">
-        </div>
+      <section class="section" aria-labelledby="artwork-title">
+        <h2 id="artwork-title">Made by our community.</h2>
+        <p>Original artwork, handmade creations and the stories behind them.</p>
+        <div id="showcase-artwork" class="catalogue-grid"></div>
+      </section>
+      <section class="section" aria-labelledby="highlights-title">
+        <h2 id="highlights-title">More moments worth sharing.</h2>
+        <div id="showcase-highlights" class="catalogue-grid"></div>
       </section>
       <div class="section">
-        <p id="catalogue-status" role="status">
-        </p>
-        <button class="button" id="retry-content" type="button" hidden>
-          Retry loading
-        </button>
-        <noscript>
-          <p>
-            Enable JavaScript to load the editable event catalogue. Event and ticket details cannot be confirmed on this page without it.
-          </p>
-        </noscript>
+        <p class="sample-note">Sample cards show the layout, not real winners or submissions. OAC publishes approved work with creator credit and permission.</p>
+        <p id="community-status" role="status">Loading the showcase…</p>
+        <button class="button" id="retry-community" type="button" hidden>Retry loading</button>
+        <noscript><p>Enable JavaScript to view winners, artwork and highlights. You can contact the team to ask about featured work.</p></noscript>
       </div>
-      <section class="section" aria-label="OAC community memories">
-        <figure class="community-photo" data-photo="gathering">
-          <img width="960" height="720" loading="lazy" decoding="async" sizes="(min-width: 1200px) 1120px, calc(100vw - 40px)" alt="OAC community photograph loading">
-          <figcaption>
-            Our community, together.
-          </figcaption>
-        </figure>
-      </section>
     </main>
     <div class="footer-pages" id="community-pages">
       <nav aria-label="Community pages">
-        <a href="showcase.html">Showcase</a>
+        <a href="showcase.html" aria-current="page">Showcase</a>
         <a href="volunteers.html">
           Volunteers
         </a>
@@ -175,7 +150,7 @@
         </span>
         Home
       </a>
-      <a href="events.html" aria-current="page">
+      <a href="events.html">
         <span aria-hidden="true">
           ▦
         </span>
@@ -193,7 +168,7 @@
         </span>
         Join
       </a>
-      <a href="#community-pages">
+      <a href="#community-pages" aria-current="page">
         <span aria-hidden="true">
           ☰
         </span>

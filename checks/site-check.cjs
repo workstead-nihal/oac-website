@@ -243,7 +243,7 @@ async function checkSite(options = {}) {
   }
   const sitemap = await readFile('sitemap.xml');
   assert(!sitemap.includes('checkin.html') && !sitemap.includes('404.html'), 'Sitemap must exclude private/error pages');
-  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 8, 'Sitemap must include all eight public pages');
+  assert.equal([...sitemap.matchAll(/<loc>/g)].length, 9, 'Sitemap must include all nine public pages');
   const provisional = (await readFile('index.html')).includes('https://example.invalid/');
   if (options.release) {
     assert(!provisional, 'Configure the confirmed website URL before release');

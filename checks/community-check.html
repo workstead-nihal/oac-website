@@ -8,6 +8,9 @@
   <title>OAC community checks</title>
 </head>
 <body>
+  <div id="showcase-winners" hidden></div>
+  <div id="showcase-artwork" hidden></div>
+  <div id="showcase-highlights" hidden></div>
   <h1>Community checks — no payments</h1>
   <p id="result">Running…</p>
   <div hidden>
@@ -35,6 +38,12 @@
       showVolunteers([{ name: markupText, role: 'Test role', line: 'Test line', initials: 'TT', photo: null, sample: true }]);
       checks.push(document.querySelector('#volunteer-grid h3').textContent === markupText);
       checks.push(document.querySelector('#volunteer-grid script') === null);
+      showShowcase([{ category: 'winners', title: markupText, creator: 'Test creator', detail: 'Test award', sample: true, image: 'https://example.com/tracker.jpg' }]);
+      checks.push(document.querySelector('#showcase-winners h3').textContent === markupText);
+      checks.push(document.querySelector('#showcase-winners img') === null);
+      checks.push(document.querySelector('#showcase-artwork').textContent.includes('on its way'));
+      showShowcase([]);
+      checks.push(document.querySelector('#showcase-winners').textContent.includes('on its way'));
       const donation = {
         intro: 'Test', note: 'Test only', funds: ['Test materials'], verified: false,
         upiId: 'test@example', recipientName: 'Test recipient', qrImage: 'assets/images/web/oac-family-480.jpg'

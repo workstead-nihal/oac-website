@@ -5,7 +5,7 @@ A lightweight website for anime and pop-culture fans in Bhubaneswar, Odisha. It 
 
 ## Current status
 
-All five implementation phases are present: ten requested pages, the OAC theme, real community photos, editable JSON, all four Apps Script form actions, static SEO metadata and automated checks. Live submissions still require deployment/configuration, and the official URL is https://joinoac.in/; launch still requires hosting/DNS/HTTPS and real browser/Lighthouse verification. The existing Google signup form remains a fallback. Sample profiles, draft policies and unverified donation details are clearly labelled.
+All five implementation phases are present: the requested pages plus Showcase, the OAC theme, real community photos, editable JSON, all four Apps Script form actions, static SEO metadata and automated checks. Live submissions still require deployment/configuration, and the official URL is https://joinoac.in/; launch still requires hosting/DNS/HTTPS and real browser/Lighthouse verification. The existing Google signup form remains a fallback. Sample profiles, draft policies and unverified donation details are clearly labelled.
 
 This repository is ready for your final review and remaining account/domain setup; it has not been published by this coding session. Do not treat local mock checks as proof of live integration or a Lighthouse score.
 
@@ -28,6 +28,8 @@ Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from
 - `js/events.js`: event cards, ticket tiers, calendar links and retry handling.
 - `js/forms.js`: signup/check-in validation, confirmed receipts, retry and double-click prevention.
 - `js/photos.js`: lazy-loaded community photo panels selected through JSON.
+- `showcase.html`: winners, artwork and community highlights; accessible from desktop navigation and mobile More.
+- `data/showcase.json`: editable showcase entries with category, title, creator credit, detail, sample flag and optional local image metadata.
 - `js/community.js`: volunteer cards, story, rules, FAQ, social links and verified-only donation rendering.
 - `js/config.js`: the one clearly labelled place for the public Apps Script URL; currently empty.
 - `data/events.json`: editable sample event and ticket details.
@@ -233,3 +235,11 @@ Give the next team repository access, hosting/domain ownership details and the l
 6. For each event, let the event lead set and close the backend check-in window, rotate the private code and close the independent legacy check-in form.
 
 At handover, demonstrate editing one JSON file, previewing the page, running the existing checks and reverting an accidental edit with Git. Keep unresolved release checks above visible until they have evidence of completion.
+
+## Showcase updates
+
+Edit `data/showcase.json` to add winners, artwork or other community highlights. Each item has `category` (`winners`, `artwork` or `highlights`), `title`, `creator` (public credit), `detail` and `sample`. Set `sample: false` only after the team confirms the entry. No real awards or artwork were invented; initial entries are labelled layout samples. Remove them when adding approved submissions.
+
+For an image, place a compressed JPG/PNG/WebP under `assets/images/web/` (under 300 KB). Use a filename with letters, digits, hyphens or underscores, put its path in `image`, and supply descriptive `alt` plus its actual pixel `width` and `height`. Keep `image: null` for a visible placeholder. Images preserve their proportions and lazy-load. Publish only work/photos approved by the creator and people shown; obtain permission for any third-party material. Contact is an enquiry route, not an upload form.
+
+Review Showcase at 360px and desktop, follow its links from desktop and mobile More, and test retry with its JSON request blocked. Open `checks/community-check.html` to check literal text, unsafe image rejection and empty categories. Local source/link checks and renderer DOM-stub checks passed; visual/browser review remains pending.

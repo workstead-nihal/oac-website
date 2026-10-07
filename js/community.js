@@ -143,6 +143,45 @@ async function loadCommunityLinks() {
   }
 }
 
+// Renders credited showcase entries by category; input: JSON items, output: cards or an honest empty state.
+// Text stays literal and image paths reuse the local-only validator to protect visitors from injected markup.
+function showShowcase(items) {
+  for (const category of ['winners', 'artwork', 'highlights']) {
+    const grid = document.getElementById('showcase-' + category);
+    grid.replaceChildren();
+    for (const item of items.filter(entry => entry.category === category)) {
+      const card = communityElement('article', 'catalogue-card showcase-card', '');
+      const placeholder = communityElement('p', 'showcase-placeholder', 'Image to be added');
+      const photo = communityImage(item.image);
+      if (photo && item.alt && Number.isInteger(item.width) && item.width > 0 && Number.isInteger(item.height) && item.height > 0) {
+        const image = document.createElement('img');
+        image.src = photo;
+        image.alt = item.alt;
+        image.width = item.width;
+        image.height = item.height;
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        // Replaces a failed download with readable feedback; input: error event, output: no value.
+        image.addEventListener('error', function missingShowcaseImage() {
+          placeholder.textContent = 'Image unavailable';
+          image.replaceWith(placeholder);
+        }, { once: true });
+        card.append(image);
+      } else {
+        card.append(placeholder);
+      }
+      if (item.sample) {
+        card.append(communityElement('p', 'eyebrow', 'EDITABLE SAMPLE'));
+      }
+      card.append(communityElement('h3', '', item.title), communityElement('p', 'role-label', item.creator), communityElement('p', '', item.detail));
+      grid.append(card);
+    }
+    if (!grid.children.length) {
+      grid.append(communityElement('p', '', 'Our next community spotlight is on its way.'));
+    }
+  }
+}
+
 // Loads this page's content; errors show a retry action while forms and navigation remain available.
 async function loadCommunityPage() {
   const status = document.getElementById('community-status');
@@ -152,7 +191,10 @@ async function loadCommunityPage() {
     resetDonationPanel();
   }
   try {
-    if (document.getElementById('volunteer-grid')) {
+    if (document.getElementById('showcase-winners')) {
+      const showcase = await readData('data/showcase.json');
+      showShowcase(showcase.items);
+    } else if (document.getElementById('volunteer-grid')) {
       const volunteers = await readData('data/volunteers.json');
       showVolunteers(volunteers.items);
     } else {
