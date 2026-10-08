@@ -100,13 +100,6 @@ p {
   line-height: 1.35;
   letter-spacing: .08em;
 }
-.brand-mark {
-  font-size: 1.8rem;
-  letter-spacing: -.1em;
-}
-.brand-mark span {
-  color: var(--gold);
-}
 .desktop-nav {
   display: none;
 }
@@ -954,78 +947,66 @@ textarea:focus-visible, summary:focus-visible {
   font-weight: 700;
 }
 
-/* History grows vertically on phones; at larger widths each row becomes a horizontal spine with alternating branches. */
-.history-endpoints {
+
+/* The real brand artwork anchors the header; Work With Us is a text link and Join stays the only header CTA. */
+.brand-logo {
+  display: block;
+  width: 136px;
+  height: 68px;
+  object-fit: contain;
+}
+.footer-logo {
+  display: block;
+  width: 180px;
+  height: 90px;
+  object-fit: contain;
+}
+.site-header {
+  padding-block: .75rem;
+}
+.desktop-nav {
+  flex-wrap: wrap;
+}
+.desktop-nav a {
+  white-space: nowrap;
+}
+.brand-hero {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 1rem;
+  background: var(--background);
+  transform: none;
+}
+.brand-hero img {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+}
+.brand-hero p {
+  margin: 0;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
   color: var(--gold);
+  text-align: center;
 }
-.history-endpoints p:last-child {
-  text-align: right;
-}
-.history-milestones {
-  list-style: none;
-  padding: 0 0 0 1rem;
-  margin: 2rem 0;
-  border-left: 2px solid var(--gold);
-}
-.history-branch {
-  position: relative;
-  padding: 0 0 1.5rem 1rem;
-}
-.history-branch::before {
-  content: '';
-  position: absolute;
-  left: -1rem;
-  top: 2rem;
-  width: 2rem;
-  height: 2px;
-  background: var(--gold);
-}
-.history-branch::after {
-  content: '';
-  position: absolute;
-  left: calc(-1rem - 5px);
-  top: calc(2rem - 4px);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--red-light);
-}
-.history-card {
-  overflow-wrap: anywhere;
-}
-@media (min-width: 800px) {
-  .history-milestones {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-left: 0;
-    padding: 0;
+@media (min-width: 1000px) {
+  .site-header {
+    gap: 1.5rem;
   }
-  .history-branch {
-    display: grid;
-    grid-template-rows: minmax(0, 1fr) 64px minmax(0, 1fr);
-    padding: 0 .5rem;
-    background: linear-gradient(var(--gold), var(--gold)) center / 100% 2px no-repeat;
+  .brand-logo {
+    width: 160px;
+    height: 80px;
   }
-  .history-card {
-    grid-row: 1;
+  .desktop-nav {
+    flex: 1;
+    justify-content: center;
   }
-  .history-branch:nth-child(even) .history-card {
-    grid-row: 3;
-  }
-  .history-branch::before {
-    left: 50%;
-    top: calc(50% - 32px);
-    width: 2px;
-    height: 32px;
-  }
-  .history-branch:nth-child(even)::before {
-    top: 50%;
-  }
-  .history-branch::after {
-    left: calc(50% - 4px);
-    top: calc(50% - 4px);
+  .site-header > .button {
+    flex-shrink: 0;
   }
 }

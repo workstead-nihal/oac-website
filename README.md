@@ -44,7 +44,7 @@ Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from
 - `data/work.json`: hub cards and four collaboration form definitions.
 - `js/work.js`: hub/form rendering; form submissions use the shared handler.
 - `assets/images/web/`: compressed copies of your original community photographs. Large originals stay in your local `assets/images` folder and are excluded from Git. Only publish the web copies.
-- `assets/favicon.svg`: small original wheel motif. Home artwork uses inline SVG and CSS, requiring no image downloads.
+- `assets/favicon.png`: small original wheel motif. Home artwork uses inline SVG and CSS, requiring no image downloads.
 - `assets/og-cover.jpg`: original 1200×630 OAC sharing card (about 71 KB), used by static Open Graph metadata.
 - `sitemap.xml` and `robots.txt`: public-page indexing list and crawler guidance. Check-in/tests are excluded from discovery; robots.txt is not authentication.
 - `AGENTS.md`: rules for future coding sessions.
@@ -293,11 +293,11 @@ Join Community uses the `join` photo entry in `data/photos.json`, with responsiv
 
 ## OAC history timeline
 
-Home has a branching timeline from the user-confirmed founding date, 13 February 2020, to the current date in India. `data/history.json` stores `startDate` and milestone `items`. Add approved `date` (YYYY-MM-DD), `title`, `description` and `sample: false` for each actual milestone. The timeline now contains nine organiser-supplied milestones, from founding through the Spirited Away watch party on 17 May 2026. Turnout figures and descriptions reflect the organiser’s account; keep later updates approved by the team. Entries outside the founding-to-today range or invalid dates are excluded; valid milestones are sorted chronologically. The Today endpoint updates on page load.
+The branching Home timeline has been removed at the user’s request. The organiser-supplied history is retained in `data/history.json` as an archive, not rendered on Home. The former timeline ran from the user-confirmed founding date, 13 February 2020, to the current date in India. `data/history.json` stores `startDate` and milestone `items`. Add approved `date` (YYYY-MM-DD), `title`, `description` and `sample: false` for each actual milestone. The timeline now contains nine organiser-supplied milestones, from founding through the Spirited Away watch party on 17 May 2026. Turnout figures and descriptions reflect the organiser’s account; keep later updates approved by the team. Entries outside the founding-to-today range or invalid dates are excluded; valid milestones are sorted chronologically. The former Today endpoint updated on page load; that UI has now been removed.
 
-The timeline uses a horizontal spine with alternating branches on desktop and a vertical spine on phones so there is no sideways scrolling. Longer lists wrap into rows. Branch spacing is for readability, not proportional elapsed time. No external library is needed. Test chronological ordering, future/invalid exclusion, sample labelling, blocked-JSON retry, and Home at 360px and desktop. Visual browser verification remains pending.
+The removed timeline used a horizontal spine with alternating branches on desktop and a vertical spine on phones. Longer lists wrap into rows. Branch spacing is for readability, not proportional elapsed time. No external library is needed. Test chronological ordering, future/invalid exclusion, sample labelling, blocked-JSON retry, and Home at 360px and desktop. Visual browser verification remains pending.
 
-Open `checks/history-check.html` through the local HTTP preview for runnable date-order, range, sample and empty-state checks. These checks also passed against the actual script using DOM stubs; they do not replace browser layout review.
+The old history script and browser fixture were removed with the timeline. These checks also passed against the actual script using DOM stubs; they do not replace browser layout review.
 
 History content update: all initial timeline placeholders have been replaced with the nine supplied milestones. Local checks confirm chronological ordering, valid dates and nine rendered entries through the current India date; visual browser review is still pending.
 
@@ -312,3 +312,11 @@ The Apps Script writes separate `OAC_Stalls`, `OAC_Sponsors`, `OAC_Partnerships`
 Local backend tests passed for all eight form actions, including new tab setup, validation, formula escaping and retry deduplication. Static checks passed for all 16 HTML files. Preview the hub and each form at 360px and desktop, test keyboard labels/consent/invalid phone and URL, and submit each form against a test Sheet to confirm its own tab and matching receipt. Simulate a dropped connection and confirm a retry adds no duplicate. Browser layout and live Google/CORS integration remain unverified; the endpoint is still unconfigured. Old donation setup instructions and verification records above describe earlier versions; the current patron configuration supersedes payment/UPI instructions.
 
 Open `checks/work-check.html` through the local server to exercise the four real form renderers and mocked submit receipts, including uncertain-request retention and UUID reuse. It does not contact Google. Patron rendering/link safety checks are in `checks/community-check.html`.
+
+## Official logo and header refresh
+
+Header and footer branding now use the team’s transparent logo, compressed to `assets/images/web/oac-logo-transparent.png` with its alpha channel preserved. Home’s hero uses the black-background version at `assets/images/web/oac-logo-dark.jpg`. Both originals stay local under `assets/images/`. Work With Us is now a normal navigation link; Join remains the header’s primary button. The Home partnership CTA remains in its own section.
+
+The Home history timeline, its script, styling and browser fixture have been removed. `data/history.json` retains the supplied milestone text for future content use without displaying the rejected timeline. No member content was deleted. Preview Home and another page at 360px and desktop: check header logo size, Join, Work With Us, footer branding and absence of the timeline. Static checks passed; actual browser/layout verification remains pending.
+
+The favicon now uses a 64px PNG derived from the dark logo. The old SVG favicon remains in Git history/source for reference, but pages reference `assets/favicon.png`. Original logo files are ignored locally; only lightweight web copies and the favicon are published.

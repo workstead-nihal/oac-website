@@ -23,14 +23,13 @@
     <meta property="og:image:alt" content="OAC — Odisha Anime Community. Your anime family in Bhubaneswar.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/content.js" defer>
     </script>
-    <script src="js/history.js" defer></script>
     <script src="js/home.js" defer>
     </script>
     <script src="js/photos.js" defer>
@@ -42,18 +41,7 @@
     </a>
     <header class="site-header">
       <a class="brand" href="index.html" aria-label="Odisha Anime Community home">
-        <span class="brand-mark" aria-hidden="true">
-          O
-          <span>
-            ✦
-          </span>
-          C
-        </span>
-        <span>
-          ODISHA ANIME
-          <br>
-          COMMUNITY
-        </span>
+        <img class="brand-logo" src="assets/images/web/oac-logo-transparent.png" width="384" height="192" alt="Odisha Anime Community">
       </a>
       <nav class="desktop-nav" aria-label="Main navigation">
         <a href="index.html" aria-current="page">Home</a>
@@ -61,7 +49,7 @@
         <a href="showcase.html">Showcase</a>
         <a href="volunteers.html">Volunteers</a>
         <a href="about.html">About</a>
-        <a class="button button-outline button-small" href="work-with-us.html">Work With Us</a>
+        <a href="work-with-us.html">Work With Us</a>
       </nav>
       <a class="button button-small" href="join.html">
         Join the community
@@ -106,42 +94,9 @@
             Come solo. Leave with your crew. Every fan is welcome.
           </p>
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="orbit orbit-one">
-          </div>
-          <div class="orbit orbit-two">
-          </div>
-          <svg class="wheel" viewBox="0 0 400 400" fill="none">
-            <circle cx="200" cy="200" r="150"/>
-            <circle cx="200" cy="200" r="126"/>
-            <circle cx="200" cy="200" r="40"/>
-            <circle cx="200" cy="200" r="12"/>
-            <path d="M200 50V160M200 240V350M50 200H160M240 200H350M94 94L172 172M228 228L306 306M94 306L172 228M228 172L306 94"/>
-          </svg>
-          <span class="anime-lettering">
-            YOUR
-            <br>
-            ANIME
-            <br>
-            <strong>
-              FAMILY.
-            </strong>
-          </span>
-          <span class="art-star star-one">
-            ✦
-          </span>
-          <span class="art-star star-two">
-            ✧
-          </span>
-          <span class="art-label label-one">
-            ANIME · ART · COSPLAY
-          </span>
-          <span class="art-label label-two">
-            ONE COMMUNITY. MANY WORLDS.
-          </span>
-          <span class="art-caption">
-            Your next arc starts here. Bhubaneswar, Odisha.
-          </span>
+        <div class="hero-art brand-hero">
+          <img src="assets/images/web/oac-logo-dark.jpg" width="512" height="512" alt="Odisha Anime Community logo with an Odisha temple and wheel motif">
+          <p>YOUR ANIME FAMILY IN ODISHA</p>
         </div>
       </section>
       <section class="section" aria-label="OAC community memories">
@@ -187,20 +142,6 @@
         </span>
       </div>
       <section class="section" aria-labelledby="work-home-title"><h2 id="work-home-title">Bring your ideas to OAC.</h2><p>Run a stall, sponsor a gathering, build a partnership or share your creative work.</p><a class="button" href="work-with-us.html">Work With Us</a></section>
-      <section class="section history-section" aria-labelledby="history-title">
-        <p class="eyebrow">THE OAC JOURNEY</p>
-        <h2 id="history-title">One line. So many stories.</h2>
-        <p>From 13 February 2020 to today: the gatherings, achievements and friendships that shape our anime family.</p>
-        <div class="history-endpoints">
-          <p>Our beginning<br><time id="history-start" datetime="2020-02-13">13 February 2020</time></p>
-          <p>Still writing our story<br><time id="history-today">Today</time></p>
-        </div>
-        <ol id="history-milestones" class="history-milestones" aria-label="OAC milestones in chronological order"></ol>
-        <p id="history-note" class="sample-note"></p>
-        <p id="history-status" role="status">Loading our journey…</p>
-        <button id="retry-history" class="button button-outline" type="button" hidden>Retry timeline</button>
-        <noscript><p>Our history began on 13 February 2020. Enable JavaScript to view the editable milestone branches.</p></noscript>
-      </section>
       <section class="section" id="next-event" aria-labelledby="event-heading">
         <div class="section-heading">
           <div>
@@ -369,11 +310,8 @@
       </nav>
     </div>
     <footer class="site-footer">
-      <a class="brand" href="index.html">
-        OAC
-        <span>
-          ODISHA ANIME COMMUNITY
-        </span>
+      <a class="brand" href="index.html" aria-label="Odisha Anime Community home">
+        <img class="footer-logo" src="assets/images/web/oac-logo-transparent.png" width="384" height="192" loading="lazy" alt="Odisha Anime Community">
       </a>
       <p>
         One anime family. Rooted in Odisha.
