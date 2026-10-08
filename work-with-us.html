@@ -1,25 +1,20 @@
-<!-- Purpose: Page not found page with shared OAC navigation and student-editable content. -->
+<!-- Purpose: Work With Us page with accessible OAC navigation and editable community content. -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <!-- For a GitHub project site, change this to /REPOSITORY-NAME/ before deploying. -->
-    <base href="/">
-    <meta name="robots" content="noindex">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0c0c0c">
-    <title>
-      Page not found — Odisha Anime Community
-    </title>
-    <meta name="description" content="This OAC page could not be found. Return home or explore our community events.">
+    <title>Work With Us — Odisha Anime Community</title>
+    <meta name="description" content="Partner with OAC as a business, sponsor, organisation or creator.">
     <!-- SEO: official OAC domain; keep sharing and canonical URLs aligned. -->
-    <link rel="canonical" href="https://joinoac.in/404.html">
+    <link rel="canonical" href="https://joinoac.in/work-with-us.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Odisha Anime Community">
     <meta property="og:locale" content="en_IN">
-    <meta property="og:title" content="Page not found — Odisha Anime Community">
-    <meta property="og:description" content="This OAC page could not be found. Return home or explore our community events.">
-    <meta property="og:url" content="https://joinoac.in/404.html">
+    <meta property="og:title" content="Work With Us — Odisha Anime Community">
+    <meta property="og:description" content="Partner with OAC as a business, sponsor, organisation or creator.">
+    <meta property="og:url" content="https://joinoac.in/work-with-us.html">
     <meta property="og:image" content="https://joinoac.in/assets/og-cover.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -31,10 +26,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/content.js" defer>
-    </script>
-    <script src="js/photos.js" defer>
-    </script>
+    <script src="js/content.js" defer></script>
+    <script src="js/work.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">
@@ -61,7 +54,7 @@
         <a href="showcase.html">Showcase</a>
         <a href="volunteers.html">Volunteers</a>
         <a href="about.html">About</a>
-        <a class="button button-outline button-small" href="work-with-us.html">Work With Us</a>
+        <a class="button button-outline button-small" href="work-with-us.html" aria-current="page">Work With Us</a>
       </nav>
       <a class="button button-small" href="join.html">
         Join the community
@@ -71,29 +64,8 @@
       </a>
     </header>
     <main id="main">
-      <section class="section page-intro lost-page">
-        <p class="eyebrow">
-          404 · A SIDE QUEST GONE OFF MAP
-        </p>
-        <h1>
-          Lost in another arc?
-          <br>
-          <span>
-            Let’s get you home.
-          </span>
-        </h1>
-        <p>
-          The page may have moved or the address may be mistyped. Your OAC family is still here.
-        </p>
-        <div class="button-row">
-          <a class="button" href="index.html">
-            Back to Home ↗
-          </a>
-          <a class="button button-outline" href="events.html">
-            Explore events
-          </a>
-        </div>
-      </section>
+      <section class="section page-intro"><p class="eyebrow">BUILD SOMETHING WITH OUR FAMILY</p><h1>Work With Us</h1><p>Stalls, sponsors, partnerships and creators: find your place in OAC’s next chapter.</p></section>
+      <section class="section" aria-label="Ways to work with OAC"><div id="work-cards" class="catalogue-grid"></div><p id="work-status" role="status">Loading opportunities…</p><button id="retry-work" class="button" type="button" hidden>Retry loading</button><noscript><p>Enable JavaScript for the editable cards.</p><p><a href="work-stall.html">Stalls / Business</a> · <a href="work-sponsor.html">Sponsor</a> · <a href="work-partnership.html">Partnerships</a> · <a href="work-creator.html">Creator</a></p></noscript></section>
     </main>
     <div class="footer-pages" id="community-pages">
       <nav aria-label="Community pages">
@@ -137,7 +109,7 @@
         </span>
         Join
       </a>
-      <a href="#community-pages">
+      <a href="#community-pages" aria-current="page">
         <span aria-hidden="true">
           ☰
         </span>

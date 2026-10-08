@@ -1,0 +1,301 @@
+{
+  "_comment": "Purpose: editable Work With Us hub copy and four form definitions. Package labels/prices must match Apps Script validation; redeploy backend after changing fields or options. Enquiries do not confirm bookings or take payments.",
+  "forms": [
+    {
+      "action": "stall",
+      "title": "Stalls / Business",
+      "description": "Bring your products and a welcoming stall to an OAC event.",
+      "tab": "OAC_Stalls",
+      "fields": [
+        {
+          "name": "businessName",
+          "label": "Business name",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "products",
+          "label": "What do you sell?",
+          "type": "textarea",
+          "options": null,
+          "max": 1000
+        },
+        {
+          "name": "contactPerson",
+          "label": "Contact person",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "phone",
+          "label": "Phone / WhatsApp",
+          "type": "tel",
+          "options": null,
+          "max": 30
+        },
+        {
+          "name": "websiteLink",
+          "label": "Instagram or website",
+          "type": "url",
+          "options": null,
+          "max": 500
+        },
+        {
+          "name": "event",
+          "label": "Which event?",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "stallType",
+          "label": "Stall size or type",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "power",
+          "label": "Power needed",
+          "type": "select",
+          "options": [
+            "yes",
+            "no"
+          ],
+          "max": 120
+        },
+        {
+          "name": "experience",
+          "label": "Have you done events before?",
+          "type": "select",
+          "options": [
+            "yes",
+            "no"
+          ],
+          "max": 120
+        }
+      ]
+    },
+    {
+      "action": "sponsor",
+      "title": "Sponsor",
+      "description": "Connect your brand with Odisha’s anime and pop-culture fans.",
+      "tab": "OAC_Sponsors",
+      "fields": [
+        {
+          "name": "companyName",
+          "label": "Company name",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "contactPerson",
+          "label": "Contact person",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "contactRole",
+          "label": "Your role",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "phone",
+          "label": "Phone / WhatsApp",
+          "type": "tel",
+          "options": null,
+          "max": 30
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "options": null,
+          "max": 254
+        },
+        {
+          "name": "event",
+          "label": "Event or sponsorship period",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "budget",
+          "label": "Budget range",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "package",
+          "label": "Package",
+          "type": "select",
+          "options": [
+            "Tag and mentions — ₹4,000",
+            "Premium with a stall — ₹8,000"
+          ],
+          "max": 120
+        },
+        {
+          "name": "goal",
+          "label": "What do you want out of it?",
+          "type": "select",
+          "options": [
+            "Footfall",
+            "Brand awareness",
+            "Product sampling"
+          ],
+          "max": 120
+        }
+      ]
+    },
+    {
+      "action": "partnership",
+      "title": "Partnerships",
+      "description": "Propose a shared event or collaboration with our community.",
+      "tab": "OAC_Partnerships",
+      "fields": [
+        {
+          "name": "organisation",
+          "label": "Organisation name",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "organisationType",
+          "label": "Organisation type",
+          "type": "select",
+          "options": [
+            "mall",
+            "cafe",
+            "college",
+            "brand",
+            "another community"
+          ],
+          "max": 120
+        },
+        {
+          "name": "proposal",
+          "label": "What are you proposing?",
+          "type": "textarea",
+          "options": null,
+          "max": 2000
+        },
+        {
+          "name": "timeline",
+          "label": "Event or timeline",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "contactPerson",
+          "label": "Contact person",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "phone",
+          "label": "Phone / WhatsApp",
+          "type": "tel",
+          "options": null,
+          "max": 30
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "options": null,
+          "max": 254
+        },
+        {
+          "name": "workLink",
+          "label": "Link to your work",
+          "type": "url",
+          "options": null,
+          "max": 500
+        }
+      ]
+    },
+    {
+      "action": "creator",
+      "title": "Creator",
+      "description": "Share your art, performance or creative skills with OAC.",
+      "tab": "OAC_Creators",
+      "fields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "creatorType",
+          "label": "Creator type",
+          "type": "select",
+          "options": [
+            "artist",
+            "cosplayer",
+            "photographer",
+            "streamer",
+            "performer"
+          ],
+          "max": 120
+        },
+        {
+          "name": "portfolio",
+          "label": "Portfolio or social link",
+          "type": "url",
+          "options": null,
+          "max": 500
+        },
+        {
+          "name": "email",
+          "label": "Email for follow-up",
+          "type": "email",
+          "options": null,
+          "max": 254
+        },
+        {
+          "name": "city",
+          "label": "City",
+          "type": "text",
+          "options": null,
+          "max": 120
+        },
+        {
+          "name": "request",
+          "label": "What would you like?",
+          "type": "select",
+          "options": [
+            "Artist alley table",
+            "Performance slot",
+            "Collab",
+            "Featuring"
+          ],
+          "max": 120
+        },
+        {
+          "name": "experience",
+          "label": "Have you done events before?",
+          "type": "select",
+          "options": [
+            "yes",
+            "no"
+          ],
+          "max": 120
+        }
+      ]
+    }
+  ]
+}

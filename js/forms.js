@@ -28,10 +28,12 @@ function collectEntry() {
   if (phoneInput) {
     phoneInput.setCustomValidity(phone ? '' : 'Enter a 10-digit Indian mobile number, optionally with +91.');
   }
-  for (const field of ['name', 'city', 'organisation', 'availability', 'message']) {
-    const input = communityForm.elements[field];
-    if (input && input.required) {
+  for (const input of communityForm.elements) {
+    if (input && input.name !== 'phone' && input.required && ['text', 'textarea', 'url', 'email', 'tel'].includes(input.type)) {
       input.setCustomValidity(input.value.trim() ? '' : 'Please fill in this field.');
+      if (input.type === 'url' && input.value.trim() && !ticketAddress(input.value.trim())) {
+        input.setCustomValidity('Use a complete HTTPS link, such as https://example.com.');
+      }
     }
   }
   if (communityForm.dataset.action === 'join') {
@@ -58,9 +60,9 @@ function collectEntry() {
 // Clears only custom error flags when any field changes; native required/email checks still apply.
 // Otherwise an old error can block the next submit before our validation handler gets a chance to run.
 function clearFieldErrors(event) {
-  for (const field of ['phone', 'name', 'city', 'organisation', 'availability', 'message']) {
-    if (communityForm.elements[field]) {
-      communityForm.elements[field].setCustomValidity('');
+  for (const input of communityForm.elements) {
+    if (typeof input.setCustomValidity === 'function') {
+      input.setCustomValidity('');
     }
   }
   if (communityForm.dataset.action === 'join') {
@@ -129,7 +131,7 @@ async function submitEntry(event) {
   try {
     const result = await sendEntry(pendingEntry.data);
     const accepted = {
-      join: 'joined', checkin: 'checked_in', volunteer: 'volunteer_received', contact: 'enquiry_received'
+      join: 'joined', checkin: 'checked_in', volunteer: 'volunteer_received', contact: 'enquiry_received', stall: 'stall_received', sponsor: 'sponsor_received', partnership: 'partnership_received', creator: 'creator_received'
     }[data.action];
     if (result.ok && result.code === accepted) {
       const successMessages = {
@@ -138,7 +140,7 @@ async function submitEntry(event) {
         volunteer: 'Application received! The OAC team can follow up by email. Thank you for offering to help.',
         contact: 'Enquiry received! The OAC team can follow up by email. Thank you for getting in touch.'
       };
-      showFormStatus('success', successMessages[data.action]);
+      showFormStatus('success', successMessages[data.action] || 'Enquiry confirmed! The OAC team will review it and contact you using the details provided.');
       pendingEntry = null;
       submitButton.textContent = data.action === 'checkin' ? 'Check in next member' : 'Submission confirmed';
       if (data.action === 'join') {

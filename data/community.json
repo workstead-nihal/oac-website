@@ -1,32 +1,56 @@
 {
-  "_comment": "Purpose: editable draft About, community rules, donation details and FAQ. Team must approve policy wording before public release. Replace UPI details only after verifying the recipient and QR together. Empty payment fields intentionally disable donations.",
+  "_comment": "Purpose: editable community story, rules and FAQ. Patron tiers are in patrons.json; Work With Us forms are in work.json. Team approves policy wording.",
   "story": [
     "Odisha Anime Community brings anime and pop-culture fans together in Bhubaneswar, Odisha. From anime conversations to cosplay, art, gaming and music, our shared interests are the beginning of real friendships.",
     "You don't need an encyclopaedia of anime knowledge or a perfect costume to belong. Come with curiosity, share what you love and make space for someone discovering their first fandom.",
     "Our community grows when members help each other: welcoming a new face, sharing their art, volunteering at a gathering or cheering for a first-time cosplayer. Different fandoms. One family."
   ],
   "rules": [
-    { "title": "Make everyone welcome", "text": "Treat people with respect across genders, ages, backgrounds and fandoms. Harassment, hate speech, threats and bullying are not welcome." },
-    { "title": "Ask before photos or contact", "text": "Ask before taking or posting someone's photo, touching a costume or prop, or sharing their personal information. Respect a no immediately." },
-    { "title": "Keep shared spaces comfortable", "text": "Follow venue rules and organiser instructions. Keep props safe, leave spaces clean, and avoid content inappropriate for the audience." },
-    { "title": "Credit creative work", "text": "Credit artists and creators. Do not repost work without permission or sell someone else's work as your own." },
-    { "title": "Help someone who needs it", "text": "If you experience or witness a problem, contact an event volunteer or use the community enquiry form. Organisers should respond respectfully and privately." }
+    {
+      "title": "Make everyone welcome",
+      "text": "Treat people with respect across genders, ages, backgrounds and fandoms. Harassment, hate speech, threats and bullying are not welcome."
+    },
+    {
+      "title": "Ask before photos or contact",
+      "text": "Ask before taking or posting someone's photo, touching a costume or prop, or sharing their personal information. Respect a no immediately."
+    },
+    {
+      "title": "Keep shared spaces comfortable",
+      "text": "Follow venue rules and organiser instructions. Keep props safe, leave spaces clean, and avoid content inappropriate for the audience."
+    },
+    {
+      "title": "Credit creative work",
+      "text": "Credit artists and creators. Do not repost work without permission or sell someone else's work as your own."
+    },
+    {
+      "title": "Help someone who needs it",
+      "text": "If you experience or witness a problem, contact an event volunteer or use the community enquiry form. Organisers should respond respectfully and privately."
+    }
   ],
-  "donation": {
-    "intro": "Community gatherings take care, time and resources. Optional contributions can help us make welcoming spaces for anime and pop-culture fans in Odisha.",
-    "funds": ["Venue and event essentials", "Creative activities and materials", "Community equipment and volunteer support"],
-    "upiId": "",
-    "recipientName": "",
-    "qrImage": "",
-    "verified": false,
-    "note": "These are proposed funding categories, pending team approval. Donations are not currently enabled. No tax benefit or refund policy is promised on this preview."
-  },
   "faq": [
-    { "question": "Do I need to cosplay to attend?", "answer": "No. Come as you are. Cosplay is welcome, but an interest in the community is enough." },
-    { "question": "Can I come on my own?", "answer": "Yes. New faces are welcome. Say hello to the event crew if you need help meeting people." },
-    { "question": "Where do I find event and ticket details?", "answer": "Visit Events and Tickets. Sample details are clearly labelled; confirm the venue, time and ticket inclusions before booking." },
-    { "question": "Are there age restrictions?", "answer": "Age requirements can vary by event and venue. Check the confirmed event details. Under-18 members should ask a parent or guardian to review membership consent." },
-    { "question": "How can I volunteer or partner with OAC?", "answer": "Use the Volunteers application for helping the crew, or the Contact enquiry for venues, brands and sponsors. Website forms need the Apps Script endpoint configured before they can submit." },
-    { "question": "Can I pay for tickets or donate by card here?", "answer": "No. Tickets use an approved external platform. When donations are enabled, they use a verified UPI recipient. This website does not collect card or bank details." }
+    {
+      "question": "Do I need to cosplay to attend?",
+      "answer": "No. Come as you are. Cosplay is welcome, but an interest in the community is enough."
+    },
+    {
+      "question": "Can I come on my own?",
+      "answer": "Yes. New faces are welcome. Say hello to the event crew if you need help meeting people."
+    },
+    {
+      "question": "Where do I find event and ticket details?",
+      "answer": "Visit Events and Tickets. Sample details are clearly labelled; confirm the venue, time and ticket inclusions before booking."
+    },
+    {
+      "question": "Are there age restrictions?",
+      "answer": "Age requirements can vary by event and venue. Check the confirmed event details. Under-18 members should ask a parent or guardian to review membership consent."
+    },
+    {
+      "question": "How can I volunteer or partner with OAC?",
+      "answer": "Use the Volunteers application for helping the crew, or the Contact enquiry for venues, brands and sponsors. Website forms need the Apps Script endpoint configured before they can submit."
+    },
+    {
+      "question": "How do patron signups work?",
+      "answer": "Visit the patron section on About for benefits. Signup and billing details will be confirmed before enrolment opens; this website does not collect payment credentials."
+    }
   ]
 }

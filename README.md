@@ -5,7 +5,7 @@ A lightweight website for anime and pop-culture fans in Bhubaneswar, Odisha. It 
 
 ## Current status
 
-All five implementation phases are present: the requested pages plus Showcase, the OAC theme, real community photos, editable JSON, all four Apps Script form actions, static SEO metadata and automated checks. Live submissions still require deployment/configuration, and the official URL is https://joinoac.in/; launch still requires hosting/DNS/HTTPS and real browser/Lighthouse verification. The existing Google signup form remains a fallback. Sample profiles, draft policies and unverified donation details are clearly labelled.
+All five implementation phases are present: the requested pages plus Showcase, the OAC theme, real community photos, editable JSON, all eight Apps Script form actions, static SEO metadata and automated checks. Live submissions still require deployment/configuration, and the official URL is https://joinoac.in/; launch still requires hosting/DNS/HTTPS and real browser/Lighthouse verification. The existing Google signup form remains a fallback. Sample profiles and draft policies are clearly labelled; patron payment links and billing terms remain pending.
 
 This repository is ready for your final review and remaining account/domain setup; it has not been published by this coding session. Do not treat local mock checks as proof of live integration or a Lighthouse score.
 
@@ -19,7 +19,7 @@ Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from
 - `events.html`: combined event catalogue and ticket tiers, with both past-event photo panels. `tickets.html` redirects old links to `events.html#tickets`, preserving the event query.
 - `join.html`: membership form and existing Google Form fallback.
 - `checkin.html`: volunteer-only direct link, deliberately absent from public navigation and marked noindex. The backend—not link hiding—enforces its code and opening window.
-- `volunteers.html`, `donate.html`, `about.html`, `contact.html`: volunteer profiles/application, donation explanation, story/rules/social links, and partnership enquiries/FAQ.
+- `volunteers.html`: guild leads, leaderboard and volunteer application. `about.html`: story, rules, patron tiers, social links and general contact/FAQ. `donate.html` and `contact.html` keep older links usable through redirects.
 - `CNAME`: GitHub Pages custom domain, containing only `joinoac.in`. This platform configuration cannot contain a purpose comment; its purpose is documented here instead.
 - `404.html`: lost-page recovery. Its labelled `<base href="/">` supports nested missing URLs on a root/custom-domain site; change it to `/REPOSITORY-NAME/` for a GitHub Pages project site before deployment.
 - `css/style.css`: theme variables at the top, then shared components and responsive layouts.
@@ -32,14 +32,17 @@ Use black `#0C0C0C`, OAC red `#D91515`, and deeper gold `#F3B334` (deepened from
 - `js/redirect.js`: legacy page redirects; visible links work when JavaScript is disabled.
 - `showcase.html`: winners, artwork and community highlights; accessible from desktop navigation and mobile More.
 - `data/showcase.json`: editable showcase entries with category, title, creator credit, detail, sample flag and optional local image metadata.
-- `js/community.js`: volunteer cards, story, rules, FAQ, social links and verified-only donation rendering.
+- `js/community.js`: volunteer/guild cards, leaderboard, story, rules, FAQ, social links and patron rendering.
 - `js/config.js`: the one clearly labelled place for the public Apps Script URL; currently empty.
 - `data/events.json`: editable sample event and ticket details.
 - `data/announcements.json`: Home noticeboard content.
 - `data/links.json`: verified community social URLs; currently placeholders.
 - `data/photos.json`: photo paths, descriptions and captions that you can edit without touching page code.
 - `data/volunteers.json`: editable showcase entries; currently labelled sample profiles with initials.
-- `data/community.json`: editable story, draft code of conduct, FAQ and disabled donation settings.
+- `data/community.json`: editable story, draft code of conduct and FAQ.
+- `data/patrons.json`: tier prices, benefits, billing note and pending external signup links.
+- `data/work.json`: hub cards and four collaboration form definitions.
+- `js/work.js`: hub/form rendering; form submissions use the shared handler.
 - `assets/images/web/`: compressed copies of your original community photographs. Large originals stay in your local `assets/images` folder and are excluded from Git. Only publish the web copies.
 - `assets/favicon.svg`: small original wheel motif. Home artwork uses inline SVG and CSS, requiring no image downloads.
 - `assets/og-cover.jpg`: original 1200×630 OAC sharing card (about 71 KB), used by static Open Graph metadata.
@@ -81,13 +84,13 @@ Edit `data/volunteers.json`. Each entry has `name`, `initials`, `role`, `line`, 
 
 The application form collects name, email, city, help area, availability, a short message and consent. Applications go to the private `OAC_Volunteers` tab only after a confirmed receipt. Submission is not a promise of a volunteer role. Organisers review the tab and reply privately; there is no automatic email sender.
 
-## About, FAQ, contact and donations
+## About, FAQ, contact and patrons
 
 Edit `story`, `rules` and `faq` in `data/community.json`. Each rule has `title` and `text`; each FAQ has `question` and `answer`. FAQ uses native expandable `<details>` controls so keyboard support needs no library. The About copy avoids invented founding dates and member counts; its draft policies require team approval.
 
 The Contact form is for venue/mall partnerships, sponsors, brands and community enquiries. It collects name, email, organisation (individuals can write “Individual”), topic, message and consent; it does not need a phone number. Confirmed submissions go to `OAC_Enquiries`. Contact is not an emergency channel and no response time is promised.
 
-Donations start disabled. In `data/community.json`, fill `donation.upiId`, `recipientName`, and a local `qrImage` path under `assets/images/web`, then set `verified: true` ONLY after checking that the QR and ID both lead to the approved recipient. Also review funding descriptions and the note. Blank, invalid or unverified settings keep a visibly non-scannable placeholder. Recheck the displayed recipient inside your own UPI app before public release; do not make a test payment unless the team explicitly authorises it. The website does not process payments, store banking details, or invent tax/refund claims.
+Patrons replace the previous donation/UPI panel. Edit `data/patrons.json` for tier prices, benefits and approved HTTPS signup links. Payment links and billing cadence remain unset, so visitors see signup coming soon. Before publishing payment links, organisers should confirm the payment provider, recurring or one-time billing, cancellation/refund terms, physical-item fulfilment, ticket discounts and artist permissions. The site does not collect payment credentials or automatically assign Discord roles, track benefit entitlement or charge members. Keep patron identity and delivery/contact details private; publish supporters’ names only with their permission. Core discounts are 50% on normal events and 15% on big events; Guild has no slot cap currently.
 
 Desktop navigation reaches every public page. On mobile, More jumps to the footer's accessible community links; there is no JavaScript menu to maintain. Check-in remains absent from public navigation. The root `404.html` is recognised by common static hosts; verify actual missing-path routing after deployment, since hosting settings differ.
 
@@ -297,3 +300,15 @@ The timeline uses a horizontal spine with alternating branches on desktop and a 
 Open `checks/history-check.html` through the local HTTP preview for runnable date-order, range, sample and empty-state checks. These checks also passed against the actual script using DOM stubs; they do not replace browser layout review.
 
 History content update: all initial timeline placeholders have been replaced with the nine supplied milestones. Local checks confirm chronological ordering, valid dates and nine rendered entries through the current India date; visual browser review is still pending.
+
+## Patrons and Work With Us
+
+Donations have been replaced by patron tiers on About (`#patrons`). Home’s patron link and the old Donate URL open this section. Edit `data/patrons.json`: Supporter ₹99, Core ₹299 and Guild ₹599. Core includes 50% ticket discounts on normal events and 15% on big events. Guild currently has no slot limit. The listed perks are user-supplied; billing cadence, payment links, benefit delivery and patron terms are still pending. Empty links show signup coming soon. This site does not charge subscriptions, allocate perks or automatically publish a supporters wall; Discord roles, art drops, voting, physical fulfilment and ticket access require organiser operations.
+
+Work With Us is linked in desktop navigation, mobile More and Home. Its four cards open `work-stall.html`, `work-sponsor.html`, `work-partnership.html` and `work-creator.html`. `data/work.json` supplies card copy and labelled fields; `js/work.js` renders them and the existing `js/forms.js` handles consent, validation, honeypots, receipt checks and retries. All URL fields require HTTPS. The Creator form includes email so organisers can follow up. Sponsorship packages are enquiries for ₹4,000 tag/mentions or ₹8,000 premium with a stall, not payments or confirmed bookings.
+
+The Apps Script writes separate `OAC_Stalls`, `OAC_Sponsors`, `OAC_Partnerships` and `OAC_Creators` tabs in the same private Sheet configured by `SHEET_ID`. Copy the updated backend, run `setupOAC()` and redeploy a new version before using the forms. Do not rename old Members or response columns. `data/work.json` field names/options must match `WORK_FORMS` in the backend; update both and redeploy if the schema changes. No contact data appears publicly.
+
+Local backend tests passed for all eight form actions, including new tab setup, validation, formula escaping and retry deduplication. Static checks passed for all 16 HTML files. Preview the hub and each form at 360px and desktop, test keyboard labels/consent/invalid phone and URL, and submit each form against a test Sheet to confirm its own tab and matching receipt. Simulate a dropped connection and confirm a retry adds no duplicate. Browser layout and live Google/CORS integration remain unverified; the endpoint is still unconfigured. Old donation setup instructions and verification records above describe earlier versions; the current patron configuration supersedes payment/UPI instructions.
+
+Open `checks/work-check.html` through the local server to exercise the four real form renderers and mocked submit receipts, including uncertain-request retention and UUID reuse. It does not contact Google. Patron rendering/link safety checks are in `checks/community-check.html`.

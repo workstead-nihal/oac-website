@@ -6,6 +6,261 @@ const MEMBER_FIELDS = ['Name', 'Phone', 'Email', 'City', 'AgeGroup', 'Interests'
 const CHECKIN_FIELDS = ['EventId', 'Phone', 'CheckedInAt', 'RequestId'];
 const INTERESTS = ['anime', 'cosplay', 'art', 'gaming', 'K-pop/J-pop', 'other'];
 const VOLUNTEER_FIELDS = ['Name', 'Email', 'City', 'Role', 'Availability', 'Message', 'Consent', 'SubmittedAt', 'RequestId'];
+// Fixed public form schemas validate every field before any Sheet write.
+const WORK_FORMS = {
+  "stall": {
+    "tab": "OAC_Stalls",
+    "fields": [
+      {
+        "name": "businessName",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "products",
+        "type": "textarea",
+        "max": 1000,
+        "options": null
+      },
+      {
+        "name": "contactPerson",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "max": 30,
+        "options": null
+      },
+      {
+        "name": "websiteLink",
+        "type": "url",
+        "max": 500,
+        "options": null
+      },
+      {
+        "name": "event",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "stallType",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "power",
+        "type": "select",
+        "max": 120,
+        "options": [
+          "yes",
+          "no"
+        ]
+      },
+      {
+        "name": "experience",
+        "type": "select",
+        "max": 120,
+        "options": [
+          "yes",
+          "no"
+        ]
+      }
+    ]
+  },
+  "sponsor": {
+    "tab": "OAC_Sponsors",
+    "fields": [
+      {
+        "name": "companyName",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "contactPerson",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "contactRole",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "max": 30,
+        "options": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "max": 254,
+        "options": null
+      },
+      {
+        "name": "event",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "budget",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "package",
+        "type": "select",
+        "max": 120,
+        "options": [
+          "Tag and mentions — ₹4,000",
+          "Premium with a stall — ₹8,000"
+        ]
+      },
+      {
+        "name": "goal",
+        "type": "select",
+        "max": 120,
+        "options": [
+          "Footfall",
+          "Brand awareness",
+          "Product sampling"
+        ]
+      }
+    ]
+  },
+  "partnership": {
+    "tab": "OAC_Partnerships",
+    "fields": [
+      {
+        "name": "organisation",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "organisationType",
+        "type": "select",
+        "max": 120,
+        "options": [
+          "mall",
+          "cafe",
+          "college",
+          "brand",
+          "another community"
+        ]
+      },
+      {
+        "name": "proposal",
+        "type": "textarea",
+        "max": 2000,
+        "options": null
+      },
+      {
+        "name": "timeline",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "contactPerson",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "max": 30,
+        "options": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "max": 254,
+        "options": null
+      },
+      {
+        "name": "workLink",
+        "type": "url",
+        "max": 500,
+        "options": null
+      }
+    ]
+  },
+  "creator": {
+    "tab": "OAC_Creators",
+    "fields": [
+      {
+        "name": "name",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "creatorType",
+        "type": "select",
+        "max": 120,
+        "options": [
+          "artist",
+          "cosplayer",
+          "photographer",
+          "streamer",
+          "performer"
+        ]
+      },
+      {
+        "name": "portfolio",
+        "type": "url",
+        "max": 500,
+        "options": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "max": 254,
+        "options": null
+      },
+      {
+        "name": "city",
+        "type": "text",
+        "max": 120,
+        "options": null
+      },
+      {
+        "name": "request",
+        "type": "select",
+        "max": 120,
+        "options": [
+          "Artist alley table",
+          "Performance slot",
+          "Collab",
+          "Featuring"
+        ]
+      },
+      {
+        "name": "experience",
+        "type": "select",
+        "max": 120,
+        "options": [
+          "yes",
+          "no"
+        ]
+      }
+    ]
+  }
+};
+
 const ENQUIRY_FIELDS = ['Name', 'Email', 'Organisation', 'EnquiryType', 'Message', 'Consent', 'SubmittedAt', 'RequestId'];
 
 // Returns a JSON response for a result object; does not expose member data or internal exception text.
@@ -42,7 +297,7 @@ function doPost(event) {
       throw new Error('invalid');
     }
     requestId = typeof data.requestId === 'string' ? data.requestId : '';
-    if (!/^[a-f0-9-]{36}$/i.test(requestId) || data.website || !['join', 'checkin', 'volunteer', 'contact'].includes(data.action)) {
+    if (!/^[a-f0-9-]{36}$/i.test(requestId) || data.website || !['join', 'checkin', 'volunteer', 'contact', 'stall', 'sponsor', 'partnership', 'creator'].includes(data.action)) {
       throw new Error('invalid');
     }
     const phone = ['join', 'checkin'].includes(data.action) ? normalPhone(data.phone) : '';
@@ -50,6 +305,8 @@ function doPost(event) {
       authorizeCheckin(data);
     } else if (data.action === 'join') {
       validateMember(data);
+    } else if (Object.prototype.hasOwnProperty.call(WORK_FORMS, data.action)) {
+      validateWork(data);
     } else {
       validateEnquiry(data);
     }
@@ -73,6 +330,8 @@ function doPost(event) {
       result = saveMember(spreadsheet, data, phone);
     } else if (data.action === 'checkin') {
       result = saveCheckin(spreadsheet, data, phone);
+    } else if (Object.prototype.hasOwnProperty.call(WORK_FORMS, data.action)) {
+      result = saveWork(spreadsheet, data);
     } else {
       result = saveEnquiry(spreadsheet, data);
     }
@@ -167,6 +426,49 @@ function saveEnquiry(spreadsheet, data) {
     Object.assign(values, { City: data.city.trim(), Role: data.role, Availability: data.availability.trim() });
   } else {
     Object.assign(values, { Organisation: data.organisation.trim(), EnquiryType: data.enquiryType });
+  }
+  appendMapped(table, values);
+  return receipt;
+}
+
+// Validates collaboration fields against the fixed schema; input: submitted data, output: no value or invalid error.
+function validateWork(data) {
+  const schema = WORK_FORMS[data.action];
+  if (data.consent !== true) {
+    throw new Error('invalid');
+  }
+  for (const field of schema.fields) {
+    const value = data[field.name];
+    if (typeof value !== 'string' || !value.trim() || value.length > field.max || /[\x00-\x08\x0b\x0c\x0e-\x1f]/.test(value)) {
+      throw new Error('invalid');
+    }
+    if (field.options && !field.options.includes(value)) {
+      throw new Error('invalid');
+    }
+    if (field.type === 'tel') {
+      normalPhone(value);
+    }
+    if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      throw new Error('invalid');
+    }
+    if (field.type === 'url' && !/^https:\/\/[^\s/?#]+(?:[/?#][^\s]*)?$/.test(value)) {
+      throw new Error('invalid');
+    }
+  }
+}
+
+// Saves a validated collaboration enquiry in its own tab; returns an idempotent receipt, never submitted data.
+function saveWork(spreadsheet, data) {
+  const schema = WORK_FORMS[data.action];
+  const headers = schema.fields.map(field => field.name).concat(['Consent', 'SubmittedAt', 'RequestId']);
+  const table = sheetTable(spreadsheet, schema.tab, headers, {});
+  const receipt = data.action + '_received';
+  if (table.values.slice(1).some(row => row[table.indexes.RequestId] === data.requestId)) {
+    return receipt;
+  }
+  const values = { Consent: 'Yes', SubmittedAt: new Date().toISOString(), RequestId: data.requestId };
+  for (const field of schema.fields) {
+    values[field.name] = field.type === 'tel' ? "'" + normalPhone(data[field.name]) : data[field.name].trim();
   }
   appendMapped(table, values);
   return receipt;
@@ -298,7 +600,7 @@ function setupOAC() {
     spreadsheet.insertSheet('OAC_CheckIns').appendRow(CHECKIN_FIELDS);
   }
   sheetTable(spreadsheet, 'OAC_CheckIns', CHECKIN_FIELDS, {});
-  for (const item of [{ name: 'OAC_Volunteers', fields: VOLUNTEER_FIELDS }, { name: 'OAC_Enquiries', fields: ENQUIRY_FIELDS }]) {
+  for (const item of [{ name: 'OAC_Volunteers', fields: VOLUNTEER_FIELDS }, { name: 'OAC_Enquiries', fields: ENQUIRY_FIELDS }, ...Object.values(WORK_FORMS).map(schema => ({ name: schema.tab, fields: schema.fields.map(field => field.name).concat(['Consent', 'SubmittedAt', 'RequestId']) }))]) {
     if (!spreadsheet.getSheetByName(item.name)) {
       spreadsheet.insertSheet(item.name).appendRow(item.fields);
     }

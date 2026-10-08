@@ -11,17 +11,13 @@
   <div id="showcase-winners" hidden></div>
   <div id="showcase-artwork" hidden></div>
   <div id="showcase-highlights" hidden></div>
+  <div hidden><p id="patrons-intro"></p><p id="patrons-billing"></p><p id="patrons-note"></p><div id="patron-tiers"></div></div>
   <h1>Community checks — no payments</h1>
   <p id="result">Running…</p>
   <div hidden>
     <div id="volunteer-grid"></div>
     <p id="community-status"></p>
     <button id="retry-community" type="button">Retry</button>
-    <p id="donation-intro"></p>
-    <p id="donation-note"></p>
-    <ul id="donation-funds"></ul>
-    <img id="upi-qr" alt="Hidden test image">
-    <p id="upi-id"></p><p id="upi-recipient"></p><p id="donation-state"></p>
   </div>
   <script src="js/content.js"></script>
   <script src="js/community.js"></script>
@@ -49,22 +45,13 @@
       checks.push(ranks.length === 3 && ranks[0].rank === 1 && ranks[1].rank === 1 && ranks[2].rank === 3);
       checks.push(scores.length === 4 && scores[3].points === -1);
       checks.push(rankVolunteers([]).length === 0);
-      const donation = {
-        intro: 'Test', note: 'Test only', funds: ['Test materials'], verified: false,
-        upiId: 'test@example', recipientName: 'Test recipient', qrImage: 'assets/images/web/oac-family-480.jpg'
-      };
-      showDonation(donation);
-      checks.push(document.getElementById('upi-id').textContent === 'REPLACE WITH VERIFIED UPI ID');
-      donation.verified = true;
-      showDonation(donation);
-      checks.push(document.getElementById('upi-id').textContent === 'test@example');
-      donation.verified = false;
-      showDonation(donation);
-      checks.push(document.getElementById('upi-id').textContent === 'REPLACE WITH VERIFIED UPI ID');
-      donation.verified = true;
-      donation.upiId = 'invalid';
-      showDonation(donation);
-      checks.push(document.getElementById('upi-id').textContent === 'REPLACE WITH VERIFIED UPI ID');
+      const patrons = { intro: 'Test', billing: 'Pending', note: 'Test', tiers: [{ name: 'Supporter', price: 99, limited: false, benefits: ['Test benefit'], url: 'javascript:alert(1)' }] };
+      showPatrons(patrons);
+      checks.push(document.querySelector('#patron-tiers a') === null);
+      checks.push(document.querySelector('#patron-tiers').textContent.includes('coming soon'));
+      patrons.tiers[0].url = 'https://example.com';
+      showPatrons(patrons);
+      checks.push(document.querySelector('#patron-tiers a').href === 'https://example.com/');
       document.getElementById('result').textContent = checks.every(Boolean) ? 'All checks passed' : 'A check failed';
       if (!checks.every(Boolean)) {
         throw new Error('Community checks failed');

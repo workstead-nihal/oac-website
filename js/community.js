@@ -1,4 +1,4 @@
-// Purpose: populate student-editable volunteer, story, rules, FAQ, social and donation content safely.
+// Purpose: populate student-editable volunteer, story, rules, FAQ, social and patron content safely.
 'use strict';
 
 // Creates a literal-text element from a tag, class and text; returns the element without executing HTML.
@@ -95,7 +95,7 @@ function showVolunteerLeaderboard(data) {
   }
 }
 
-// Fills story, rules, donation or FAQ containers present on the page; returns nothing.
+// Fills story, rules or FAQ containers present on the page; returns nothing.
 function showCommunity(data) {
   const story = document.getElementById('community-story');
   if (story) {
@@ -122,46 +122,31 @@ function showCommunity(data) {
       faq.append(details);
     }
   }
-  if (document.getElementById('donation-intro')) {
-    showDonation(data.donation);
-  }
+
 }
 
-// Clears payment details before loading or rerendering; takes no inputs and leaves a safe disabled placeholder.
-function resetDonationPanel() {
-  document.getElementById('upi-qr').src = 'assets/upi-placeholder.svg';
-  document.getElementById('upi-qr').alt = 'UPI placeholder — not a QR code and not for payment';
-  document.getElementById('upi-id').textContent = 'REPLACE WITH VERIFIED UPI ID';
-  document.getElementById('upi-recipient').textContent = 'Recipient name to be confirmed';
-  document.getElementById('donation-state').textContent = 'Donations are not enabled. Replace and verify the placeholder details before accepting payments.';
-}
-
-// Displays funding explanations and only enables verified UPI details; takes a donation object, returns nothing.
-function showDonation(donation) {
-  resetDonationPanel();
-  document.getElementById('donation-intro').textContent = donation.intro;
-  document.getElementById('donation-note').textContent = donation.note;
-  const funds = document.getElementById('donation-funds');
-  funds.replaceChildren();
-  for (const purpose of donation.funds) {
-    funds.append(communityElement('li', '', purpose));
-  }
-  const qr = communityImage(donation.qrImage);
-  const valid = donation.verified === true && /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+$/.test(donation.upiId) && qr &&
-    typeof donation.recipientName === 'string' && donation.recipientName.trim();
-  if (valid) {
-    const image = document.getElementById('upi-qr');
-    image.src = qr;
-    image.alt = 'UPI donation QR for ' + donation.recipientName + '; verify the recipient in your payment app';
-    document.getElementById('upi-id').textContent = donation.upiId;
-    document.getElementById('upi-recipient').textContent = 'Expected recipient: ' + donation.recipientName;
-    document.getElementById('donation-state').textContent = 'Check the recipient name in your UPI app before confirming any payment.';
-    // Hides the payment panel if its required QR cannot load; input: error event, output: no value.
-    image.addEventListener('error', function hideBrokenQr() {
-      document.getElementById('upi-id').textContent = 'UPI ID unavailable';
-      document.getElementById('donation-state').textContent = 'Donation QR unavailable. Please contact the team before paying.';
-      image.src = 'assets/upi-placeholder.svg';
-    }, { once: true });
+// Renders the requested patron benefits and only links approved HTTPS signup destinations; input: JSON, output: no value.
+function showPatrons(data) {
+  const grid = document.getElementById('patron-tiers');
+  grid.replaceChildren();
+  document.getElementById('patrons-intro').textContent = data.intro;
+  document.getElementById('patrons-billing').textContent = data.billing;
+  document.getElementById('patrons-note').textContent = data.note;
+  for (const tier of data.tiers) {
+    const card = communityElement('article', 'catalogue-card', '');
+    card.append(communityElement('h3', '', tier.name + (tier.limited ? ' · Limited slots' : '')), communityElement('p', 'tier-price', '₹' + tier.price));
+    const benefits = communityElement('ul', '', '');
+    for (const benefit of tier.benefits) {
+      benefits.append(communityElement('li', '', benefit));
+    }
+    card.append(benefits);
+    const address = ticketAddress(tier.url);
+    const action = communityElement(address ? 'a' : 'p', address ? 'button' : 'sample-note', address ? 'Become a ' + tier.name : 'Patron signup coming soon');
+    if (address) {
+      action.href = address;
+    }
+    card.append(action);
+    grid.append(card);
   }
 }
 
@@ -232,9 +217,6 @@ async function loadCommunityPage() {
   const status = document.getElementById('community-status');
   const retry = document.getElementById('retry-community');
   retry.disabled = true;
-  if (document.getElementById('donation-intro')) {
-    resetDonationPanel();
-  }
   try {
     if (document.getElementById('showcase-winners')) {
       const showcase = await readData('data/showcase.json');
@@ -252,6 +234,9 @@ async function loadCommunityPage() {
       }
     } else {
       showCommunity(await readData('data/community.json'));
+      if (document.getElementById('patron-tiers')) {
+        showPatrons(await readData('data/patrons.json'));
+      }
     }
     status.textContent = '';
     retry.hidden = true;

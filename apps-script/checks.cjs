@@ -50,7 +50,7 @@ const context = vm.createContext({
   },
   SpreadsheetApp: {
     // Opens the fake spreadsheet; output: name-based fake tabs, with a read counter for access checks.
-    openById() { sheetReads++; return { getSheetByName(name) { return sheets[name]; } }; },
+    openById() { sheetReads++; return { getSheetByName(name) { return sheets[name]; }, insertSheet(name) { sheets[name] = fakeSheet([]); sheets[name].rows.length = 0; return sheets[name]; } }; },
     flush() {} // Real flush persists pending writes; no work is needed for an in-memory test.
   },
   ContentService: {
@@ -130,3 +130,30 @@ assert.equal(post(enquiry).code, 'enquiry_received');
 assert.equal(post(enquiry).code, 'enquiry_received');
 assert.equal(sheets.OAC_Enquiries.rows.length, 2, 'Retry must not duplicate the enquiry');
 console.log('All backend checks passed: all four form actions, validation, formula escaping, deduplication, protected lookup, time windows and lock contention.');
+
+// Exercise new collaboration tabs and retries using the actual backend, without touching the master Sheet.
+context.setupOAC();
+const workDefinitions = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'work.json'), 'utf8')).forms;
+for (const definition of workDefinitions) {
+  const payload = { action: definition.action, consent: true, requestId: '00000000-0000-4000-8000-' + String(++sequence).padStart(12, '0') };
+  for (const field of definition.fields) {
+    payload[field.name] = field.options ? field.options[0] : field.type === 'tel' ? '+91 98765 43210' : field.type === 'email' ? 'test@example.com' : field.type === 'url' ? 'https://example.com/portfolio' : '=test contribution';
+  }
+  assert.equal(post({ ...payload, consent: false }).code, 'invalid');
+  assert.equal(post({ ...payload, website: 'bot' }).code, 'invalid');
+  const invalidSelect = definition.fields.find(field => field.options);
+  assert.equal(post({ ...payload, [invalidSelect.name]: 'unknown' }).code, 'invalid');
+  const linkField = definition.fields.find(field => field.type === 'url');
+  if (linkField) {
+    assert.equal(post({ ...payload, [linkField.name]: 'javascript:alert(1)' }).code, 'invalid');
+  }
+  const phoneField = definition.fields.find(field => field.type === 'tel');
+  if (phoneField) {
+    assert.equal(post({ ...payload, [phoneField.name]: 'invalid' }).code, 'invalid');
+  }
+  assert.equal(post(payload).code, definition.action + '_received');
+  assert.equal(post(payload).code, definition.action + '_received');
+  assert.equal(sheets[definition.tab].rows.length, 2, 'Retry must not duplicate ' + definition.tab);
+  assert.equal(sheets[definition.tab].rows[1][0][0], "'", 'Text must be formula escaped');
+}
+console.log('All collaboration checks passed: separate tabs, setup, required fields, consent, honeypots, enums, URLs, phones and retry deduplication.');

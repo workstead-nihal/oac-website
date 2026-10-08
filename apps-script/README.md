@@ -93,3 +93,16 @@ After editing Apps Script code, use Deploy → Manage deployments → Edit → N
 - Personal details and an uncertain request live only in the open browser tab, not localStorage. They survive connection loss while the page stays open, but cannot survive a crash, shutdown or reload. Keep the page open for retry; inspect the Sheet before re-entering uncertain submissions.
 - A parental-consent checkbox is a declaration, not verified parental permission. The team must define and follow its actual membership/privacy policy.
 - Existing member schema, live Google deployment, account permissions and end-to-end CORS remain unverified until the team supplies/configures them.
+
+## Work With Us forms — updated deployment
+
+The same master Sheet and `/exec` endpoint now accept four additional actions: `stall`, `sponsor`, `partnership` and `creator`. They return `stall_received`, `sponsor_received`, `partnership_received` and `creator_received` with the submitted request ID. Each writes only its corresponding `OAC_Stalls`, `OAC_Sponsors`, `OAC_Partnerships` or `OAC_Creators` tab.
+
+1. Copy the updated `Code.gs` into the intended Apps Script project, preserving unrelated scripts. Use a test Sheet first.
+2. Run `setupOAC()` again. It adds missing collaboration tabs and verifies existing schemas without deleting rows. Headers are the corresponding field names in `WORK_FORMS`, followed by `Consent`, `SubmittedAt`, `RequestId`.
+3. Deploy → Manage deployments → Edit → New version → Deploy. Keep the same public `/exec` URL when possible and configure it in `js/config.js`.
+4. Submit test data from each of the four website forms. Verify a readable matching receipt and one new row in the correct tab. Retry with the same request ID: still only one row.
+5. Verify missing fields, invalid email/phone/HTTPS links, unknown options, unchecked consent and filled honeypots produce no row. Run `node apps-script/checks.cjs` with the existing Node runtime for fake-Sheet regression checks.
+6. Repeat from `https://joinoac.in/` to check live cross-origin response handling. Review the four tabs regularly; no notification email is automatically sent.
+
+Schema changes require matching edits to website `data/work.json` and backend `WORK_FORMS`, plus a redeploy. Preserve Google Workspace and private Sheet ownership in handover. Patron payments are not handled by this script: links, recurring billing and fulfilment remain pending.
