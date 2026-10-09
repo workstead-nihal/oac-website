@@ -1010,3 +1010,615 @@ textarea:focus-visible, summary:focus-visible {
     flex-shrink: 0;
   }
 }
+
+/* Single-page sections: each page-section behaves like a full page; only home is visible initially. */
+.page-section {
+  display: none;
+  animation: sectionFadeIn .3s ease-out;
+}
+.page-section.active {
+  display: block;
+}
+@keyframes sectionFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Get Involved modal: mobile-first popup with a menu of buttons and a form view. */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, .7);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  animation: modalOverlayIn .2s ease-out;
+}
+@keyframes modalOverlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border-radius: var(--radius) var(--radius) 0 0;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  animation: modalSlideUp .25s ease-out;
+}
+@keyframes modalSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+.modal-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+.modal-close {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.modal-close:hover {
+  background: var(--background);
+}
+.modal-body {
+  padding: 1.25rem;
+}
+.modal-intro {
+  margin-bottom: 1rem;
+  font-size: .9rem;
+}
+.modal-options {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.modal-option {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  width: 100%;
+  min-height: 64px;
+  padding: .85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: .8rem;
+  background: var(--background);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s, transform .15s;
+}
+.modal-option:hover {
+  border-color: var(--gold);
+  transform: translateX(4px);
+}
+.modal-option-icon {
+  font-size: 1.5rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.modal-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  flex: 1;
+  min-width: 0;
+}
+.modal-option-text strong {
+  font-size: 1rem;
+}
+.modal-option-text span {
+  font-size: .8rem;
+  color: var(--muted);
+}
+.modal-option-arrow {
+  color: var(--gold);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.modal-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: .5rem 0;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+.modal-divider::before,
+.modal-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.modal-socials {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+.modal-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .5rem .85rem;
+  border: 1px solid var(--border);
+  border-radius: .6rem;
+  font-size: .85rem;
+  color: var(--text);
+}
+.modal-socials a:hover {
+  border-color: var(--gold);
+}
+.modal-form-view {
+  animation: sectionFadeIn .25s ease-out;
+}
+.modal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--gold);
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+.modal-back:hover {
+  text-decoration: underline;
+}
+#modal-form-title {
+  font-size: 1.4rem;
+  margin-bottom: .5rem;
+}
+#modal-form-privacy {
+  font-size: .8rem;
+  margin-bottom: 1rem;
+}
+#modal-form legend {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+#modal-dynamic-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+#modal-dynamic-fields .form-grid {
+  display: grid;
+  gap: 0 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 480px) {
+  #modal-dynamic-fields .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+#modal-success {
+  text-align: center;
+}
+#modal-success h3 {
+  color: var(--gold);
+  margin-bottom: .5rem;
+}
+.modal-form-view .form-status {
+  margin-bottom: 1rem;
+}
+.modal-form-view fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+.modal-form-view .button[type="submit"] {
+  width: 100%;
+  min-height: 52px;
+}
+
+/* Mobile bottom nav: Get Involved replaces the old Join button as a central action. */
+.mobile-involved-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 54px;
+  justify-content: center;
+  font-size: .75rem;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.mobile-involved-btn span {
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+.mobile-involved-btn:hover,
+.mobile-involved-btn:focus-visible {
+  color: var(--gold);
+}
+
+/* Quick cards that trigger the modal need button reset styles. */
+.quick-card[data-involved] {
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--red);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  color: inherit;
+  font: inherit;
+  transition: border-color .2s;
+}
+.quick-card[data-involved]:hover {
+  border-color: var(--gold);
+}
+
+/* Desktop nav links and mobile nav links: active state for single-page routing. */
+.nav-link.active {
+  color: var(--gold) !important;
+}
+
+/* Section heading uses h2 in the page-intro; inner headings use h3 for hierarchy. */
+.page-section .page-intro h2 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+}
+.page-section h3 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: .8rem;
+}
+
+/* Responsive modal: on wider screens it centers instead of bottom-sheet. */
+@media (min-width: 600px) {
+  .modal-overlay {
+    align-items: center;
+    padding: 1.5rem;
+  }
+  .modal {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @keyframes modalSlideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}
+
+/* Single-page sections: each page-section behaves like a full page; only home is visible initially. */
+.page-section {
+  display: none;
+  animation: sectionFadeIn .3s ease-out;
+}
+.page-section.active {
+  display: block;
+}
+@keyframes sectionFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Get Involved modal: mobile-first popup with a menu of buttons and a form view. */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, .7);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  animation: modalOverlayIn .2s ease-out;
+}
+@keyframes modalOverlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border-radius: var(--radius) var(--radius) 0 0;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  animation: modalSlideUp .25s ease-out;
+}
+@keyframes modalSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+.modal-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+.modal-close {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.modal-close:hover {
+  background: var(--background);
+}
+.modal-body {
+  padding: 1.25rem;
+}
+.modal-intro {
+  margin-bottom: 1rem;
+  font-size: .9rem;
+}
+.modal-options {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.modal-option {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  width: 100%;
+  min-height: 64px;
+  padding: .85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: .8rem;
+  background: var(--background);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s, transform .15s;
+}
+.modal-option:hover {
+  border-color: var(--gold);
+  transform: translateX(4px);
+}
+.modal-option-icon {
+  font-size: 1.5rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.modal-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  flex: 1;
+  min-width: 0;
+}
+.modal-option-text strong {
+  font-size: 1rem;
+}
+.modal-option-text span {
+  font-size: .8rem;
+  color: var(--muted);
+}
+.modal-option-arrow {
+  color: var(--gold);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.modal-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: .5rem 0;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+.modal-divider::before,
+.modal-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.modal-socials {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+.modal-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .5rem .85rem;
+  border: 1px solid var(--border);
+  border-radius: .6rem;
+  font-size: .85rem;
+  color: var(--text);
+}
+.modal-socials a:hover {
+  border-color: var(--gold);
+}
+.modal-form-view {
+  animation: sectionFadeIn .25s ease-out;
+}
+.modal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--gold);
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+.modal-back:hover {
+  text-decoration: underline;
+}
+#modal-form-title {
+  font-size: 1.4rem;
+  margin-bottom: .5rem;
+}
+#modal-form-privacy {
+  font-size: .8rem;
+  margin-bottom: 1rem;
+}
+#modal-form legend {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+#modal-dynamic-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+#modal-dynamic-fields .form-grid {
+  display: grid;
+  gap: 0 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 480px) {
+  #modal-dynamic-fields .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+#modal-success {
+  text-align: center;
+}
+#modal-success h3 {
+  color: var(--gold);
+  margin-bottom: .5rem;
+}
+.modal-form-view .form-status {
+  margin-bottom: 1rem;
+}
+.modal-form-view fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+.modal-form-view .button[type="submit"] {
+  width: 100%;
+  min-height: 52px;
+}
+
+/* Mobile bottom nav: Get Involved replaces the old Join button as a central action. */
+.mobile-involved-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 54px;
+  justify-content: center;
+  font-size: .75rem;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.mobile-involved-btn span {
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+.mobile-involved-btn:hover,
+.mobile-involved-btn:focus-visible {
+  color: var(--gold);
+}
+
+/* Quick cards that trigger the modal need button reset styles. */
+.quick-card[data-involved] {
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--red);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  color: inherit;
+  font: inherit;
+  transition: border-color .2s;
+}
+.quick-card[data-involved]:hover {
+  border-color: var(--gold);
+}
+
+/* Desktop nav links and mobile nav links: active state for single-page routing. */
+.nav-link.active {
+  color: var(--gold) !important;
+}
+
+/* Section heading uses h2 in the page-intro; inner headings use h3 for hierarchy. */
+.page-section .page-intro h2 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+}
+.page-section h3 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: .8rem;
+}
+
+/* Responsive modal: on wider screens it centers instead of bottom-sheet. */
+@media (min-width: 600px) {
+  .modal-overlay {
+    align-items: center;
+    padding: 1.5rem;
+  }
+  .modal {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @keyframes modalSlideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}
