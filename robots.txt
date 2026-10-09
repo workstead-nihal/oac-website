@@ -1,6 +1,0 @@
-# Purpose: crawler guidance. Official domain: joinoac.in.
-User-agent: *
-Disallow: /checkin.html
-Disallow: /checks/
-Disallow: /apps-script/
-Sitemap: https://joinoac.in/sitemap.xml
